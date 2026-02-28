@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Obrados — Registro Profesional</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --navy:#0a2540;--navy2:#0f2d4a;--navy3:#1e3a6e;
+  --orange:#e8721a;--white:#fff;--muted:#8899bb;--border:#1a3a5e;
+  --input-bg:#0d2540;--error:#ef4444;--success:#22c55e;
+}
+body{font-family:'Manrope',sans-serif;background:var(--navy);color:var(--white);min-height:100vh;display:flex;flex-direction:column;}
+
+nav{padding:0 5%;height:64px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.06);}
+.logo{display:inline-flex;align-items:center;gap:10px;}
+.logo-icon{width:34px;height:34px;border-radius:8px;background:var(--orange);display:flex;align-items:center;justify-content:center;}
+.logo-name{font-size:1.2rem;font-weight:800;letter-spacing:-0.04em;color:var(--orange);}
+.logo-name span{color:var(--white);}
+.nav-login{color:var(--muted);font-size:0.85rem;cursor:pointer;}
+.nav-login span{color:var(--orange);font-weight:600;}
+
+.wrapper{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 20px;}
+.card{background:var(--navy2);border:1px solid var(--border);border-radius:20px;padding:36px;width:100%;max-width:460px;}
+
+/* PROGRESS */
+.progress{display:flex;align-items:flex-start;margin-bottom:32px;}
+.step-dot{display:flex;flex-direction:column;align-items:center;gap:6px;flex:0 0 auto;}
+.dot{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.82rem;border:2px solid var(--border);color:var(--muted);transition:all 0.3s;flex-shrink:0;}
+.dot.active{background:var(--orange);border-color:var(--orange);color:#fff;}
+.dot.done{background:transparent;border-color:var(--orange);color:var(--orange);}
+.step-label{font-size:0.62rem;font-weight:600;color:var(--muted);letter-spacing:0.04em;text-align:center;max-width:60px;}
+.step-label.active{color:var(--orange);}
+.progress-line{flex:1;height:2px;background:var(--border);margin-top:17px;transition:background 0.3s;}
+.progress-line.done{background:var(--orange);}
+
+.form-title{font-size:1.25rem;font-weight:800;margin-bottom:6px;}
+.form-sub{font-size:0.83rem;color:var(--muted);margin-bottom:24px;line-height:1.5;}
+
+.field{margin-bottom:16px;}
+.field label{display:block;font-size:0.72rem;font-weight:700;color:var(--muted);margin-bottom:6px;letter-spacing:0.08em;text-transform:uppercase;}
+.field input{width:100%;background:var(--input-bg);border:1px solid var(--border);border-radius:10px;padding:12px 14px;color:var(--white);font-family:'Manrope',sans-serif;font-size:0.9rem;outline:none;transition:border-color 0.2s;}
+.field input:focus{border-color:var(--orange);}
+.field input::placeholder{color:#3a5070;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.password-wrap{position:relative;}
+.password-wrap input{padding-right:42px;}
+.toggle-pw{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--muted);cursor:pointer;font-size:0.95rem;}
+.hint{font-size:0.7rem;color:var(--muted);margin-top:4px;}
+.err{font-size:0.7rem;color:var(--error);margin-top:4px;display:none;}
+
+/* OFICIO */
+.oficio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.oficio-btn{background:var(--input-bg);border:1px solid var(--border);border-radius:10px;padding:10px 6px;text-align:center;cursor:pointer;transition:all 0.15s;}
+.oficio-btn:hover{border-color:var(--orange);}
+.oficio-btn.selected{background:rgba(232,114,26,0.1);border-color:var(--orange);}
+.oficio-icon{font-size:1.2rem;display:block;margin-bottom:3px;}
+.oficio-label{font-size:0.68rem;font-weight:600;color:var(--muted);}
+.oficio-btn.selected .oficio-label{color:var(--orange);}
+
+/* UPLOAD */
+.upload-area{border:2px dashed var(--border);border-radius:12px;padding:20px;text-align:center;cursor:pointer;transition:border-color 0.2s;position:relative;margin-top:6px;}
+.upload-area:hover{border-color:var(--orange);}
+.upload-area.uploaded{border-color:var(--success);background:rgba(34,197,94,0.05);}
+.upload-area input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;}
+.upload-icon{font-size:1.6rem;margin-bottom:6px;}
+.upload-title{font-size:0.82rem;font-weight:600;margin-bottom:3px;}
+.upload-sub{font-size:0.72rem;color:var(--muted);}
+.upload-done{font-size:0.78rem;color:var(--success);font-weight:600;margin-top:4px;display:none;}
+.doc-info{background:rgba(232,114,26,0.06);border:1px solid rgba(232,114,26,0.15);border-radius:10px;padding:12px 14px;margin-bottom:16px;}
+.doc-info p{font-size:0.75rem;color:var(--muted);line-height:1.6;}
+.doc-info strong{color:var(--white);}
+
+/* TERMS */
+.terms{display:flex;align-items:flex-start;gap:10px;margin-bottom:18px;}
+.terms input{width:16px;height:16px;margin-top:2px;accent-color:var(--orange);flex-shrink:0;}
+.terms label{font-size:0.76rem;color:var(--muted);line-height:1.5;cursor:pointer;}
+.terms label span{color:var(--orange);}
+
+.btn-next{width:100%;background:var(--orange);color:#fff;border:none;padding:13px;border-radius:10px;font-family:'Manrope',sans-serif;font-weight:700;font-size:0.92rem;cursor:pointer;transition:background 0.2s;margin-top:4px;}
+.btn-next:hover{background:#cf6315;}
+.btn-back{width:100%;background:transparent;color:var(--muted);border:1px solid var(--border);padding:11px;border-radius:10px;font-family:'Manrope',sans-serif;font-weight:600;font-size:0.85rem;cursor:pointer;margin-bottom:10px;transition:border-color 0.2s;}
+.btn-back:hover{border-color:var(--muted);}
+
+/* SUCCESS */
+.success{text-align:center;padding:16px 0;}
+.success-icon{font-size:3rem;margin-bottom:14px;}
+.success h2{font-size:1.3rem;font-weight:800;margin-bottom:10px;}
+.success p{color:var(--muted);font-size:0.85rem;line-height:1.6;margin-bottom:20px;}
+.badge-pending{display:inline-flex;align-items:center;gap:8px;background:rgba(232,114,26,0.1);border:1px solid rgba(232,114,26,0.3);color:var(--orange);padding:8px 16px;border-radius:20px;font-size:0.78rem;font-weight:600;margin-bottom:20px;}
+.steps-pending{text-align:left;background:var(--navy);border-radius:12px;padding:16px;margin-bottom:20px;}
+.steps-pending p{font-size:0.78rem;color:var(--muted);line-height:1.8;}
+.steps-pending strong{color:var(--white);}
+
+.login-link{text-align:center;margin-top:16px;font-size:0.8rem;color:var(--muted);}
+.login-link span{color:var(--orange);font-weight:600;cursor:pointer;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">
+    <div class="logo-icon">
+      <svg width="20" height="20" viewBox="0 0 40 40" fill="none">
+        <circle cx="14" cy="13" r="6" fill="white" opacity="0.6"/>
+        <circle cx="26" cy="13" r="6" fill="white"/>
+        <path d="M4 34 C4 27 8.5 23 14 23 C17 23 19.5 24.5 21 26.5 C22.5 24.5 25 23 28 23 C33.5 23 37 27 37 34" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <span class="logo-name">Obra<span>dos</span></span>
+  </div>
+  <div class="nav-login">¿Ya tienes cuenta? <span>Iniciar sesión</span></div>
+</nav>
+
+<div class="wrapper">
+  <div class="card">
+
+    <div class="progress">
+      <div class="step-dot"><div class="dot active" id="dot1">1</div><div class="step-label active" id="lbl1">Tu cuenta</div></div>
+      <div class="progress-line" id="line1"></div>
+      <div class="step-dot"><div class="dot" id="dot2">2</div><div class="step-label" id="lbl2">Tu perfil</div></div>
+      <div class="progress-line" id="line2"></div>
+      <div class="step-dot"><div class="dot" id="dot3">3</div><div class="step-label" id="lbl3">Documentación</div></div>
+    </div>
+
+    <!-- PASO 1 -->
+    <div id="paso1">
+      <div class="form-title">Crea tu cuenta</div>
+      <div class="form-sub">Empieza gratis. Sin cuotas hasta que empieces a recibir clientes.</div>
+      <div class="field">
+        <label>Correo electrónico</label>
+        <input type="email" id="email" placeholder="tu@email.com">
+        <div class="err" id="err-email">Introduce un email válido</div>
+      </div>
+      <div class="field">
+        <label>Contraseña</label>
+        <div class="password-wrap">
+          <input type="password" id="pw" placeholder="Mínimo 8 caracteres">
+          <button class="toggle-pw" onclick="togglePw('pw')">👁</button>
+        </div>
+        <div class="hint">Mínimo 8 caracteres</div>
+        <div class="err" id="err-pw">Mínimo 8 caracteres</div>
+      </div>
+      <div class="field">
+        <label>Confirmar contraseña</label>
+        <div class="password-wrap">
+          <input type="password" id="pw2" placeholder="Repite tu contraseña">
+          <button class="toggle-pw" onclick="togglePw('pw2')">👁</button>
+        </div>
+        <div class="err" id="err-pw2">Las contraseñas no coinciden</div>
+      </div>
+      <div class="terms">
+        <input type="checkbox" id="terms">
+        <label for="terms">Acepto los <span>Términos y condiciones</span> y la <span>Política de privacidad</span> de Obrados</label>
+      </div>
+      <button class="btn-next" onclick="irPaso2()">Continuar →</button>
+      <div class="login-link">¿Ya tienes cuenta? <span>Iniciar sesión</span></div>
+    </div>
+
+    <!-- PASO 2 -->
+    <div id="paso2" style="display:none">
+      <div class="form-title">Cuéntanos sobre ti</div>
+      <div class="form-sub">Esta información aparecerá en tu perfil público.</div>
+      <div class="field-row">
+        <div class="field"><label>Nombre</label><input type="text" id="nombre" placeholder="Carlos"></div>
+        <div class="field"><label>Apellidos</label><input type="text" id="apellidos" placeholder="Martínez"></div>
+      </div>
+      <div class="field">
+        <label>Teléfono</label>
+        <input type="tel" id="telefono" placeholder="+34 600 000 000">
+        <div class="err" id="err-tel">Introduce un teléfono válido</div>
+      </div>
+      <div class="field">
+        <label>Ciudad donde trabajas</label>
+        <input type="text" id="ciudad" placeholder="Madrid, Barcelona...">
+        <div class="err" id="err-ciudad">Introduce tu ciudad</div>
+      </div>
+      <div class="field">
+        <label>Tu especialidad</label>
+        <div class="oficio-grid">
+          <div class="oficio-btn" onclick="selectOficio(this,'Albañilería')"><span class="oficio-icon">🧱</span><span class="oficio-label">Albañilería</span></div>
+          <div class="oficio-btn" onclick="selectOficio(this,'Electricidad')"><span class="oficio-icon">⚡</span><span class="oficio-label">Electricidad</span></div>
+          <div class="oficio-btn" onclick="selectOficio(this,'Fontanería')"><span class="oficio-icon">🔧</span><span class="oficio-label">Fontanería</span></div>
+          <div class="oficio-btn" onclick="selectOficio(this,'Pintura')"><span class="oficio-icon">🎨</span><span class="oficio-label">Pintura</span></div>
+          <div class="oficio-btn" onclick="selectOficio(this,'Carpintería')"><span class="oficio-icon">🪚</span><span class="oficio-label">Carpintería</span></div>
+          <div class="oficio-btn" onclick="selectOficio(this,'Climatización')"><span class="oficio-icon">❄️</span><span class="oficio-label">Climatización</span></div>
+          <div class="oficio-btn" onclick="selectOficio(this,'Reformas')"><span class="oficio-icon">🏠</span><span class="oficio-label">Reformas</span></div>
+          <div class="oficio-btn" onclick="selectOficio(this,'Soldadura')"><span class="oficio-icon">🔩</span><span class="oficio-label">Soldadura</span></div>
+          <div class="oficio-btn" onclick="selectOficio(this,'Otro')"><span class="oficio-icon">➕</span><span class="oficio-label">Otro</span></div>
+        </div>
+        <div class="err" id="err-oficio">Selecciona tu especialidad</div>
+      </div>
+      <button class="btn-back" onclick="irPaso1()">← Volver</button>
+      <button class="btn-next" onclick="irPaso3()">Continuar →</button>
+    </div>
+
+    <!-- PASO 3 -->
+    <div id="paso3" style="display:none">
+      <div class="form-title">Verificación de documentos</div>
+      <div class="form-sub">Revisamos tu documentación para garantizar la confianza de los clientes. Tu perfil será visible mientras verificamos.</div>
+
+      <div class="doc-info">
+        <p>📋 Necesitamos los siguientes documentos en formato <strong>PDF o imagen</strong>. Deben estar en vigor y ser legibles.</p>
+      </div>
+
+      <div class="field">
+        <label>DNI o NIE</label>
+        <div class="upload-area" id="up1" onclick="triggerUpload('file1')">
+          <input type="file" id="file1" accept=".pdf,.jpg,.jpeg,.png" onchange="fileUploaded('up1','done1',this)">
+          <div class="upload-icon">🪪</div>
+          <div class="upload-title">Subir DNI o NIE</div>
+          <div class="upload-sub">Ambas caras en una imagen o PDF</div>
+          <div class="upload-done" id="done1">✓ Documento subido</div>
+        </div>
+        <div class="err" id="err-doc1">Sube tu DNI o NIE</div>
+      </div>
+
+      <div class="field">
+        <label>Seguro de responsabilidad civil</label>
+        <div class="upload-area" id="up2" onclick="triggerUpload('file2')">
+          <input type="file" id="file2" accept=".pdf,.jpg,.jpeg,.png" onchange="fileUploaded('up2','done2',this)">
+          <div class="upload-icon">🛡️</div>
+          <div class="upload-title">Certificado de responsabilidad civil</div>
+          <div class="upload-sub">Debe estar en vigor · Mínimo 50.000€ de cobertura</div>
+          <div class="upload-done" id="done2">✓ Documento subido</div>
+        </div>
+        <div class="err" id="err-doc2">Sube tu seguro de responsabilidad civil</div>
+      </div>
+
+      <div class="field">
+        <label>Última cuota de autónomo</label>
+        <div class="upload-area" id="up3" onclick="triggerUpload('file3')">
+          <input type="file" id="file3" accept=".pdf,.jpg,.jpeg,.png" onchange="fileUploaded('up3','done3',this)">
+          <div class="upload-icon">📄</div>
+          <div class="upload-title">Recibo de autónomo</div>
+          <div class="upload-sub">Últimos 2 meses · Emitido por la Seguridad Social</div>
+          <div class="upload-done" id="done3">✓ Documento subido</div>
+        </div>
+        <div class="err" id="err-doc3">Sube tu última cuota de autónomo</div>
+      </div>
+
+      <button class="btn-back" onclick="irPaso2()">← Volver</button>
+      <button class="btn-next" onclick="finalizar()">Enviar documentación</button>
+    </div>
+
+    <!-- ÉXITO -->
+    <div id="exito" style="display:none">
+      <div class="success">
+        <div class="success-icon">🎉</div>
+        <h2>¡Perfil creado!</h2>
+        <div class="badge-pending">⏳ Verificación en proceso</div>
+        <p>Hemos recibido tu documentación. La revisaremos en un plazo máximo de <strong>24-48 horas</strong>.</p>
+        <div class="steps-pending">
+          <p>✅ <strong>Tu perfil ya es visible</strong> para los clientes</p>
+          <p>⏳ <strong>Badge de verificado</strong> — pendiente de revisión</p>
+          <p>📧 <strong>Te avisaremos por email</strong> cuando se apruebe</p>
+        </div>
+        <button class="btn-next">Ir a mi perfil →</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+let oficio = '';
+let uploads = {file1: false, file2: false, file3: false};
+
+function togglePw(id) {
+  const i = document.getElementById(id);
+  i.type = i.type === 'password' ? 'text' : 'password';
+}
+
+function selectOficio(el, nombre) {
+  document.querySelectorAll('.oficio-btn').forEach(b => b.classList.remove('selected'));
+  el.classList.add('selected');
+  oficio = nombre;
+}
+
+function showErr(id, show) {
+  document.getElementById(id).style.display = show ? 'block' : 'none';
+}
+
+function setStep(step) {
+  [1,2,3].forEach(s => {
+    const dot = document.getElementById('dot'+s);
+    const lbl = document.getElementById('lbl'+s);
+    if(s < step) { dot.classList.remove('active'); dot.classList.add('done'); dot.textContent='✓'; lbl.classList.remove('active'); }
+    else if(s === step) { dot.classList.remove('done'); dot.classList.add('active'); dot.textContent=s; lbl.classList.add('active'); }
+    else { dot.classList.remove('active','done'); dot.textContent=s; lbl.classList.remove('active'); }
+    if(s < 3) document.getElementById('line'+s).classList.toggle('done', s < step);
+  });
+}
+
+function irPaso2() {
+  const email = document.getElementById('email').value;
+  const pw = document.getElementById('pw').value;
+  const pw2 = document.getElementById('pw2').value;
+  let ok = true;
+  const eOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  showErr('err-email', !eOk); if(!eOk) ok=false;
+  const pOk = pw.length >= 8;
+  showErr('err-pw', !pOk); if(!pOk) ok=false;
+  const p2Ok = pw === pw2;
+  showErr('err-pw2', !p2Ok); if(!p2Ok) ok=false;
+  if(!document.getElementById('terms').checked) { alert('Debes aceptar los términos'); ok=false; }
+  if(!ok) return;
+  document.getElementById('paso1').style.display='none';
+  document.getElementById('paso2').style.display='block';
+  setStep(2);
+}
+
+function irPaso1() {
+  document.getElementById('paso2').style.display='none';
+  document.getElementById('paso1').style.display='block';
+  setStep(1);
+}
+
+function irPaso3() {
+  const nombre = document.getElementById('nombre').value;
+  const apellidos = document.getElementById('apellidos').value;
+  const tel = document.getElementById('telefono').value;
+  const ciudad = document.getElementById('ciudad').value;
+  let ok = true;
+  if(!nombre||!apellidos) ok=false;
+  showErr('err-tel', tel.length < 9); if(tel.length<9) ok=false;
+  showErr('err-ciudad', !ciudad); if(!ciudad) ok=false;
+  showErr('err-oficio', !oficio); if(!oficio) ok=false;
+  if(!ok) return;
+  document.getElementById('paso2').style.display='none';
+  document.getElementById('paso3').style.display='block';
+  setStep(3);
+}
+
+function irPaso2back() {
+  document.getElementById('paso3').style.display='none';
+  document.getElementById('paso2').style.display='block';
+  setStep(2);
+}
+
+function triggerUpload(id) {
+  document.getElementById(id).click();
+}
+
+function fileUploaded(areaId, doneId, input) {
+  if(input.files.length > 0) {
+    document.getElementById(areaId).classList.add('uploaded');
+    const done = document.getElementById(doneId);
+    done.style.display='block';
+    done.textContent='✓ ' + input.files[0].name;
+    uploads[input.id] = true;
+  }
+}
+
+function finalizar() {
+  let ok = true;
+  showErr('err-doc1', !uploads.file1); if(!uploads.file1) ok=false;
+  showErr('err-doc2', !uploads.file2); if(!uploads.file2) ok=false;
+  showErr('err-doc3', !uploads.file3); if(!uploads.file3) ok=false;
+  if(!ok) return;
+  document.getElementById('paso3').style.display='none';
+  document.getElementById('exito').style.display='block';
+}
+</script>
+</body>
+</html>
