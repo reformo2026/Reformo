@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Obrados — Profesionales de obra de confianza</title>
+<title>Crear perfil — Obrados</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&display=swap');
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -13,92 +13,121 @@
   --white:#ffffff;--muted:#8899bb;--border:#1a3a5e;
 }
 html{scroll-behavior:smooth;}
-body{font-family:'Manrope',sans-serif;background:var(--navy);color:var(--white);overflow-x:hidden;}
+body{font-family:'Manrope',sans-serif;background:var(--navy);color:var(--white);min-height:100vh;overflow-x:hidden;}
 
+/* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 5%;height:68px;display:flex;align-items:center;justify-content:space-between;background:rgba(10,37,64,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.06);}
-.logo{display:inline-flex;align-items:center;gap:10px;}
+.logo{display:inline-flex;align-items:center;gap:10px;text-decoration:none;}
 .logo-icon{width:36px;height:36px;border-radius:9px;background:var(--orange);display:flex;align-items:center;justify-content:center;}
 .logo-name{font-size:1.3rem;font-weight:800;letter-spacing:-0.04em;color:var(--orange);}
 .logo-name span{color:var(--white);}
-.nav-links{display:flex;gap:10px;align-items:center;}
-.nav-link{color:var(--muted);font-size:0.88rem;font-weight:500;cursor:pointer;padding:6px 12px;border-radius:8px;}
-.nav-cta{background:var(--orange);color:#fff;border:none;padding:9px 20px;border-radius:9px;font-family:'Manrope',sans-serif;font-weight:700;font-size:0.88rem;cursor:pointer;}
+.nav-back{color:var(--muted);font-size:0.88rem;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:6px;text-decoration:none;}
+.nav-back:hover{color:var(--white);}
 
-.hero{min-height:100vh;display:flex;align-items:center;padding:100px 5% 60px;position:relative;overflow:hidden;}
-.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 60% 40%,#1e3a6e33 0%,transparent 70%);}
+/* HERO */
+.page-hero{padding:120px 5% 60px;text-align:center;position:relative;overflow:hidden;}
+.page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 30%,rgba(30,58,110,0.4) 0%,transparent 70%);}
 .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);background-size:50px 50px;}
-.hero-content{position:relative;max-width:600px;}
-.hero h1{font-size:clamp(2.2rem,5vw,3.4rem);font-weight:900;line-height:1.1;letter-spacing:-1px;margin-bottom:20px;}
-.hero h1 span{color:var(--orange);}
-.hero p{font-size:1.05rem;color:var(--muted);line-height:1.7;margin-bottom:36px;max-width:480px;}
-.hero-btns{display:flex;gap:12px;flex-wrap:wrap;}
-.btn-primary{background:var(--orange);color:#fff;border:none;padding:14px 28px;border-radius:10px;font-family:'Manrope',sans-serif;font-weight:700;font-size:0.95rem;cursor:pointer;box-shadow:0 8px 30px rgba(232,114,26,0.3);}
-.btn-secondary{background:rgba(255,255,255,0.06);color:#fff;border:1px solid rgba(255,255,255,0.12);padding:14px 28px;border-radius:10px;font-family:'Manrope',sans-serif;font-weight:600;font-size:0.95rem;cursor:pointer;}
-.hero-stats{display:flex;gap:32px;margin-top:48px;flex-wrap:wrap;}
-.hero-stat .val{font-size:1.8rem;font-weight:900;}
-.hero-stat .val span{color:var(--orange);}
-.hero-stat .lab{font-size:0.8rem;color:var(--muted);margin-top:2px;}
-
-.trust-bar{background:var(--navy2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:18px 5%;display:flex;align-items:center;justify-content:center;gap:40px;flex-wrap:wrap;}
-.trust-item{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:0.85rem;font-weight:500;}
-
-section{padding:80px 5%;}
+.page-hero-content{position:relative;}
 .section-tag{display:inline-block;background:rgba(232,114,26,0.1);border:1px solid rgba(232,114,26,0.2);color:var(--orange);padding:4px 14px;border-radius:20px;font-size:0.75rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:16px;}
-.section-title{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;letter-spacing:-0.5px;margin-bottom:12px;}
-.section-sub{color:var(--muted);font-size:0.98rem;line-height:1.6;max-width:520px;}
+.page-hero h1{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;letter-spacing:-0.5px;margin-bottom:12px;}
+.page-hero h1 span{color:var(--orange);}
+.page-hero p{color:var(--muted);font-size:0.98rem;line-height:1.6;max-width:480px;margin:0 auto;}
 
-.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-top:48px;}
-.step{background:var(--navy2);border:1px solid var(--border);border-radius:16px;padding:28px;}
-.step-num{width:40px;height:40px;background:rgba(232,114,26,0.1);border:1px solid rgba(232,114,26,0.3);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:0.9rem;color:var(--orange);margin-bottom:16px;}
-.step h3{font-size:1rem;font-weight:700;margin-bottom:8px;}
-.step p{font-size:0.85rem;color:var(--muted);line-height:1.6;}
+/* FORM WRAPPER */
+.form-wrapper{max-width:640px;margin:0 auto;padding:0 5% 80px;}
 
-.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:48px;}
-.feat{background:var(--navy2);border:1px solid var(--border);border-radius:16px;padding:24px;}
-.feat-icon{font-size:1.8rem;margin-bottom:14px;}
-.feat h3{font-size:1rem;font-weight:700;margin-bottom:8px;}
-.feat p{font-size:0.84rem;color:var(--muted);line-height:1.6;}
+/* STEPS INDICATOR */
+.steps-indicator{display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:40px;}
+.step-dot{width:36px;height:36px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:700;color:var(--muted);background:var(--navy2);position:relative;z-index:1;transition:all 0.3s;}
+.step-dot.active{border-color:var(--orange);background:var(--orange);color:#fff;}
+.step-dot.done{border-color:rgba(232,114,26,0.4);background:rgba(232,114,26,0.1);color:var(--orange);}
+.step-line{height:2px;width:60px;background:var(--border);}
+.step-line.done{background:rgba(232,114,26,0.4);}
+.steps-labels{display:flex;justify-content:center;gap:0;margin-top:8px;margin-bottom:40px;}
+.step-label{font-size:0.72rem;color:var(--muted);font-weight:500;text-align:center;width:36px;/* match dot */}
+.step-label.active{color:var(--orange);}
 
-.pros-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:40px;}
-.pro-card{background:var(--navy2);border:1px solid var(--border);border-radius:16px;padding:20px;}
-.pro-top{display:flex;gap:14px;align-items:center;margin-bottom:14px;}
-.pro-avatar{width:52px;height:52px;border-radius:12px;background:var(--navy3);display:flex;align-items:center;justify-content:center;font-size:1.5rem;border:2px solid var(--border);}
-.pro-name{font-weight:700;font-size:0.95rem;}
-.pro-trade{color:var(--orange);font-size:0.8rem;font-weight:600;margin:2px 0;}
-.pro-loc{color:var(--muted);font-size:0.78rem;}
-.pro-badges{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0;}
-.pbadge{background:rgba(30,58,110,0.8);border:1px solid var(--border);color:#a0b4d0;padding:3px 10px;border-radius:20px;font-size:0.72rem;}
-.pro-footer{display:flex;justify-content:space-between;align-items:center;padding-top:12px;border-top:1px solid var(--border);}
-.pro-price{font-weight:700;font-size:0.9rem;}
-.pro-price span{color:var(--muted);font-size:0.75rem;font-weight:400;}
-.pro-btn{background:var(--orange);color:#fff;border:none;padding:6px 14px;border-radius:7px;font-size:0.78rem;font-weight:600;cursor:pointer;}
+/* FORM CARD */
+.form-card{background:var(--navy2);border:1px solid var(--border);border-radius:20px;padding:36px;margin-bottom:16px;}
+.form-card h2{font-size:1.1rem;font-weight:800;margin-bottom:6px;}
+.form-card .card-sub{color:var(--muted);font-size:0.85rem;margin-bottom:28px;line-height:1.5;}
 
-.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:40px;}
-.testi{background:var(--navy2);border:1px solid var(--border);border-radius:16px;padding:22px;}
-.testi-text{font-size:0.9rem;line-height:1.7;color:#c8d8f0;margin-bottom:16px;font-style:italic;}
-.testi-author{display:flex;align-items:center;gap:10px;}
-.testi-avatar{width:36px;height:36px;border-radius:50%;background:var(--navy3);display:flex;align-items:center;justify-content:center;font-size:1rem;}
-.testi-name{font-weight:600;font-size:0.85rem;}
-.testi-role{color:var(--muted);font-size:0.75rem;}
+/* FORM FIELDS */
+.field{margin-bottom:20px;}
+.field label{display:block;font-size:0.82rem;font-weight:600;color:#a0b4d0;margin-bottom:7px;letter-spacing:0.3px;}
+.field input,.field select,.field textarea{
+  width:100%;background:rgba(10,37,64,0.6);border:1px solid var(--border);border-radius:10px;
+  padding:12px 16px;color:var(--white);font-family:'Manrope',sans-serif;font-size:0.92rem;
+  outline:none;transition:border-color 0.2s,box-shadow 0.2s;
+}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--orange);box-shadow:0 0 0 3px rgba(232,114,26,0.1);}
+.field input::placeholder,.field textarea::placeholder{color:#4a6080;}
+.field select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238899bb' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;}
+.field select option{background:#0a2540;}
 
-.pro-cta{background:linear-gradient(135deg,var(--navy2),var(--navy3));border:1px solid var(--border);border-radius:20px;padding:48px;text-align:center;margin-top:60px;}
-.pro-cta h2{font-size:1.8rem;font-weight:800;margin-bottom:12px;}
-.pro-cta p{color:var(--muted);margin-bottom:28px;font-size:0.95rem;}
-.pro-cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media(max-width:500px){.field-row{grid-template-columns:1fr;}}
 
-footer{background:var(--navy2);border-top:1px solid var(--border);padding:40px 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
-.footer-logo{display:inline-flex;align-items:center;gap:8px;}
-.footer-logo-name{font-size:1.1rem;font-weight:800;letter-spacing:-0.04em;}
-.footer-logo-name span{color:var(--orange);}
-.footer-links{display:flex;gap:20px;flex-wrap:wrap;}
-.footer-link{color:var(--muted);font-size:0.82rem;cursor:pointer;}
-.footer-copy{color:var(--muted);font-size:0.78rem;width:100%;text-align:center;padding-top:20px;border-top:1px solid var(--border);margin-top:10px;}
+/* PHONE PREFIX */
+.phone-input{display:flex;gap:8px;}
+.phone-prefix{width:90px;flex-shrink:0;}
+
+/* PHOTO UPLOAD */
+.photo-upload-area{
+  border:2px dashed var(--border);border-radius:12px;padding:28px;text-align:center;
+  cursor:pointer;transition:border-color 0.2s,background 0.2s;position:relative;
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+}
+.photo-upload-area:hover{border-color:var(--orange);background:rgba(232,114,26,0.03);}
+.photo-upload-area input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.photo-icon{width:52px;height:52px;border-radius:12px;background:rgba(232,114,26,0.1);border:1px solid rgba(232,114,26,0.2);display:flex;align-items:center;justify-content:center;font-size:1.4rem;}
+.photo-upload-area .photo-label{font-size:0.88rem;font-weight:600;color:var(--white);}
+.photo-upload-area .photo-sub{font-size:0.75rem;color:var(--muted);}
+.photo-preview{display:none;width:80px;height:80px;border-radius:12px;object-fit:cover;border:2px solid var(--orange);}
+.photo-name-preview{display:none;font-size:0.78rem;color:var(--orange);font-weight:600;}
+
+/* TERMS */
+.terms-row{display:flex;align-items:flex-start;gap:10px;margin-top:4px;}
+.terms-row input[type="checkbox"]{width:18px;height:18px;accent-color:var(--orange);flex-shrink:0;margin-top:2px;cursor:pointer;}
+.terms-row label{font-size:0.82rem;color:var(--muted);line-height:1.5;cursor:pointer;}
+.terms-row a{color:var(--orange);text-decoration:none;}
+
+/* SUBMIT */
+.btn-submit{
+  width:100%;background:var(--orange);color:#fff;border:none;padding:15px;border-radius:12px;
+  font-family:'Manrope',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;
+  box-shadow:0 8px 30px rgba(232,114,26,0.3);transition:background 0.2s,transform 0.1s,box-shadow 0.2s;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+}
+.btn-submit:hover{background:var(--orange2);box-shadow:0 10px 40px rgba(232,114,26,0.4);}
+.btn-submit:active{transform:scale(0.99);}
+.btn-submit:disabled{opacity:0.5;cursor:not-allowed;}
+.spinner{width:18px;height:18px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite;display:none;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* INFO BOX */
+.info-box{background:rgba(30,58,110,0.3);border:1px solid rgba(30,58,110,0.6);border-radius:12px;padding:14px 16px;display:flex;gap:10px;align-items:flex-start;margin-bottom:20px;}
+.info-box .info-icon{font-size:1rem;flex-shrink:0;margin-top:1px;}
+.info-box p{font-size:0.8rem;color:var(--muted);line-height:1.5;}
+
+/* SUCCESS */
+.success-screen{display:none;text-align:center;padding:60px 20px;}
+.success-icon{width:72px;height:72px;border-radius:50%;background:rgba(232,114,26,0.1);border:2px solid var(--orange);display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 24px;}
+.success-screen h2{font-size:1.5rem;font-weight:800;margin-bottom:12px;}
+.success-screen p{color:var(--muted);font-size:0.9rem;line-height:1.6;max-width:380px;margin:0 auto 28px;}
+.btn-back{display:inline-block;background:var(--orange);color:#fff;padding:12px 28px;border-radius:10px;font-weight:700;font-size:0.9rem;text-decoration:none;cursor:pointer;border:none;font-family:'Manrope',sans-serif;}
+
+/* ERROR */
+.field-error{font-size:0.75rem;color:#ff6b6b;margin-top:5px;display:none;}
+.field.has-error input,.field.has-error select{border-color:#ff6b6b;}
+.field.has-error .field-error{display:block;}
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="logo">
+  <a href="index.html" class="logo">
     <div class="logo-icon">
       <svg width="22" height="22" viewBox="0 0 40 40" fill="none">
         <circle cx="14" cy="13" r="6" fill="white" opacity="0.6"/>
@@ -107,152 +136,278 @@ footer{background:var(--navy2);border-top:1px solid var(--border);padding:40px 5
       </svg>
     </div>
     <span class="logo-name">Obra<span>dos</span></span>
-  </div>
-  <div class="nav-links">
-    <span class="nav-link">Cómo funciona</span>
-    <span class="nav-link">Profesionales</span>
-    <span class="nav-link">¿Eres profesional?</span>
-    <button class="nav-cta">Buscar profesional</button>
-  </div>
+  </a>
+  <a href="index.html" class="nav-back">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Volver
+  </a>
 </nav>
 
-<section class="hero">
-  <div class="hero-bg"></div>
+<div class="page-hero">
   <div class="hero-grid"></div>
-  <div class="hero-content">
-    <h1>Contrata obra sin<br><span>llevarte sorpresas</span></h1>
-    <p>Obrados conecta clientes con los mejores profesionales de construcción. Valoraciones verificadas, fotos de trabajos reales y contacto directo.</p>
-    <div class="hero-btns">
-      <button class="btn-primary" onclick="window.location.href='buscar.html'">Buscar profesional</button>
-      <button class="btn-secondary" onclick="window.location.href='registro.html'">Soy profesional →</button>
-    </div>
-    <div class="hero-stats">
-      <div class="hero-stat"><div class="val">4.9<span>★</span></div><div class="lab">Valoración media</div></div>
-      <div class="hero-stat"><div class="val">100<span>%</span></div><div class="lab">Reseñas verificadas</div></div>
-      <div class="hero-stat"><div class="val">0<span>€</span></div><div class="lab">Gratis para clientes</div></div>
-    </div>
+  <div class="page-hero-content">
+    <div class="section-tag">Para profesionales</div>
+    <h1>Crea tu perfil en <span>Obrados</span></h1>
+    <p>Gratis, sin cuotas iniciales. Empieza a recibir clientes desde hoy.</p>
   </div>
-</section>
-
-<div class="trust-bar">
-  <div class="trust-item"><span>✅</span> Solo profesionales verificados</div>
-  <div class="trust-item"><span>📸</span> Fotos de trabajos reales</div>
-  <div class="trust-item"><span>💬</span> Chat directo sin intermediarios</div>
-  <div class="trust-item"><span>🏗️</span> Solo obra y construcción</div>
 </div>
 
-<section>
-  <div style="text-align:center">
-    <div class="section-tag">Cómo funciona</div>
-    <div class="section-title">Tan fácil como cuatro pasos</div>
-    <div class="section-sub" style="margin:0 auto">Sin llamadas en frío, sin presupuestos inventados.</div>
-  </div>
-  <div class="steps">
-    <div class="step"><div class="step-num">01</div><h3>Busca por oficio</h3><p>Filtra por especialidad: albañil, electricista, fontanero, pintor y más.</p></div>
-    <div class="step"><div class="step-num">02</div><h3>Compara perfiles</h3><p>Observa las fotos de los trabajos anteriormente realizados y lee opiniones de clientes reales.</p></div>
-    <div class="step"><div class="step-num">03</div><h3>Contacta directamente</h3><p>Habla con el profesional por chat, pide presupuesto y contrata sin intermediarios.</p></div>
-    <div class="step"><div class="step-num">04</div><h3>Valora el trabajo</h3><p>Al terminar, deja tu opinión verificada y ayuda a otros clientes.</p></div>
-  </div>
-</section>
+<div class="form-wrapper">
 
-<section style="background:var(--navy2)">
-  <div class="section-tag">Por qué Obrados</div>
-  <div class="section-title">Lo que nos hace diferentes</div>
-  <div class="section-sub">Pensado y elaborado desde un principio para el sector de la obra, por gente con experiencia en el sector.</div>
-  <div class="features-grid">
-    <div class="feat"><div class="feat-icon">🔐</div><h3>Votos solo de clientes reales</h3><p>Solo puede valorar quien contrató y confirmó el trabajo. Cero reseñas falsas.</p></div>
-    <div class="feat"><div class="feat-icon">📸</div><h3>Portafolio fotográfico</h3><p>Cada profesional sube fotos de sus trabajos terminados. Ves lo que hace antes de contratar.</p></div>
-    <div class="feat"><div class="feat-icon">💬</div><h3>Chat directo</h3><p>Hablas con el profesional directamente. Sin formularios ni llamadas de terceros.</p></div>
-    <div class="feat"><div class="feat-icon">🏗️</div><h3>Solo construcción</h3><p>No somos un portal de todo. Solo obra, reforma y construcción.</p></div>
-    <div class="feat"><div class="feat-icon">📍</div><h3>Profesionales de tu zona</h3><p>Encuentra profesionales cerca de ti que conocen bien el terreno.</p></div>
-    <div class="feat"><div class="feat-icon">🆓</div><h3>Gratis para clientes</h3><p>Buscar, comparar y contactar es completamente gratis. Siempre.</p></div>
-  </div>
-</section>
+  <!-- FORM -->
+  <div id="formSection">
+    <div class="form-card">
+      <h2>Información personal</h2>
+      <p class="card-sub">Estos datos aparecerán en tu perfil público para que los clientes puedan contactarte.</p>
 
-<section>
-  <div class="section-tag">Profesionales destacados</div>
-  <div class="section-title">Los mejor valorados</div>
-  <div class="pros-grid">
-    <div class="pro-card">
-      <div class="pro-top">
-        <div class="pro-avatar">👷</div>
-        <div><div class="pro-name">Carlos Martínez</div><div class="pro-trade">Albañil · Reformas integrales</div><div class="pro-loc">📍 Madrid</div></div>
+      <div class="info-box">
+        <span class="info-icon">📧</span>
+        <p>Al enviar el formulario recibirás un correo de confirmación con los siguientes pasos para activar tu perfil.</p>
       </div>
-      <div>★★★★★ <strong>4.9</strong> <span style="color:var(--muted);font-size:0.78rem">(87 reseñas)</span></div>
-      <div class="pro-badges"><span class="pbadge">Puntual</span><span class="pbadge">Sin sorpresas</span><span class="pbadge">Limpio</span></div>
-      <div class="pro-footer"><div class="pro-price">Desde 25€/h <span>por hora</span></div><button class="pro-btn">Ver perfil</button></div>
-    </div>
-    <div class="pro-card">
-      <div class="pro-top">
-        <div class="pro-avatar">⚡</div>
-        <div><div class="pro-name">Marta López</div><div class="pro-trade">Electricista · Instalaciones</div><div class="pro-loc">📍 Barcelona</div></div>
-      </div>
-      <div>★★★★★ <strong>4.8</strong> <span style="color:var(--muted);font-size:0.78rem">(64 reseñas)</span></div>
-      <div class="pro-badges"><span class="pbadge">Certificada</span><span class="pbadge">Rápida</span><span class="pbadge">Transparente</span></div>
-      <div class="pro-footer"><div class="pro-price">Desde 30€/h <span>por hora</span></div><button class="pro-btn">Ver perfil</button></div>
-    </div>
-    <div class="pro-card">
-      <div class="pro-top">
-        <div class="pro-avatar">🔧</div>
-        <div><div class="pro-name">José Ruiz</div><div class="pro-trade">Fontanero · Urgencias 24h</div><div class="pro-loc">📍 Valencia</div></div>
-      </div>
-      <div>★★★★★ <strong>4.9</strong> <span style="color:var(--muted);font-size:0.78rem">(112 reseñas)</span></div>
-      <div class="pro-badges"><span class="pbadge">Disponible 24h</span><span class="pbadge">Precio justo</span><span class="pbadge">Rápido</span></div>
-      <div class="pro-footer"><div class="pro-price">Desde 28€/h <span>por hora</span></div><button class="pro-btn">Ver perfil</button></div>
-    </div>
-  </div>
-</section>
 
-<section style="background:var(--navy2)">
-  <div class="section-tag">Opiniones</div>
-  <div class="section-title">Lo que dicen nuestros clientes</div>
-  <div class="testi-grid">
-    <div class="testi">
-      <div class="testi-text">"Reformé el baño completo sin ningún susto. El profesional fue puntual, limpio y el precio fue exactamente el presupuestado."</div>
-      <div class="testi-author"><div class="testi-avatar">👩</div><div><div class="testi-name">Ana Rodríguez</div><div class="testi-role">Cliente en Madrid</div></div></div>
-    </div>
-    <div class="testi">
-      <div class="testi-text">"Necesitaba un electricista de confianza y en Obrados encontré uno con muy buenas referencias. Rápido, limpio y al precio acordado."</div>
-      <div class="testi-author"><div class="testi-avatar">👨</div><div><div class="testi-name">Pedro Méndez</div><div class="testi-role">Cliente en Barcelona</div></div></div>
-    </div>
-    <div class="testi">
-      <div class="testi-text">"Lo que más me convenció fueron las fotos de trabajos anteriores. Pude ver exactamente cómo trabajaba antes de contratarle."</div>
-      <div class="testi-author"><div class="testi-avatar">👩</div><div><div class="testi-name">Laura Fernández</div><div class="testi-role">Cliente en Valencia</div></div></div>
-    </div>
-  </div>
-</section>
+      <form id="registroForm" novalidate>
 
-<section>
-  <div class="pro-cta">
-    <h2>¿Eres profesional de la obra?</h2>
-    <p>Regístrate gratis y empieza a recibir clientes. Sin cuotas iniciales, sin compromisos.</p>
-    <div class="pro-cta-btns">
-      <button class="btn-primary" onclick="window.location.href='registro.html'">Crear perfil gratis</button>
-      <button class="btn-secondary">Ver cómo funciona para profesionales</button>
-    </div>
-  </div>
-</section>
+        <!-- Nombre y apellidos -->
+        <div class="field" id="field-nombre">
+          <label for="nombre">Nombre y apellidos *</label>
+          <input type="text" id="nombre" name="nombre" placeholder="Ej. Carlos Martínez García" autocomplete="name">
+          <span class="field-error">Por favor, introduce tu nombre completo.</span>
+        </div>
 
-<footer>
-  <div class="footer-logo">
-    <div class="logo-icon" style="width:28px;height:28px;border-radius:7px;background:var(--orange);display:flex;align-items:center;justify-content:center;">
-      <svg width="16" height="16" viewBox="0 0 40 40" fill="none">
-        <circle cx="14" cy="13" r="6" fill="white" opacity="0.6"/>
-        <circle cx="26" cy="13" r="6" fill="white"/>
-        <path d="M4 34 C4 27 8.5 23 14 23 C17 23 19.5 24.5 21 26.5 C22.5 24.5 25 23 28 23 C33.5 23 37 27 37 34" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-      </svg>
+        <!-- Email -->
+        <div class="field" id="field-email">
+          <label for="email">Correo electrónico *</label>
+          <input type="email" id="email" name="email" placeholder="tu@correo.com" autocomplete="email">
+          <span class="field-error">Introduce un correo electrónico válido.</span>
+        </div>
+
+        <!-- Teléfono -->
+        <div class="field" id="field-telefono">
+          <label for="telefono">Teléfono de contacto *</label>
+          <div class="phone-input">
+            <select class="phone-prefix" name="prefijo">
+              <option value="+34">🇪🇸 +34</option>
+              <option value="+376">🇦🇩 +376</option>
+              <option value="+54">🇦🇷 +54</option>
+              <option value="+591">🇧🇴 +591</option>
+              <option value="+56">🇨🇱 +56</option>
+              <option value="+57">🇨🇴 +57</option>
+              <option value="+506">🇨🇷 +506</option>
+              <option value="+593">🇪🇨 +593</option>
+              <option value="+503">🇸🇻 +503</option>
+              <option value="+502">🇬🇹 +502</option>
+              <option value="+504">🇭🇳 +504</option>
+              <option value="+52">🇲🇽 +52</option>
+              <option value="+505">🇳🇮 +505</option>
+              <option value="+507">🇵🇦 +507</option>
+              <option value="+595">🇵🇾 +595</option>
+              <option value="+51">🇵🇪 +51</option>
+              <option value="+1">🇺🇸 +1</option>
+              <option value="+598">🇺🇾 +598</option>
+              <option value="+58">🇻🇪 +58</option>
+            </select>
+            <input type="tel" id="telefono" name="telefono" placeholder="612 345 678" style="flex:1;" autocomplete="tel">
+          </div>
+          <span class="field-error">Introduce un número de teléfono válido.</span>
+        </div>
+
+        <!-- Ciudad y especialidad -->
+        <div class="field-row">
+          <div class="field" id="field-ciudad">
+            <label for="ciudad">Ciudad / Zona de trabajo *</label>
+            <input type="text" id="ciudad" name="ciudad" placeholder="Ej. Madrid, Barcelona...">
+            <span class="field-error">Indica tu ciudad o zona.</span>
+          </div>
+          <div class="field" id="field-especialidad">
+            <label for="especialidad">Especialidad *</label>
+            <select id="especialidad" name="especialidad">
+              <option value="" disabled selected>Selecciona...</option>
+              <option>Albañil</option>
+              <option>Electricista</option>
+              <option>Fontanero / Plomero</option>
+              <option>Pintor</option>
+              <option>Carpintero</option>
+              <option>Yesero / Escayolista</option>
+              <option>Soldador</option>
+              <option>Techador / Tejados</option>
+              <option>Instalador de suelos</option>
+              <option>Cristalero</option>
+              <option>Cerrajero</option>
+              <option>Reformas integrales</option>
+              <option>Otro</option>
+            </select>
+            <span class="field-error">Selecciona tu especialidad.</span>
+          </div>
+        </div>
+
+        <!-- Foto de perfil -->
+        <div class="field" id="field-foto">
+          <label>Foto de perfil</label>
+          <div class="photo-upload-area" id="photoArea">
+            <input type="file" id="fotoPerfil" name="fotoPerfil" accept="image/*" onchange="handlePhotoChange(this)">
+            <div class="photo-icon" id="photoIcon">📷</div>
+            <img class="photo-preview" id="photoPreview" alt="Vista previa">
+            <span class="photo-label" id="photoLabel">Sube una foto de perfil</span>
+            <span class="photo-sub" id="photoSub">JPG, PNG o WEBP · Máx. 5 MB</span>
+            <span class="photo-name-preview" id="photoNamePreview"></span>
+          </div>
+        </div>
+
+        <!-- Términos -->
+        <div class="terms-row">
+          <input type="checkbox" id="terminos" name="terminos">
+          <label for="terminos">Acepto los <a href="#">Términos de uso</a> y la <a href="#">Política de privacidad</a> de Obrados.</label>
+        </div>
+        <div class="field-error" id="terminos-error" style="display:none;margin-top:6px;">Debes aceptar los términos para continuar.</div>
+
+        <div style="margin-top:28px;">
+          <button type="submit" class="btn-submit" id="submitBtn">
+            <span id="btnText">Crear mi perfil gratis</span>
+            <div class="spinner" id="spinner"></div>
+          </button>
+        </div>
+
+      </form>
     </div>
-    <span class="footer-logo-name">Obra<span>dos</span></span>
   </div>
-  <div class="footer-links">
-    <span class="footer-link">Cómo funciona</span>
-    <span class="footer-link">Para profesionales</span>
-    <span class="footer-link">Aviso legal</span>
-    <span class="footer-link">Privacidad</span>
-    <span class="footer-link">Contacto</span>
+
+  <!-- SUCCESS -->
+  <div class="success-screen" id="successScreen">
+    <div class="success-icon">✅</div>
+    <h2>¡Solicitud enviada!</h2>
+    <p>Hemos recibido tu solicitud. En breve recibirás un correo en <strong id="emailConfirm"></strong> con los pasos para activar tu perfil en Obrados.</p>
+    <a href="index.html" class="btn-back">Volver al inicio</a>
   </div>
-  <div class="footer-copy">© 2025 Obrados · Todos los derechos reservados</div>
-</footer>
+
+</div>
+
+<!-- ===================== FORMSPREE - cambia YOUR_FORM_ID ===================== -->
+<script>
+function handlePhotoChange(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const preview = document.getElementById('photoPreview');
+  const icon = document.getElementById('photoIcon');
+  const label = document.getElementById('photoLabel');
+  const sub = document.getElementById('photoSub');
+  const namePreview = document.getElementById('photoNamePreview');
+
+  const reader = new FileReader();
+  reader.onload = e => {
+    preview.src = e.target.result;
+    preview.style.display = 'block';
+    icon.style.display = 'none';
+    label.textContent = 'Foto seleccionada';
+    sub.style.display = 'none';
+    namePreview.textContent = file.name;
+    namePreview.style.display = 'block';
+  };
+  reader.readAsDataURL(file);
+}
+
+function validateForm() {
+  let valid = true;
+
+  const fields = [
+    { id: 'field-nombre', input: 'nombre', check: v => v.trim().length >= 3 },
+    { id: 'field-email', input: 'email', check: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) },
+    { id: 'field-telefono', input: 'telefono', check: v => /^[\d\s\-\+\(\)]{7,15}$/.test(v.trim()) },
+    { id: 'field-ciudad', input: 'ciudad', check: v => v.trim().length >= 2 },
+    { id: 'field-especialidad', input: 'especialidad', check: v => v !== '' },
+  ];
+
+  fields.forEach(({ id, input, check }) => {
+    const el = document.getElementById(id);
+    const val = document.getElementById(input).value;
+    if (!check(val)) {
+      el.classList.add('has-error');
+      valid = false;
+    } else {
+      el.classList.remove('has-error');
+    }
+  });
+
+  const terminos = document.getElementById('terminos');
+  const terminosError = document.getElementById('terminos-error');
+  if (!terminos.checked) {
+    terminosError.style.display = 'block';
+    valid = false;
+  } else {
+    terminosError.style.display = 'none';
+  }
+
+  return valid;
+}
+
+document.getElementById('registroForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  if (!validateForm()) return;
+
+  const btn = document.getElementById('submitBtn');
+  const btnText = document.getElementById('btnText');
+  const spinner = document.getElementById('spinner');
+
+  btn.disabled = true;
+  btnText.textContent = 'Enviando...';
+  spinner.style.display = 'block';
+
+  const nombre = document.getElementById('nombre').value;
+  const email = document.getElementById('email').value;
+  const prefijo = document.querySelector('select[name="prefijo"]').value;
+  const telefono = document.getElementById('telefono').value;
+  const ciudad = document.getElementById('ciudad').value;
+  const especialidad = document.getElementById('especialidad').value;
+
+  // -----------------------------------------------------------------------
+  // OPCIÓN A: Formspree (recomendado — gratis hasta 50 envíos/mes)
+  // 1. Ve a https://formspree.io y crea una cuenta gratis
+  // 2. Crea un nuevo formulario y copia tu ID (ej: xpwzabcd)
+  // 3. Reemplaza "YOUR_FORM_ID" con tu ID real
+  // -----------------------------------------------------------------------
+  const FORMSPREE_ID = 'YOUR_FORM_ID'; // <-- CAMBIA ESTO
+
+  if (FORMSPREE_ID === 'YOUR_FORM_ID') {
+    // MODO DEMO: simula envío sin Formspree
+    await new Promise(r => setTimeout(r, 1500));
+    mostrarExito(email);
+    return;
+  }
+
+  try {
+    const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+      method: 'POST',
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        nombre,
+        email,
+        telefono: `${prefijo} ${telefono}`,
+        ciudad,
+        especialidad,
+        _subject: `Nuevo profesional registrado: ${nombre} — ${especialidad}`,
+        _replyto: email,
+      })
+    });
+
+    if (res.ok) {
+      mostrarExito(email);
+    } else {
+      throw new Error('Error en el envío');
+    }
+  } catch (err) {
+    btn.disabled = false;
+    btnText.textContent = 'Crear mi perfil gratis';
+    spinner.style.display = 'none';
+    alert('Hubo un error al enviar el formulario. Por favor, inténtalo de nuevo.');
+  }
+});
+
+function mostrarExito(email) {
+  document.getElementById('formSection').style.display = 'none';
+  document.getElementById('successScreen').style.display = 'block';
+  document.getElementById('emailConfirm').textContent = email;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
 
 </body>
 </html>
