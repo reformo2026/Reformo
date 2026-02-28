@@ -3,411 +3,366 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Crear perfil — Obrados</title>
+<title>Obrados — Registro Profesional</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{
   --navy:#0a2540;--navy2:#0f2d4a;--navy3:#1e3a6e;
-  --orange:#e8721a;--orange2:#cf6315;
-  --white:#ffffff;--muted:#8899bb;--border:#1a3a5e;
+  --orange:#e8721a;--white:#fff;--muted:#8899bb;--border:#1a3a5e;
+  --input-bg:#0d2540;--error:#ef4444;--success:#22c55e;
 }
-html{scroll-behavior:smooth;}
-body{font-family:'Manrope',sans-serif;background:var(--navy);color:var(--white);min-height:100vh;overflow-x:hidden;}
+body{font-family:'Manrope',sans-serif;background:var(--navy);color:var(--white);min-height:100vh;display:flex;flex-direction:column;}
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 5%;height:68px;display:flex;align-items:center;justify-content:space-between;background:rgba(10,37,64,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.06);}
-.logo{display:inline-flex;align-items:center;gap:10px;text-decoration:none;}
-.logo-icon{width:36px;height:36px;border-radius:9px;background:var(--orange);display:flex;align-items:center;justify-content:center;}
-.logo-name{font-size:1.3rem;font-weight:800;letter-spacing:-0.04em;color:var(--orange);}
+nav{padding:0 5%;height:64px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.06);}
+.logo{display:inline-flex;align-items:center;gap:10px;}
+.logo-icon{width:34px;height:34px;border-radius:8px;background:var(--orange);display:flex;align-items:center;justify-content:center;}
+.logo-name{font-size:1.2rem;font-weight:800;letter-spacing:-0.04em;color:var(--orange);}
 .logo-name span{color:var(--white);}
-.nav-back{color:var(--muted);font-size:0.88rem;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:6px;text-decoration:none;}
-.nav-back:hover{color:var(--white);}
+.nav-login{color:var(--muted);font-size:0.85rem;cursor:pointer;}
+.nav-login span{color:var(--orange);font-weight:600;}
 
-/* HERO */
-.page-hero{padding:120px 5% 60px;text-align:center;position:relative;overflow:hidden;}
-.page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 30%,rgba(30,58,110,0.4) 0%,transparent 70%);}
-.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);background-size:50px 50px;}
-.page-hero-content{position:relative;}
-.section-tag{display:inline-block;background:rgba(232,114,26,0.1);border:1px solid rgba(232,114,26,0.2);color:var(--orange);padding:4px 14px;border-radius:20px;font-size:0.75rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:16px;}
-.page-hero h1{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;letter-spacing:-0.5px;margin-bottom:12px;}
-.page-hero h1 span{color:var(--orange);}
-.page-hero p{color:var(--muted);font-size:0.98rem;line-height:1.6;max-width:480px;margin:0 auto;}
+.wrapper{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 20px;}
+.card{background:var(--navy2);border:1px solid var(--border);border-radius:20px;padding:36px;width:100%;max-width:460px;}
 
-/* FORM WRAPPER */
-.form-wrapper{max-width:640px;margin:0 auto;padding:0 5% 80px;}
-
-/* STEPS INDICATOR */
-.steps-indicator{display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:40px;}
-.step-dot{width:36px;height:36px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:700;color:var(--muted);background:var(--navy2);position:relative;z-index:1;transition:all 0.3s;}
-.step-dot.active{border-color:var(--orange);background:var(--orange);color:#fff;}
-.step-dot.done{border-color:rgba(232,114,26,0.4);background:rgba(232,114,26,0.1);color:var(--orange);}
-.step-line{height:2px;width:60px;background:var(--border);}
-.step-line.done{background:rgba(232,114,26,0.4);}
-.steps-labels{display:flex;justify-content:center;gap:0;margin-top:8px;margin-bottom:40px;}
-.step-label{font-size:0.72rem;color:var(--muted);font-weight:500;text-align:center;width:36px;/* match dot */}
+/* PROGRESS */
+.progress{display:flex;align-items:flex-start;margin-bottom:32px;}
+.step-dot{display:flex;flex-direction:column;align-items:center;gap:6px;flex:0 0 auto;}
+.dot{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.82rem;border:2px solid var(--border);color:var(--muted);transition:all 0.3s;flex-shrink:0;}
+.dot.active{background:var(--orange);border-color:var(--orange);color:#fff;}
+.dot.done{background:transparent;border-color:var(--orange);color:var(--orange);}
+.step-label{font-size:0.62rem;font-weight:600;color:var(--muted);letter-spacing:0.04em;text-align:center;max-width:60px;}
 .step-label.active{color:var(--orange);}
+.progress-line{flex:1;height:2px;background:var(--border);margin-top:17px;transition:background 0.3s;}
+.progress-line.done{background:var(--orange);}
 
-/* FORM CARD */
-.form-card{background:var(--navy2);border:1px solid var(--border);border-radius:20px;padding:36px;margin-bottom:16px;}
-.form-card h2{font-size:1.1rem;font-weight:800;margin-bottom:6px;}
-.form-card .card-sub{color:var(--muted);font-size:0.85rem;margin-bottom:28px;line-height:1.5;}
+.form-title{font-size:1.25rem;font-weight:800;margin-bottom:6px;}
+.form-sub{font-size:0.83rem;color:var(--muted);margin-bottom:24px;line-height:1.5;}
 
-/* FORM FIELDS */
-.field{margin-bottom:20px;}
-.field label{display:block;font-size:0.82rem;font-weight:600;color:#a0b4d0;margin-bottom:7px;letter-spacing:0.3px;}
-.field input,.field select,.field textarea{
-  width:100%;background:rgba(10,37,64,0.6);border:1px solid var(--border);border-radius:10px;
-  padding:12px 16px;color:var(--white);font-family:'Manrope',sans-serif;font-size:0.92rem;
-  outline:none;transition:border-color 0.2s,box-shadow 0.2s;
-}
-.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--orange);box-shadow:0 0 0 3px rgba(232,114,26,0.1);}
-.field input::placeholder,.field textarea::placeholder{color:#4a6080;}
-.field select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238899bb' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;}
-.field select option{background:#0a2540;}
+.field{margin-bottom:16px;}
+.field label{display:block;font-size:0.72rem;font-weight:700;color:var(--muted);margin-bottom:6px;letter-spacing:0.08em;text-transform:uppercase;}
+.field input{width:100%;background:var(--input-bg);border:1px solid var(--border);border-radius:10px;padding:12px 14px;color:var(--white);font-family:'Manrope',sans-serif;font-size:0.9rem;outline:none;transition:border-color 0.2s;}
+.field input:focus{border-color:var(--orange);}
+.field input::placeholder{color:#3a5070;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.password-wrap{position:relative;}
+.password-wrap input{padding-right:42px;}
+.toggle-pw{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--muted);cursor:pointer;font-size:0.95rem;}
+.hint{font-size:0.7rem;color:var(--muted);margin-top:4px;}
+.err{font-size:0.7rem;color:var(--error);margin-top:4px;display:none;}
 
-.field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-@media(max-width:500px){.field-row{grid-template-columns:1fr;}}
+/* OFICIO */
+.oficio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.oficio-btn{background:var(--input-bg);border:1px solid var(--border);border-radius:10px;padding:10px 6px;text-align:center;cursor:pointer;transition:all 0.15s;}
+.oficio-btn:hover{border-color:var(--orange);}
+.oficio-btn.selected{background:rgba(232,114,26,0.1);border-color:var(--orange);}
+.oficio-icon{font-size:1.2rem;display:block;margin-bottom:3px;}
+.oficio-label{font-size:0.68rem;font-weight:600;color:var(--muted);}
+.oficio-btn.selected .oficio-label{color:var(--orange);}
 
-/* PHONE PREFIX */
-.phone-input{display:flex;gap:8px;}
-.phone-prefix{width:90px;flex-shrink:0;}
-
-/* PHOTO UPLOAD */
-.photo-upload-area{
-  border:2px dashed var(--border);border-radius:12px;padding:28px;text-align:center;
-  cursor:pointer;transition:border-color 0.2s,background 0.2s;position:relative;
-  display:flex;flex-direction:column;align-items:center;gap:10px;
-}
-.photo-upload-area:hover{border-color:var(--orange);background:rgba(232,114,26,0.03);}
-.photo-upload-area input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
-.photo-icon{width:52px;height:52px;border-radius:12px;background:rgba(232,114,26,0.1);border:1px solid rgba(232,114,26,0.2);display:flex;align-items:center;justify-content:center;font-size:1.4rem;}
-.photo-upload-area .photo-label{font-size:0.88rem;font-weight:600;color:var(--white);}
-.photo-upload-area .photo-sub{font-size:0.75rem;color:var(--muted);}
-.photo-preview{display:none;width:80px;height:80px;border-radius:12px;object-fit:cover;border:2px solid var(--orange);}
-.photo-name-preview{display:none;font-size:0.78rem;color:var(--orange);font-weight:600;}
+/* UPLOAD */
+.upload-area{border:2px dashed var(--border);border-radius:12px;padding:20px;text-align:center;cursor:pointer;transition:border-color 0.2s;position:relative;margin-top:6px;}
+.upload-area:hover{border-color:var(--orange);}
+.upload-area.uploaded{border-color:var(--success);background:rgba(34,197,94,0.05);}
+.upload-area input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;}
+.upload-icon{font-size:1.6rem;margin-bottom:6px;}
+.upload-title{font-size:0.82rem;font-weight:600;margin-bottom:3px;}
+.upload-sub{font-size:0.72rem;color:var(--muted);}
+.upload-done{font-size:0.78rem;color:var(--success);font-weight:600;margin-top:4px;display:none;}
+.doc-info{background:rgba(232,114,26,0.06);border:1px solid rgba(232,114,26,0.15);border-radius:10px;padding:12px 14px;margin-bottom:16px;}
+.doc-info p{font-size:0.75rem;color:var(--muted);line-height:1.6;}
+.doc-info strong{color:var(--white);}
 
 /* TERMS */
-.terms-row{display:flex;align-items:flex-start;gap:10px;margin-top:4px;}
-.terms-row input[type="checkbox"]{width:18px;height:18px;accent-color:var(--orange);flex-shrink:0;margin-top:2px;cursor:pointer;}
-.terms-row label{font-size:0.82rem;color:var(--muted);line-height:1.5;cursor:pointer;}
-.terms-row a{color:var(--orange);text-decoration:none;}
+.terms{display:flex;align-items:flex-start;gap:10px;margin-bottom:18px;}
+.terms input{width:16px;height:16px;margin-top:2px;accent-color:var(--orange);flex-shrink:0;}
+.terms label{font-size:0.76rem;color:var(--muted);line-height:1.5;cursor:pointer;}
+.terms label span{color:var(--orange);}
 
-/* SUBMIT */
-.btn-submit{
-  width:100%;background:var(--orange);color:#fff;border:none;padding:15px;border-radius:12px;
-  font-family:'Manrope',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;
-  box-shadow:0 8px 30px rgba(232,114,26,0.3);transition:background 0.2s,transform 0.1s,box-shadow 0.2s;
-  display:flex;align-items:center;justify-content:center;gap:10px;
-}
-.btn-submit:hover{background:var(--orange2);box-shadow:0 10px 40px rgba(232,114,26,0.4);}
-.btn-submit:active{transform:scale(0.99);}
-.btn-submit:disabled{opacity:0.5;cursor:not-allowed;}
-.spinner{width:18px;height:18px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite;display:none;}
-@keyframes spin{to{transform:rotate(360deg);}}
-
-/* INFO BOX */
-.info-box{background:rgba(30,58,110,0.3);border:1px solid rgba(30,58,110,0.6);border-radius:12px;padding:14px 16px;display:flex;gap:10px;align-items:flex-start;margin-bottom:20px;}
-.info-box .info-icon{font-size:1rem;flex-shrink:0;margin-top:1px;}
-.info-box p{font-size:0.8rem;color:var(--muted);line-height:1.5;}
+.btn-next{width:100%;background:var(--orange);color:#fff;border:none;padding:13px;border-radius:10px;font-family:'Manrope',sans-serif;font-weight:700;font-size:0.92rem;cursor:pointer;transition:background 0.2s;margin-top:4px;}
+.btn-next:hover{background:#cf6315;}
+.btn-back{width:100%;background:transparent;color:var(--muted);border:1px solid var(--border);padding:11px;border-radius:10px;font-family:'Manrope',sans-serif;font-weight:600;font-size:0.85rem;cursor:pointer;margin-bottom:10px;transition:border-color 0.2s;}
+.btn-back:hover{border-color:var(--muted);}
 
 /* SUCCESS */
-.success-screen{display:none;text-align:center;padding:60px 20px;}
-.success-icon{width:72px;height:72px;border-radius:50%;background:rgba(232,114,26,0.1);border:2px solid var(--orange);display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 24px;}
-.success-screen h2{font-size:1.5rem;font-weight:800;margin-bottom:12px;}
-.success-screen p{color:var(--muted);font-size:0.9rem;line-height:1.6;max-width:380px;margin:0 auto 28px;}
-.btn-back{display:inline-block;background:var(--orange);color:#fff;padding:12px 28px;border-radius:10px;font-weight:700;font-size:0.9rem;text-decoration:none;cursor:pointer;border:none;font-family:'Manrope',sans-serif;}
+.success{text-align:center;padding:16px 0;}
+.success-icon{font-size:3rem;margin-bottom:14px;}
+.success h2{font-size:1.3rem;font-weight:800;margin-bottom:10px;}
+.success p{color:var(--muted);font-size:0.85rem;line-height:1.6;margin-bottom:20px;}
+.badge-pending{display:inline-flex;align-items:center;gap:8px;background:rgba(232,114,26,0.1);border:1px solid rgba(232,114,26,0.3);color:var(--orange);padding:8px 16px;border-radius:20px;font-size:0.78rem;font-weight:600;margin-bottom:20px;}
+.steps-pending{text-align:left;background:var(--navy);border-radius:12px;padding:16px;margin-bottom:20px;}
+.steps-pending p{font-size:0.78rem;color:var(--muted);line-height:1.8;}
+.steps-pending strong{color:var(--white);}
 
-/* ERROR */
-.field-error{font-size:0.75rem;color:#ff6b6b;margin-top:5px;display:none;}
-.field.has-error input,.field.has-error select{border-color:#ff6b6b;}
-.field.has-error .field-error{display:block;}
+.login-link{text-align:center;margin-top:16px;font-size:0.8rem;color:var(--muted);}
+.login-link span{color:var(--orange);font-weight:600;cursor:pointer;}
 </style>
 </head>
 <body>
 
 <nav>
-  <a href="index.html" class="logo">
+  <div class="logo">
     <div class="logo-icon">
-      <svg width="22" height="22" viewBox="0 0 40 40" fill="none">
+      <svg width="20" height="20" viewBox="0 0 40 40" fill="none">
         <circle cx="14" cy="13" r="6" fill="white" opacity="0.6"/>
         <circle cx="26" cy="13" r="6" fill="white"/>
         <path d="M4 34 C4 27 8.5 23 14 23 C17 23 19.5 24.5 21 26.5 C22.5 24.5 25 23 28 23 C33.5 23 37 27 37 34" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
       </svg>
     </div>
     <span class="logo-name">Obra<span>dos</span></span>
-  </a>
-  <a href="index.html" class="nav-back">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-    Volver
-  </a>
+  </div>
+  <div class="nav-login">¿Ya tienes cuenta? <span>Iniciar sesión</span></div>
 </nav>
 
-<div class="page-hero">
-  <div class="hero-grid"></div>
-  <div class="page-hero-content">
-    <div class="section-tag">Para profesionales</div>
-    <h1>Crea tu perfil en <span>Obrados</span></h1>
-    <p>Gratis, sin cuotas iniciales. Empieza a recibir clientes desde hoy.</p>
-  </div>
-</div>
+<div class="wrapper">
+  <div class="card">
 
-<div class="form-wrapper">
+    <div class="progress">
+      <div class="step-dot"><div class="dot active" id="dot1">1</div><div class="step-label active" id="lbl1">Tu cuenta</div></div>
+      <div class="progress-line" id="line1"></div>
+      <div class="step-dot"><div class="dot" id="dot2">2</div><div class="step-label" id="lbl2">Tu perfil</div></div>
+      <div class="progress-line" id="line2"></div>
+      <div class="step-dot"><div class="dot" id="dot3">3</div><div class="step-label" id="lbl3">Documentación</div></div>
+    </div>
 
-  <!-- FORM -->
-  <div id="formSection">
-    <div class="form-card">
-      <h2>Información personal</h2>
-      <p class="card-sub">Estos datos aparecerán en tu perfil público para que los clientes puedan contactarte.</p>
+    <!-- PASO 1 -->
+    <div id="paso1">
+      <div class="form-title">Crea tu cuenta</div>
+      <div class="form-sub">Empieza gratis. Sin cuotas hasta que empieces a recibir clientes.</div>
+      <div class="field">
+        <label>Correo electrónico</label>
+        <input type="email" id="email" placeholder="tu@email.com">
+        <div class="err" id="err-email">Introduce un email válido</div>
+      </div>
+      <div class="field">
+        <label>Contraseña</label>
+        <div class="password-wrap">
+          <input type="password" id="pw" placeholder="Mínimo 8 caracteres">
+          <button class="toggle-pw" onclick="togglePw('pw')">👁</button>
+        </div>
+        <div class="hint">Mínimo 8 caracteres</div>
+        <div class="err" id="err-pw">Mínimo 8 caracteres</div>
+      </div>
+      <div class="field">
+        <label>Confirmar contraseña</label>
+        <div class="password-wrap">
+          <input type="password" id="pw2" placeholder="Repite tu contraseña">
+          <button class="toggle-pw" onclick="togglePw('pw2')">👁</button>
+        </div>
+        <div class="err" id="err-pw2">Las contraseñas no coinciden</div>
+      </div>
+      <div class="terms">
+        <input type="checkbox" id="terms">
+        <label for="terms">Acepto los <span>Términos y condiciones</span> y la <span>Política de privacidad</span> de Obrados</label>
+      </div>
+      <button class="btn-next" onclick="irPaso2()">Continuar →</button>
+      <div class="login-link">¿Ya tienes cuenta? <span>Iniciar sesión</span></div>
+    </div>
 
-      <div class="info-box">
-        <span class="info-icon">📧</span>
-        <p>Al enviar el formulario recibirás un correo de confirmación con los siguientes pasos para activar tu perfil.</p>
+    <!-- PASO 2 -->
+    <div id="paso2" style="display:none">
+      <div class="form-title">Cuéntanos sobre ti</div>
+      <div class="form-sub">Esta información aparecerá en tu perfil público.</div>
+      <div class="field-row">
+        <div class="field"><label>Nombre</label><input type="text" id="nombre" placeholder="Carlos"></div>
+        <div class="field"><label>Apellidos</label><input type="text" id="apellidos" placeholder="Martínez"></div>
+      </div>
+      <div class="field">
+        <label>Teléfono</label>
+        <input type="tel" id="telefono" placeholder="+34 600 000 000">
+        <div class="err" id="err-tel">Introduce un teléfono válido</div>
+      </div>
+      <div class="field">
+        <label>Ciudad donde trabajas</label>
+        <input type="text" id="ciudad" placeholder="Madrid, Barcelona...">
+        <div class="err" id="err-ciudad">Introduce tu ciudad</div>
+      </div>
+      <div class="field">
+        <label>Tu especialidad</label>
+        <div class="oficio-grid">
+          <div class="oficio-btn" onclick="selectOficio(this,'Albañilería')"><span class="oficio-icon">🧱</span><span class="oficio-label">Albañilería</span></div>
+          <div class="oficio-btn" onclick="selectOficio(this,'Electricidad')"><span class="oficio-icon">⚡</span><span class="oficio-label">Electricidad</span></div>
+          <div class="oficio-btn" onclick="selectOficio(this,'Fontanería')"><span class="oficio-icon">🔧</span><span class="oficio-label">Fontanería</span></div>
+          <div class="oficio-btn" onclick="selectOficio(this,'Pintura')"><span class="oficio-icon">🎨</span><span class="oficio-label">Pintura</span></div>
+          <div class="oficio-btn" onclick="selectOficio(this,'Carpintería')"><span class="oficio-icon">🪚</span><span class="oficio-label">Carpintería</span></div>
+          <div class="oficio-btn" onclick="selectOficio(this,'Climatización')"><span class="oficio-icon">❄️</span><span class="oficio-label">Climatización</span></div>
+          <div class="oficio-btn" onclick="selectOficio(this,'Reformas')"><span class="oficio-icon">🏠</span><span class="oficio-label">Reformas</span></div>
+          <div class="oficio-btn" onclick="selectOficio(this,'Soldadura')"><span class="oficio-icon">🔩</span><span class="oficio-label">Soldadura</span></div>
+          <div class="oficio-btn" onclick="selectOficio(this,'Otro')"><span class="oficio-icon">➕</span><span class="oficio-label">Otro</span></div>
+        </div>
+        <div class="err" id="err-oficio">Selecciona tu especialidad</div>
+      </div>
+      <button class="btn-back" onclick="irPaso1()">← Volver</button>
+      <button class="btn-next" onclick="irPaso3()">Continuar →</button>
+    </div>
+
+    <!-- PASO 3 -->
+    <div id="paso3" style="display:none">
+      <div class="form-title">Verificación de documentos</div>
+      <div class="form-sub">Revisamos tu documentación para garantizar la confianza de los clientes. Tu perfil será visible mientras verificamos.</div>
+
+      <div class="doc-info">
+        <p>📋 Necesitamos los siguientes documentos en formato <strong>PDF o imagen</strong>. Deben estar en vigor y ser legibles.</p>
       </div>
 
-      <form id="registroForm" novalidate>
-
-        <!-- Nombre y apellidos -->
-        <div class="field" id="field-nombre">
-          <label for="nombre">Nombre y apellidos *</label>
-          <input type="text" id="nombre" name="nombre" placeholder="Ej. Carlos Martínez García" autocomplete="name">
-          <span class="field-error">Por favor, introduce tu nombre completo.</span>
+      <div class="field">
+        <label>DNI o NIE</label>
+        <div class="upload-area" id="up1" onclick="triggerUpload('file1')">
+          <input type="file" id="file1" accept=".pdf,.jpg,.jpeg,.png" onchange="fileUploaded('up1','done1',this)">
+          <div class="upload-icon">🪪</div>
+          <div class="upload-title">Subir DNI o NIE</div>
+          <div class="upload-sub">Ambas caras en una imagen o PDF</div>
+          <div class="upload-done" id="done1">✓ Documento subido</div>
         </div>
+        <div class="err" id="err-doc1">Sube tu DNI o NIE</div>
+      </div>
 
-        <!-- Email -->
-        <div class="field" id="field-email">
-          <label for="email">Correo electrónico *</label>
-          <input type="email" id="email" name="email" placeholder="tu@correo.com" autocomplete="email">
-          <span class="field-error">Introduce un correo electrónico válido.</span>
+      <div class="field">
+        <label>Seguro de responsabilidad civil</label>
+        <div class="upload-area" id="up2" onclick="triggerUpload('file2')">
+          <input type="file" id="file2" accept=".pdf,.jpg,.jpeg,.png" onchange="fileUploaded('up2','done2',this)">
+          <div class="upload-icon">🛡️</div>
+          <div class="upload-title">Certificado de responsabilidad civil</div>
+          <div class="upload-sub">Debe estar en vigor · Mínimo 50.000€ de cobertura</div>
+          <div class="upload-done" id="done2">✓ Documento subido</div>
         </div>
+        <div class="err" id="err-doc2">Sube tu seguro de responsabilidad civil</div>
+      </div>
 
-        <!-- Teléfono -->
-        <div class="field" id="field-telefono">
-          <label for="telefono">Teléfono de contacto *</label>
-          <div class="phone-input">
-            <select class="phone-prefix" name="prefijo">
-              <option value="+34">🇪🇸 +34</option>
-              <option value="+376">🇦🇩 +376</option>
-              <option value="+54">🇦🇷 +54</option>
-              <option value="+591">🇧🇴 +591</option>
-              <option value="+56">🇨🇱 +56</option>
-              <option value="+57">🇨🇴 +57</option>
-              <option value="+506">🇨🇷 +506</option>
-              <option value="+593">🇪🇨 +593</option>
-              <option value="+503">🇸🇻 +503</option>
-              <option value="+502">🇬🇹 +502</option>
-              <option value="+504">🇭🇳 +504</option>
-              <option value="+52">🇲🇽 +52</option>
-              <option value="+505">🇳🇮 +505</option>
-              <option value="+507">🇵🇦 +507</option>
-              <option value="+595">🇵🇾 +595</option>
-              <option value="+51">🇵🇪 +51</option>
-              <option value="+1">🇺🇸 +1</option>
-              <option value="+598">🇺🇾 +598</option>
-              <option value="+58">🇻🇪 +58</option>
-            </select>
-            <input type="tel" id="telefono" name="telefono" placeholder="612 345 678" style="flex:1;" autocomplete="tel">
-          </div>
-          <span class="field-error">Introduce un número de teléfono válido.</span>
+      <div class="field">
+        <label>Última cuota de autónomo</label>
+        <div class="upload-area" id="up3" onclick="triggerUpload('file3')">
+          <input type="file" id="file3" accept=".pdf,.jpg,.jpeg,.png" onchange="fileUploaded('up3','done3',this)">
+          <div class="upload-icon">📄</div>
+          <div class="upload-title">Recibo de autónomo</div>
+          <div class="upload-sub">Últimos 2 meses · Emitido por la Seguridad Social</div>
+          <div class="upload-done" id="done3">✓ Documento subido</div>
         </div>
+        <div class="err" id="err-doc3">Sube tu última cuota de autónomo</div>
+      </div>
 
-        <!-- Ciudad y especialidad -->
-        <div class="field-row">
-          <div class="field" id="field-ciudad">
-            <label for="ciudad">Ciudad / Zona de trabajo *</label>
-            <input type="text" id="ciudad" name="ciudad" placeholder="Ej. Madrid, Barcelona...">
-            <span class="field-error">Indica tu ciudad o zona.</span>
-          </div>
-          <div class="field" id="field-especialidad">
-            <label for="especialidad">Especialidad *</label>
-            <select id="especialidad" name="especialidad">
-              <option value="" disabled selected>Selecciona...</option>
-              <option>Albañil</option>
-              <option>Electricista</option>
-              <option>Fontanero / Plomero</option>
-              <option>Pintor</option>
-              <option>Carpintero</option>
-              <option>Yesero / Escayolista</option>
-              <option>Soldador</option>
-              <option>Techador / Tejados</option>
-              <option>Instalador de suelos</option>
-              <option>Cristalero</option>
-              <option>Cerrajero</option>
-              <option>Reformas integrales</option>
-              <option>Otro</option>
-            </select>
-            <span class="field-error">Selecciona tu especialidad.</span>
-          </div>
-        </div>
-
-        <!-- Foto de perfil -->
-        <div class="field" id="field-foto">
-          <label>Foto de perfil</label>
-          <div class="photo-upload-area" id="photoArea">
-            <input type="file" id="fotoPerfil" name="fotoPerfil" accept="image/*" onchange="handlePhotoChange(this)">
-            <div class="photo-icon" id="photoIcon">📷</div>
-            <img class="photo-preview" id="photoPreview" alt="Vista previa">
-            <span class="photo-label" id="photoLabel">Sube una foto de perfil</span>
-            <span class="photo-sub" id="photoSub">JPG, PNG o WEBP · Máx. 5 MB</span>
-            <span class="photo-name-preview" id="photoNamePreview"></span>
-          </div>
-        </div>
-
-        <!-- Términos -->
-        <div class="terms-row">
-          <input type="checkbox" id="terminos" name="terminos">
-          <label for="terminos">Acepto los <a href="#">Términos de uso</a> y la <a href="#">Política de privacidad</a> de Obrados.</label>
-        </div>
-        <div class="field-error" id="terminos-error" style="display:none;margin-top:6px;">Debes aceptar los términos para continuar.</div>
-
-        <div style="margin-top:28px;">
-          <button type="submit" class="btn-submit" id="submitBtn">
-            <span id="btnText">Crear mi perfil gratis</span>
-            <div class="spinner" id="spinner"></div>
-          </button>
-        </div>
-
-      </form>
+      <button class="btn-back" onclick="irPaso2()">← Volver</button>
+      <button class="btn-next" onclick="finalizar()">Enviar documentación</button>
     </div>
-  </div>
 
-  <!-- SUCCESS -->
-  <div class="success-screen" id="successScreen">
-    <div class="success-icon">✅</div>
-    <h2>¡Solicitud enviada!</h2>
-    <p>Hemos recibido tu solicitud. En breve recibirás un correo en <strong id="emailConfirm"></strong> con los pasos para activar tu perfil en Obrados.</p>
-    <a href="index.html" class="btn-back">Volver al inicio</a>
-  </div>
+    <!-- ÉXITO -->
+    <div id="exito" style="display:none">
+      <div class="success">
+        <div class="success-icon">🎉</div>
+        <h2>¡Perfil creado!</h2>
+        <div class="badge-pending">⏳ Verificación en proceso</div>
+        <p>Hemos recibido tu documentación. La revisaremos en un plazo máximo de <strong>24-48 horas</strong>.</p>
+        <div class="steps-pending">
+          <p>✅ <strong>Tu perfil ya es visible</strong> para los clientes</p>
+          <p>⏳ <strong>Badge de verificado</strong> — pendiente de revisión</p>
+          <p>📧 <strong>Te avisaremos por email</strong> cuando se apruebe</p>
+        </div>
+        <button class="btn-next">Ir a mi perfil →</button>
+      </div>
+    </div>
 
+  </div>
 </div>
 
-<!-- ===================== FORMSPREE - cambia YOUR_FORM_ID ===================== -->
 <script>
-function handlePhotoChange(input) {
-  const file = input.files[0];
-  if (!file) return;
-  const preview = document.getElementById('photoPreview');
-  const icon = document.getElementById('photoIcon');
-  const label = document.getElementById('photoLabel');
-  const sub = document.getElementById('photoSub');
-  const namePreview = document.getElementById('photoNamePreview');
+let oficio = '';
+let uploads = {file1: false, file2: false, file3: false};
 
-  const reader = new FileReader();
-  reader.onload = e => {
-    preview.src = e.target.result;
-    preview.style.display = 'block';
-    icon.style.display = 'none';
-    label.textContent = 'Foto seleccionada';
-    sub.style.display = 'none';
-    namePreview.textContent = file.name;
-    namePreview.style.display = 'block';
-  };
-  reader.readAsDataURL(file);
+function togglePw(id) {
+  const i = document.getElementById(id);
+  i.type = i.type === 'password' ? 'text' : 'password';
 }
 
-function validateForm() {
-  let valid = true;
+function selectOficio(el, nombre) {
+  document.querySelectorAll('.oficio-btn').forEach(b => b.classList.remove('selected'));
+  el.classList.add('selected');
+  oficio = nombre;
+}
 
-  const fields = [
-    { id: 'field-nombre', input: 'nombre', check: v => v.trim().length >= 3 },
-    { id: 'field-email', input: 'email', check: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) },
-    { id: 'field-telefono', input: 'telefono', check: v => /^[\d\s\-\+\(\)]{7,15}$/.test(v.trim()) },
-    { id: 'field-ciudad', input: 'ciudad', check: v => v.trim().length >= 2 },
-    { id: 'field-especialidad', input: 'especialidad', check: v => v !== '' },
-  ];
+function showErr(id, show) {
+  document.getElementById(id).style.display = show ? 'block' : 'none';
+}
 
-  fields.forEach(({ id, input, check }) => {
-    const el = document.getElementById(id);
-    const val = document.getElementById(input).value;
-    if (!check(val)) {
-      el.classList.add('has-error');
-      valid = false;
-    } else {
-      el.classList.remove('has-error');
-    }
+function setStep(step) {
+  [1,2,3].forEach(s => {
+    const dot = document.getElementById('dot'+s);
+    const lbl = document.getElementById('lbl'+s);
+    if(s < step) { dot.classList.remove('active'); dot.classList.add('done'); dot.textContent='✓'; lbl.classList.remove('active'); }
+    else if(s === step) { dot.classList.remove('done'); dot.classList.add('active'); dot.textContent=s; lbl.classList.add('active'); }
+    else { dot.classList.remove('active','done'); dot.textContent=s; lbl.classList.remove('active'); }
+    if(s < 3) document.getElementById('line'+s).classList.toggle('done', s < step);
   });
-
-  const terminos = document.getElementById('terminos');
-  const terminosError = document.getElementById('terminos-error');
-  if (!terminos.checked) {
-    terminosError.style.display = 'block';
-    valid = false;
-  } else {
-    terminosError.style.display = 'none';
-  }
-
-  return valid;
 }
 
-document.getElementById('registroForm').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  if (!validateForm()) return;
-
-  const btn = document.getElementById('submitBtn');
-  const btnText = document.getElementById('btnText');
-  const spinner = document.getElementById('spinner');
-
-  btn.disabled = true;
-  btnText.textContent = 'Enviando...';
-  spinner.style.display = 'block';
-
-  const nombre = document.getElementById('nombre').value;
+function irPaso2() {
   const email = document.getElementById('email').value;
-  const prefijo = document.querySelector('select[name="prefijo"]').value;
-  const telefono = document.getElementById('telefono').value;
+  const pw = document.getElementById('pw').value;
+  const pw2 = document.getElementById('pw2').value;
+  let ok = true;
+  const eOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  showErr('err-email', !eOk); if(!eOk) ok=false;
+  const pOk = pw.length >= 8;
+  showErr('err-pw', !pOk); if(!pOk) ok=false;
+  const p2Ok = pw === pw2;
+  showErr('err-pw2', !p2Ok); if(!p2Ok) ok=false;
+  if(!document.getElementById('terms').checked) { alert('Debes aceptar los términos'); ok=false; }
+  if(!ok) return;
+  document.getElementById('paso1').style.display='none';
+  document.getElementById('paso2').style.display='block';
+  setStep(2);
+}
+
+function irPaso1() {
+  document.getElementById('paso2').style.display='none';
+  document.getElementById('paso1').style.display='block';
+  setStep(1);
+}
+
+function irPaso3() {
+  const nombre = document.getElementById('nombre').value;
+  const apellidos = document.getElementById('apellidos').value;
+  const tel = document.getElementById('telefono').value;
   const ciudad = document.getElementById('ciudad').value;
-  const especialidad = document.getElementById('especialidad').value;
+  let ok = true;
+  if(!nombre||!apellidos) ok=false;
+  showErr('err-tel', tel.length < 9); if(tel.length<9) ok=false;
+  showErr('err-ciudad', !ciudad); if(!ciudad) ok=false;
+  showErr('err-oficio', !oficio); if(!oficio) ok=false;
+  if(!ok) return;
+  document.getElementById('paso2').style.display='none';
+  document.getElementById('paso3').style.display='block';
+  setStep(3);
+}
 
-  // -----------------------------------------------------------------------
-  // OPCIÓN A: Formspree (recomendado — gratis hasta 50 envíos/mes)
-  // 1. Ve a https://formspree.io y crea una cuenta gratis
-  // 2. Crea un nuevo formulario y copia tu ID (ej: xpwzabcd)
-  // 3. Reemplaza "YOUR_FORM_ID" con tu ID real
-  // -----------------------------------------------------------------------
-  const FORMSPREE_ID = 'YOUR_FORM_ID'; // <-- CAMBIA ESTO
+function irPaso2back() {
+  document.getElementById('paso3').style.display='none';
+  document.getElementById('paso2').style.display='block';
+  setStep(2);
+}
 
-  if (FORMSPREE_ID === 'YOUR_FORM_ID') {
-    // MODO DEMO: simula envío sin Formspree
-    await new Promise(r => setTimeout(r, 1500));
-    mostrarExito(email);
-    return;
+function triggerUpload(id) {
+  document.getElementById(id).click();
+}
+
+function fileUploaded(areaId, doneId, input) {
+  if(input.files.length > 0) {
+    document.getElementById(areaId).classList.add('uploaded');
+    const done = document.getElementById(doneId);
+    done.style.display='block';
+    done.textContent='✓ ' + input.files[0].name;
+    uploads[input.id] = true;
   }
+}
 
-  try {
-    const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
-      method: 'POST',
-      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        nombre,
-        email,
-        telefono: `${prefijo} ${telefono}`,
-        ciudad,
-        especialidad,
-        _subject: `Nuevo profesional registrado: ${nombre} — ${especialidad}`,
-        _replyto: email,
-      })
-    });
-
-    if (res.ok) {
-      mostrarExito(email);
-    } else {
-      throw new Error('Error en el envío');
-    }
-  } catch (err) {
-    btn.disabled = false;
-    btnText.textContent = 'Crear mi perfil gratis';
-    spinner.style.display = 'none';
-    alert('Hubo un error al enviar el formulario. Por favor, inténtalo de nuevo.');
-  }
-});
-
-function mostrarExito(email) {
-  document.getElementById('formSection').style.display = 'none';
-  document.getElementById('successScreen').style.display = 'block';
-  document.getElementById('emailConfirm').textContent = email;
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+function finalizar() {
+  let ok = true;
+  showErr('err-doc1', !uploads.file1); if(!uploads.file1) ok=false;
+  showErr('err-doc2', !uploads.file2); if(!uploads.file2) ok=false;
+  showErr('err-doc3', !uploads.file3); if(!uploads.file3) ok=false;
+  if(!ok) return;
+  document.getElementById('paso3').style.display='none';
+  document.getElementById('exito').style.display='block';
 }
 </script>
-
 </body>
 </html>
