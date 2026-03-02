@@ -31,9 +31,21 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 5%;height:68px;dis
 .hero h1{font-size:clamp(2.2rem,5vw,3.4rem);font-weight:900;line-height:1.1;letter-spacing:-1px;margin-bottom:20px;}
 .hero h1 span{color:var(--orange);}
 .hero p{font-size:1.05rem;color:var(--muted);line-height:1.7;margin-bottom:36px;max-width:480px;}
-.hero-btns{display:flex;gap:12px;flex-wrap:wrap;}
-.btn-primary{background:var(--orange);color:#fff;border:none;padding:14px 28px;border-radius:10px;font-family:'Manrope',sans-serif;font-weight:700;font-size:0.95rem;cursor:pointer;box-shadow:0 8px 30px rgba(232,114,26,0.3);}
-.btn-secondary{background:rgba(255,255,255,0.06);color:#fff;border:1px solid rgba(255,255,255,0.12);padding:14px 28px;border-radius:10px;font-family:'Manrope',sans-serif;font-weight:600;font-size:0.95rem;cursor:pointer;}
+
+/* REGISTRO BOX HERO */
+.registro-box{background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:16px;padding:20px;display:inline-block;min-width:300px;}
+.registro-label{font-size:0.72rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:14px;}
+.registro-cards{display:flex;gap:10px;margin-bottom:16px;}
+.reg-card{flex:1;background:var(--navy);border:2px solid var(--border);border-radius:12px;padding:14px 10px;text-align:center;cursor:pointer;transition:all 0.15s;display:flex;flex-direction:column;align-items:center;gap:4px;}
+.reg-card:hover{border-color:var(--orange);}
+.reg-card.selected{border-color:var(--orange);background:rgba(232,114,26,0.08);}
+.reg-icon{font-size:1.5rem;}
+.reg-name{font-size:0.88rem;font-weight:700;}
+.reg-desc{font-size:0.7rem;color:var(--muted);}
+.reg-card.selected .reg-desc{color:rgba(232,114,26,0.8);}
+.btn-reg{width:100%;background:var(--orange);color:#fff;border:none;padding:12px;border-radius:10px;font-family:'Manrope',sans-serif;font-weight:700;font-size:0.9rem;cursor:pointer;opacity:0.4;pointer-events:none;transition:opacity 0.2s;}
+.btn-reg.active{opacity:1;pointer-events:all;}
+
 .hero-stats{display:flex;gap:32px;margin-top:48px;flex-wrap:wrap;}
 .hero-stat .val{font-size:1.8rem;font-weight:900;}
 .hero-stat .val span{color:var(--orange);}
@@ -85,6 +97,8 @@ section{padding:80px 5%;}
 .pro-cta h2{font-size:1.8rem;font-weight:800;margin-bottom:12px;}
 .pro-cta p{color:var(--muted);margin-bottom:28px;font-size:0.95rem;}
 .pro-cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.btn-primary{background:var(--orange);color:#fff;border:none;padding:14px 28px;border-radius:10px;font-family:'Manrope',sans-serif;font-weight:700;font-size:0.95rem;cursor:pointer;box-shadow:0 8px 30px rgba(232,114,26,0.3);}
+.btn-secondary{background:rgba(255,255,255,0.06);color:#fff;border:1px solid rgba(255,255,255,0.12);padding:14px 28px;border-radius:10px;font-family:'Manrope',sans-serif;font-weight:600;font-size:0.95rem;cursor:pointer;}
 
 footer{background:var(--navy2);border-top:1px solid var(--border);padding:40px 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
 .footer-logo{display:inline-flex;align-items:center;gap:8px;}
@@ -112,7 +126,7 @@ footer{background:var(--navy2);border-top:1px solid var(--border);padding:40px 5
     <span class="nav-link">Cómo funciona</span>
     <span class="nav-link">Profesionales</span>
     <span class="nav-link">¿Eres profesional?</span>
-    <button class="nav-cta">Buscar profesional</button>
+    <button class="nav-cta" onclick="window.location.href='buscar.html'">Buscar profesional</button>
   </div>
 </nav>
 
@@ -122,9 +136,21 @@ footer{background:var(--navy2);border-top:1px solid var(--border);padding:40px 5
   <div class="hero-content">
     <h1>Contrata obra sin<br><span>llevarte sorpresas</span></h1>
     <p>Obrados conecta clientes con los mejores profesionales de construcción. Valoraciones verificadas, fotos de trabajos reales y contacto directo.</p>
-    <div class="hero-btns">
-      <button class="btn-primary" onclick="window.location.href='buscar.html'">Buscar profesional</button>
-      <button class="btn-secondary" onclick="window.location.href='registro.html'">Soy profesional →</button>
+    <div class="registro-box">
+      <div class="registro-label">Regístrate gratis</div>
+      <div class="registro-cards">
+        <div class="reg-card" id="rc-cliente" onclick="selectReg('cliente')">
+          <span class="reg-icon">🏠</span>
+          <span class="reg-name">Cliente</span>
+          <span class="reg-desc">Busco profesionales</span>
+        </div>
+        <div class="reg-card" id="rc-profesional" onclick="selectReg('profesional')">
+          <span class="reg-icon">👷</span>
+          <span class="reg-name">Profesional</span>
+          <span class="reg-desc">Ofrezco mis servicios</span>
+        </div>
+      </div>
+      <button class="btn-reg" id="btnReg" onclick="irRegistro()">Crear cuenta →</button>
     </div>
     <div class="hero-stats">
       <div class="hero-stat"><div class="val">4.9<span>★</span></div><div class="lab">Valoración media</div></div>
@@ -227,7 +253,7 @@ footer{background:var(--navy2);border-top:1px solid var(--border);padding:40px 5
     <h2>¿Eres profesional de la obra?</h2>
     <p>Regístrate gratis y empieza a recibir clientes. Sin cuotas iniciales, sin compromisos.</p>
     <div class="pro-cta-btns">
-      <button class="btn-primary" onclick="window.location.href='registro.html'">Crear perfil gratis</button>
+      <button class="btn-primary" onclick="window.location.href='registro.html?tipo=profesional'">Crear perfil gratis</button>
       <button class="btn-secondary">Ver cómo funciona para profesionales</button>
     </div>
   </div>
@@ -253,6 +279,18 @@ footer{background:var(--navy2);border-top:1px solid var(--border);padding:40px 5
   </div>
   <div class="footer-copy">© 2025 Obrados · Todos los derechos reservados</div>
 </footer>
+
+<script>
+let regTipo = '';
+function selectReg(tipo) {
+  regTipo = tipo;
+  document.querySelectorAll('.reg-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('rc-' + tipo).classList.add('selected');
+  document.getElementById('btnReg').classList.add('active');
+}
+function irRegistro() {
+  if(regTipo) window.location.href = 'registro.html?tipo=' + regTipo;
+}
 
 </body>
 </html>
