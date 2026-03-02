@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Obrados — Buscar profesional</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --navy:#0a2540;--navy2:#0f2d4a;--navy3:#1e3a6e;
+  --orange:#e8721a;--orange2:#cf6315;
+  --white:#fff;--muted:#8899bb;--border:#1a3a5e;
+  --success:#22c55e;--urgent:#ef4444;
+}
+body{font-family:'Manrope',sans-serif;background:var(--navy);color:var(--white);min-height:100vh;}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;padding:0 5%;height:64px;display:flex;align-items:center;justify-content:space-between;background:rgba(10,37,64,0.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.06);}
+.logo{display:inline-flex;align-items:center;gap:10px;cursor:pointer;}
+.logo-icon{width:34px;height:34px;border-radius:8px;background:var(--orange);display:flex;align-items:center;justify-content:center;}
+.logo-name{font-size:1.2rem;font-weight:800;letter-spacing:-0.04em;color:var(--orange);}
+.logo-name span{color:var(--white);}
+.nav-right{display:flex;gap:10px;align-items:center;}
+.nav-btn{background:transparent;border:1px solid var(--border);color:var(--muted);padding:7px 16px;border-radius:8px;font-family:'Manrope',sans-serif;font-size:0.82rem;font-weight:600;cursor:pointer;}
+.nav-btn.primary{background:var(--orange);border-color:var(--orange);color:#fff;}
+
+/* SEARCH HEADER */
+.search-header{background:var(--navy2);border-bottom:1px solid var(--border);padding:24px 5%;}
+.search-title{font-size:1.1rem;font-weight:700;margin-bottom:16px;}
+.search-bar{display:flex;gap:10px;flex-wrap:wrap;}
+.search-input-wrap{flex:1;min-width:200px;position:relative;}
+.search-input-wrap input{width:100%;background:var(--navy);border:1px solid var(--border);border-radius:10px;padding:12px 14px 12px 40px;color:var(--white);font-family:'Manrope',sans-serif;font-size:0.9rem;outline:none;transition:border-color 0.2s;}
+.search-input-wrap input:focus{border-color:var(--orange);}
+.search-input-wrap input::placeholder{color:#3a5070;}
+.search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:1rem;color:var(--muted);}
+.search-btn{background:var(--orange);color:#fff;border:none;padding:12px 24px;border-radius:10px;font-family:'Manrope',sans-serif;font-weight:700;font-size:0.9rem;cursor:pointer;white-space:nowrap;}
+
+/* URGENCIAS BANNER */
+.urgencias-banner{background:linear-gradient(135deg,#7f1d1d,#991b1b);border:1px solid #ef444433;border-radius:12px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;margin:20px 5% 0;flex-wrap:wrap;gap:10px;}
+.urgencias-left{display:flex;align-items:center;gap:12px;}
+.urgencias-dot{width:10px;height:10px;border-radius:50%;background:var(--urgent);box-shadow:0 0 8px #ef4444;animation:pulse 1.5s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+.urgencias-text{font-size:0.88rem;font-weight:700;}
+.urgencias-sub{font-size:0.75rem;color:#fca5a5;margin-top:2px;}
+.urgencias-btn{background:var(--urgent);color:#fff;border:none;padding:8px 18px;border-radius:8px;font-family:'Manrope',sans-serif;font-weight:700;font-size:0.82rem;cursor:pointer;white-space:nowrap;}
+
+/* CATEGORIAS */
+.cats-section{padding:20px 5% 0;}
+.cats-scroll{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;scrollbar-width:none;}
+.cats-scroll::-webkit-scrollbar{display:none;}
+.cat{display:flex;align-items:center;gap:6px;padding:8px 14px;background:var(--navy2);border:1px solid var(--border);border-radius:20px;font-size:0.8rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:all 0.15s;color:var(--muted);}
+.cat:hover,.cat.active{background:rgba(232,114,26,0.1);border-color:var(--orange);color:var(--orange);}
+.cat.star{border-color:#f59e0b33;color:#f59e0b;}
+.cat.star:hover,.cat.star.active{background:rgba(245,158,11,0.1);border-color:#f59e0b;}
+
+/* FILTERS + RESULTS */
+.main{display:flex;gap:20px;padding:20px 5% 40px;}
+.filters{width:220px;flex-shrink:0;}
+.filter-card{background:var(--navy2);border:1px solid var(--border);border-radius:14px;padding:18px;margin-bottom:14px;}
+.filter-title{font-size:0.72rem;font-weight:700;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:14px;}
+.filter-option{display:flex;align-items:center;gap:10px;margin-bottom:10px;cursor:pointer;}
+.filter-option input{accent-color:var(--orange);width:15px;height:15px;}
+.filter-option label{font-size:0.82rem;color:var(--muted);cursor:pointer;}
+.filter-option input:checked+label{color:var(--white);}
+.range-label{display:flex;justify-content:space-between;font-size:0.75rem;color:var(--muted);margin-bottom:6px;}
+input[type=range]{width:100%;accent-color:var(--orange);}
+
+/* RESULTS */
+.results{flex:1;min-width:0;}
+.results-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px;}
+.results-count{font-size:0.85rem;color:var(--muted);}
+.results-count strong{color:var(--white);}
+.sort-select{background:var(--navy2);border:1px solid var(--border);color:var(--muted);padding:7px 12px;border-radius:8px;font-family:'Manrope',sans-serif;font-size:0.8rem;outline:none;cursor:pointer;}
+
+/* PRO CARDS */
+.pro-card{background:var(--navy2);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:14px;transition:border-color 0.2s,transform 0.15s;cursor:pointer;}
+.pro-card:hover{border-color:var(--orange);transform:translateY(-2px);}
+.pro-card.urgent-pro{border-color:#ef444433;}
+.pro-top{display:flex;gap:16px;align-items:flex-start;}
+.pro-avatar{width:58px;height:58px;border-radius:14px;background:var(--navy3);display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0;position:relative;}
+.pro-avatar .urgent-badge{position:absolute;top:-4px;right:-4px;width:18px;height:18px;background:var(--urgent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.6rem;border:2px solid var(--navy2);}
+.pro-info{flex:1;min-width:0;}
+.pro-name-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px;}
+.pro-name{font-weight:800;font-size:1rem;}
+.verified-seal{display:inline-flex;align-items:center;gap:4px;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);color:var(--success);padding:2px 8px;border-radius:20px;font-size:0.65rem;font-weight:700;}
+.urgent-seal{display:inline-flex;align-items:center;gap:4px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:var(--urgent);padding:2px 8px;border-radius:20px;font-size:0.65rem;font-weight:700;}
+.pro-trade{color:var(--orange);font-size:0.82rem;font-weight:600;margin-bottom:4px;}
+.pro-meta{display:flex;gap:12px;flex-wrap:wrap;}
+.pro-meta-item{font-size:0.75rem;color:var(--muted);display:flex;align-items:center;gap:4px;}
+.stars-row{display:flex;align-items:center;gap:6px;margin:10px 0 8px;}
+.stars{color:#f59e0b;font-size:0.85rem;letter-spacing:1px;}
+.rating{font-weight:700;font-size:0.9rem;}
+.reviews{color:var(--muted);font-size:0.78rem;}
+.pro-desc{font-size:0.8rem;color:var(--muted);line-height:1.5;margin-bottom:10px;}
+.pro-badges{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;}
+.pbadge{background:rgba(30,58,110,0.6);border:1px solid var(--border);color:#a0b4d0;padding:3px 10px;border-radius:20px;font-size:0.7rem;font-weight:500;}
+.pro-footer{display:flex;justify-content:space-between;align-items:center;padding-top:12px;border-top:1px solid var(--border);}
+.pro-price{font-size:0.88rem;}
+.pro-price strong{font-size:1rem;}
+.pro-price span{color:var(--muted);font-size:0.75rem;}
+.pro-actions{display:flex;gap:8px;}
+.btn-contact{background:var(--orange);color:#fff;border:none;padding:8px 18px;border-radius:8px;font-family:'Manrope',sans-serif;font-weight:700;font-size:0.82rem;cursor:pointer;}
+.btn-view{background:transparent;color:var(--muted);border:1px solid var(--border);padding:8px 14px;border-radius:8px;font-family:'Manrope',sans-serif;font-weight:600;font-size:0.82rem;cursor:pointer;}
+
+/* SOLICITUD BANNER */
+.solicitud-banner{background:linear-gradient(135deg,var(--navy2),var(--navy3));border:1px solid var(--border);border-radius:16px;padding:24px;text-align:center;margin-bottom:14px;}
+.solicitud-banner h3{font-size:1rem;font-weight:800;margin-bottom:6px;}
+.solicitud-banner p{font-size:0.82rem;color:var(--muted);margin-bottom:16px;line-height:1.5;}
+.btn-solicitud{background:var(--orange);color:#fff;border:none;padding:10px 24px;border-radius:9px;font-family:'Manrope',sans-serif;font-weight:700;font-size:0.85rem;cursor:pointer;}
+
+@media(max-width:640px){
+  .filters{display:none;}
+  .main{padding:16px 4% 40px;}
+  .urgencias-banner{margin:16px 4% 0;}
+  .cats-section{padding:16px 4% 0;}
+  .search-header{padding:16px 4%;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo" onclick="window.location.href='index.html'">
+    <div class="logo-icon">
+      <svg width="20" height="20" viewBox="0 0 40 40" fill="none">
+        <circle cx="14" cy="13" r="6" fill="white" opacity="0.6"/>
+        <circle cx="26" cy="13" r="6" fill="white"/>
+        <path d="M4 34 C4 27 8.5 23 14 23 C17 23 19.5 24.5 21 26.5 C22.5 24.5 25 23 28 23 C33.5 23 37 27 37 34" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <span class="logo-name">Obra<span>dos</span></span>
+  </div>
+  <div class="nav-right">
+    <button class="nav-btn">Iniciar sesión</button>
+    <button class="nav-btn primary" onclick="window.location.href='registro.html'">Soy profesional</button>
+  </div>
+</nav>
+
+<!-- SEARCH HEADER -->
+<div class="search-header">
+  <div class="search-title">🔍 ¿Qué profesional necesitas?</div>
+  <div class="search-bar">
+    <div class="search-input-wrap">
+      <span class="search-icon">🔨</span>
+      <input type="text" placeholder="Fontanero, electricista, albañil...">
+    </div>
+    <div class="search-input-wrap" style="max-width:200px">
+      <span class="search-icon">📍</span>
+      <input type="text" placeholder="Ciudad o código postal">
+    </div>
+    <button class="search-btn">Buscar</button>
+  </div>
+</div>
+
+<!-- URGENCIAS -->
+<div class="urgencias-banner">
+  <div class="urgencias-left">
+    <div class="urgencias-dot"></div>
+    <div>
+      <div class="urgencias-text">⚡ Super Urgencias — Respuesta en menos de 30 min</div>
+      <div class="urgencias-sub">3 profesionales disponibles ahora mismo en tu zona</div>
+    </div>
+  </div>
+  <button class="urgencias-btn">Ver urgencias →</button>
+</div>
+
+<!-- CATEGORIAS -->
+<div class="cats-section">
+  <div class="cats-scroll">
+    <div class="cat active" onclick="filterCat(this)">Todos</div>
+    <div class="cat star" onclick="filterCat(this)">⭐ Manitas / Multioficio</div>
+    <div class="cat" onclick="filterCat(this)">🧱 Albañilería</div>
+    <div class="cat" onclick="filterCat(this)">⚡ Electricidad</div>
+    <div class="cat" onclick="filterCat(this)">🔧 Fontanería</div>
+    <div class="cat" onclick="filterCat(this)">🎨 Pintura</div>
+    <div class="cat" onclick="filterCat(this)">🪚 Carpintería</div>
+    <div class="cat" onclick="filterCat(this)">🚪 Carp. aluminio</div>
+    <div class="cat" onclick="filterCat(this)">❄️ Climatización</div>
+    <div class="cat" onclick="filterCat(this)">📐 PYL</div>
+    <div class="cat" onclick="filterCat(this)">🔑 Cerrajería</div>
+    <div class="cat" onclick="filterCat(this)">🛋️ Diseño interior</div>
+    <div class="cat" onclick="filterCat(this)">🏠 Reformas</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- FILTERS -->
+  <div class="filters">
+    <div class="filter-card">
+      <div class="filter-title">Verificación</div>
+      <div class="filter-option"><input type="checkbox" id="f1" checked><label for="f1">✅ Verificados</label></div>
+      <div class="filter-option"><input type="checkbox" id="f2"><label for="f2">⏳ Pendiente verificación</label></div>
+    </div>
+    <div class="filter-card">
+      <div class="filter-title">Disponibilidad</div>
+      <div class="filter-option"><input type="checkbox" id="f3"><label for="f3">⚡ Urgencias 30min</label></div>
+      <div class="filter-option"><input type="checkbox" id="f4"><label for="f4">🕐 Responde en 1h</label></div>
+      <div class="filter-option"><input type="checkbox" id="f5"><label for="f5">📅 Disponible hoy</label></div>
+    </div>
+    <div class="filter-card">
+      <div class="filter-title">Valoración mínima</div>
+      <div class="range-label"><span>⭐ 3.0</span><span id="rating-val">4.5</span></div>
+      <input type="range" min="3" max="5" step="0.1" value="4.5" oninput="document.getElementById('rating-val').textContent=this.value">
+    </div>
+    <div class="filter-card">
+      <div class="filter-title">Precio por hora</div>
+      <div class="range-label"><span>15€</span><span id="price-val">50€</span></div>
+      <input type="range" min="15" max="100" step="5" value="50" oninput="document.getElementById('price-val').textContent=this.value+'€'">
+    </div>
+    <div class="filter-card">
+      <div class="filter-title">Experiencia</div>
+      <div class="filter-option"><input type="radio" name="exp" id="e1" checked><label for="e1">Cualquiera</label></div>
+      <div class="filter-option"><input type="radio" name="exp" id="e2"><label for="e2">+2 años</label></div>
+      <div class="filter-option"><input type="radio" name="exp" id="e3"><label for="e3">+5 años</label></div>
+      <div class="filter-option"><input type="radio" name="exp" id="e4"><label for="e4">+10 años</label></div>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="results">
+    <div class="results-header">
+      <div class="results-count"><strong>24 profesionales</strong> encontrados cerca de ti</div>
+      <select class="sort-select">
+        <option>Mejor valorados</option>
+        <option>Más cercanos</option>
+        <option>Precio: menor a mayor</option>
+        <option>Más rápidos</option>
+      </select>
+    </div>
+
+    <!-- SOLICITUD BANNER -->
+    <div class="solicitud-banner">
+      <h3>¿Prefieres que los profesionales te contacten a ti?</h3>
+      <p>Publica tu trabajo con fotos y presupuesto aproximado. Los profesionales interesados te enviarán su oferta.</p>
+      <button class="btn-solicitud">📋 Publicar mi solicitud</button>
+    </div>
+
+    <!-- CARD 1 - URGENTE -->
+    <div class="pro-card urgent-pro">
+      <div class="pro-top">
+        <div class="pro-avatar">👷<div class="urgent-badge">⚡</div></div>
+        <div class="pro-info">
+          <div class="pro-name-row">
+            <span class="pro-name">Carlos Martínez</span>
+            <span class="verified-seal">✓ 98% verificado</span>
+            <span class="urgent-seal">⚡ Urgencias</span>
+          </div>
+          <div class="pro-trade">Albañil · Reformas integrales</div>
+          <div class="pro-meta">
+            <span class="pro-meta-item">📍 Madrid · 2.3 km</span>
+            <span class="pro-meta-item">🏗️ 127 trabajos</span>
+            <span class="pro-meta-item">⏱ 8 años exp.</span>
+          </div>
+        </div>
+      </div>
+      <div class="stars-row">
+        <span class="stars">★★★★★</span>
+        <span class="rating">4.9</span>
+        <span class="reviews">(87 valoraciones con foto)</span>
+      </div>
+      <div class="pro-desc">Especialista en reformas integrales y albañilería general. Presupuesto gratuito en menos de 24h. Disponible para urgencias.</div>
+      <div class="pro-badges">
+        <span class="pbadge">Puntual</span>
+        <span class="pbadge">Sin sorpresas</span>
+        <span class="pbadge">Limpio</span>
+        <span class="pbadge">100 trabajos ✓</span>
+      </div>
+      <div class="pro-footer">
+        <div class="pro-price">Desde <strong>25€</strong>/h <span>· Presupuesto gratuito</span></div>
+        <div class="pro-actions">
+          <button class="btn-view">Ver perfil</button>
+          <button class="btn-contact">Contactar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 2 -->
+    <div class="pro-card">
+      <div class="pro-top">
+        <div class="pro-avatar">⚡</div>
+        <div class="pro-info">
+          <div class="pro-name-row">
+            <span class="pro-name">Marta López</span>
+            <span class="verified-seal">✓ 100% verificado</span>
+          </div>
+          <div class="pro-trade">Electricista · Instalaciones</div>
+          <div class="pro-meta">
+            <span class="pro-meta-item">📍 Barcelona · 1.1 km</span>
+            <span class="pro-meta-item">🏗️ 93 trabajos</span>
+            <span class="pro-meta-item">⏱ 6 años exp.</span>
+          </div>
+        </div>
+      </div>
+      <div class="stars-row">
+        <span class="stars">★★★★★</span>
+        <span class="rating">4.8</span>
+        <span class="reviews">(64 valoraciones con foto)</span>
+      </div>
+      <div class="pro-desc">Instalaciones eléctricas industriales y domésticas. Certificada y al corriente de normativa vigente.</div>
+      <div class="pro-badges">
+        <span class="pbadge">Certificada</span>
+        <span class="pbadge">Rápida</span>
+        <span class="pbadge">Transparente</span>
+        <span class="pbadge">Responde en 1h</span>
+      </div>
+      <div class="pro-footer">
+        <div class="pro-price">Desde <strong>30€</strong>/h <span>· Presupuesto gratuito</span></div>
+        <div class="pro-actions">
+          <button class="btn-view">Ver perfil</button>
+          <button class="btn-contact">Contactar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 3 - MANITAS -->
+    <div class="pro-card">
+      <div class="pro-top">
+        <div class="pro-avatar">🔨</div>
+        <div class="pro-info">
+          <div class="pro-name-row">
+            <span class="pro-name">Roberto Sánchez</span>
+            <span class="verified-seal">✓ 95% verificado</span>
+          </div>
+          <div class="pro-trade">⭐ Manitas · Multioficio · Arreglos rápidos</div>
+          <div class="pro-meta">
+            <span class="pro-meta-item">📍 Valencia · 0.8 km</span>
+            <span class="pro-meta-item">🏗️ 204 trabajos</span>
+            <span class="pro-meta-item">⏱ 12 años exp.</span>
+          </div>
+        </div>
+      </div>
+      <div class="stars-row">
+        <span class="stars">★★★★★</span>
+        <span class="rating">4.9</span>
+        <span class="reviews">(112 valoraciones con foto)</span>
+      </div>
+      <div class="pro-desc">Arreglos del hogar, pequeñas reformas y todo tipo de reparaciones. Precio fijo para trabajos pequeños.</div>
+      <div class="pro-badges">
+        <span class="pbadge">Precio fijo arreglos</span>
+        <span class="pbadge">Disponible 24h</span>
+        <span class="pbadge">Rápido</span>
+      </div>
+      <div class="pro-footer">
+        <div class="pro-price">Desde <strong>20€</strong>/h <span>· Arreglos desde 35€ fijo</span></div>
+        <div class="pro-actions">
+          <button class="btn-view">Ver perfil</button>
+          <button class="btn-contact">Contactar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 4 -->
+    <div class="pro-card">
+      <div class="pro-top">
+        <div class="pro-avatar">🔧</div>
+        <div class="pro-info">
+          <div class="pro-name-row">
+            <span class="pro-name">José Ruiz</span>
+            <span class="verified-seal">✓ 97% verificado</span>
+            <span class="urgent-seal">⚡ Urgencias</span>
+          </div>
+          <div class="pro-trade">Fontanero · Urgencias 24h</div>
+          <div class="pro-meta">
+            <span class="pro-meta-item">📍 Sevilla · 3.2 km</span>
+            <span class="pro-meta-item">🏗️ 189 trabajos</span>
+            <span class="pro-meta-item">⏱ 15 años exp.</span>
+          </div>
+        </div>
+      </div>
+      <div class="stars-row">
+        <span class="stars">★★★★★</span>
+        <span class="rating">4.7</span>
+        <span class="reviews">(98 valoraciones con foto)</span>
+      </div>
+      <div class="pro-desc">Fontanería general, instalaciones y urgencias. Disponible todos los días. Tarifa urgencia visible desde el primer momento.</div>
+      <div class="pro-badges">
+        <span class="pbadge">Disponible 24h</span>
+        <span class="pbadge">Precio claro</span>
+        <span class="pbadge">Sin sorpresas</span>
+      </div>
+      <div class="pro-footer">
+        <div class="pro-price">Desde <strong>28€</strong>/h <span>· Urgencia: 45€/h</span></div>
+        <div class="pro-actions">
+          <button class="btn-view">Ver perfil</button>
+          <button class="btn-contact">Contactar</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function filterCat(el) {
+  document.querySelectorAll('.cat').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+}
+</script>
+</body>
+</html>
