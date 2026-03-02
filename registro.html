@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Obrados — Registro Profesional</title>
+<title>Obrados — Registro</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -15,7 +15,7 @@
 body{font-family:'Manrope',sans-serif;background:var(--navy);color:var(--white);min-height:100vh;display:flex;flex-direction:column;}
 
 nav{padding:0 5%;height:64px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.06);}
-.logo{display:inline-flex;align-items:center;gap:10px;}
+.logo{display:inline-flex;align-items:center;gap:10px;cursor:pointer;}
 .logo-icon{width:34px;height:34px;border-radius:8px;background:var(--orange);display:flex;align-items:center;justify-content:center;}
 .logo-name{font-size:1.2rem;font-weight:800;letter-spacing:-0.04em;color:var(--orange);}
 .logo-name span{color:var(--white);}
@@ -24,6 +24,22 @@ nav{padding:0 5%;height:64px;display:flex;align-items:center;justify-content:spa
 
 .wrapper{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 20px;}
 .card{background:var(--navy2);border:1px solid var(--border);border-radius:20px;padding:36px;width:100%;max-width:460px;}
+
+/* SELECTOR TIPO */
+.type-selector{margin-bottom:0;}
+.type-title{font-size:1.25rem;font-weight:800;margin-bottom:8px;text-align:center;}
+.type-sub{font-size:0.83rem;color:var(--muted);margin-bottom:24px;line-height:1.5;text-align:center;}
+.type-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;}
+.type-card{background:var(--input-bg);border:2px solid var(--border);border-radius:14px;padding:24px 16px;text-align:center;cursor:pointer;transition:all 0.2s;}
+.type-card:hover{border-color:var(--orange);background:rgba(232,114,26,0.05);}
+.type-card.selected{border-color:var(--orange);background:rgba(232,114,26,0.1);}
+.type-card-icon{font-size:2.2rem;margin-bottom:10px;}
+.type-card-name{font-size:0.95rem;font-weight:800;margin-bottom:4px;}
+.type-card-desc{font-size:0.72rem;color:var(--muted);line-height:1.4;}
+.type-card.selected .type-card-desc{color:rgba(232,114,26,0.8);}
+.btn-type{width:100%;background:var(--orange);color:#fff;border:none;padding:13px;border-radius:10px;font-family:'Manrope',sans-serif;font-weight:700;font-size:0.92rem;cursor:pointer;transition:background 0.2s;opacity:0.4;pointer-events:none;}
+.btn-type.active{opacity:1;pointer-events:all;}
+.btn-type:hover{background:#cf6315;}
 
 /* PROGRESS */
 .progress{display:flex;align-items:flex-start;margin-bottom:32px;}
@@ -101,7 +117,7 @@ nav{padding:0 5%;height:64px;display:flex;align-items:center;justify-content:spa
 <body>
 
 <nav>
-  <div class="logo">
+  <div class="logo" onclick="window.location.href='index.html'">
     <div class="logo-icon">
       <svg width="20" height="20" viewBox="0 0 40 40" fill="none">
         <circle cx="14" cy="13" r="6" fill="white" opacity="0.6"/>
@@ -117,162 +133,330 @@ nav{padding:0 5%;height:64px;display:flex;align-items:center;justify-content:spa
 <div class="wrapper">
   <div class="card">
 
-    <div class="progress">
-      <div class="step-dot"><div class="dot active" id="dot1">1</div><div class="step-label active" id="lbl1">Tu cuenta</div></div>
-      <div class="progress-line" id="line1"></div>
-      <div class="step-dot"><div class="dot" id="dot2">2</div><div class="step-label" id="lbl2">Tu perfil</div></div>
-      <div class="progress-line" id="line2"></div>
-      <div class="step-dot"><div class="dot" id="dot3">3</div><div class="step-label" id="lbl3">Documentación</div></div>
-    </div>
-
-    <!-- PASO 1 -->
-    <div id="paso1">
-      <div class="form-title">Crea tu cuenta</div>
-      <div class="form-sub">Empieza gratis. Sin cuotas hasta que empieces a recibir clientes.</div>
-      <div class="field">
-        <label>Correo electrónico</label>
-        <input type="email" id="email" placeholder="tu@email.com">
-        <div class="err" id="err-email">Introduce un email válido</div>
-      </div>
-      <div class="field">
-        <label>Contraseña</label>
-        <div class="password-wrap">
-          <input type="password" id="pw" placeholder="Mínimo 8 caracteres">
-          <button class="toggle-pw" onclick="togglePw('pw')">👁</button>
+    <!-- SELECTOR TIPO -->
+    <div id="tipoSelector">
+      <div class="type-title">¿Cómo quieres usar Obrados?</div>
+      <div class="type-sub">Selecciona tu perfil para personalizar tu experiencia.</div>
+      <div class="type-cards">
+        <div class="type-card" id="card-cliente" onclick="seleccionarTipo('cliente')">
+          <div class="type-card-icon">🏠</div>
+          <div class="type-card-name">Soy cliente</div>
+          <div class="type-card-desc">Busco profesionales para mis obras y reformas</div>
         </div>
-        <div class="hint">Mínimo 8 caracteres</div>
-        <div class="err" id="err-pw">Mínimo 8 caracteres</div>
-      </div>
-      <div class="field">
-        <label>Confirmar contraseña</label>
-        <div class="password-wrap">
-          <input type="password" id="pw2" placeholder="Repite tu contraseña">
-          <button class="toggle-pw" onclick="togglePw('pw2')">👁</button>
+        <div class="type-card" id="card-profesional" onclick="seleccionarTipo('profesional')">
+          <div class="type-card-icon">👷</div>
+          <div class="type-card-name">Soy profesional</div>
+          <div class="type-card-desc">Ofrezco mis servicios y quiero conseguir clientes</div>
         </div>
-        <div class="err" id="err-pw2">Las contraseñas no coinciden</div>
       </div>
-      <div class="terms">
-        <input type="checkbox" id="terms">
-        <label for="terms">Acepto los <span>Términos y condiciones</span> y la <span>Política de privacidad</span> de Obrados</label>
-      </div>
-      <button class="btn-next" onclick="irPaso2()">Continuar →</button>
+      <button class="btn-type" id="btnTipo" onclick="irARegistro()">Continuar →</button>
       <div class="login-link">¿Ya tienes cuenta? <span>Iniciar sesión</span></div>
     </div>
 
-    <!-- PASO 2 -->
-    <div id="paso2" style="display:none">
-      <div class="form-title">Cuéntanos sobre ti</div>
-      <div class="form-sub">Esta información aparecerá en tu perfil público.</div>
-      <div class="field-row">
-        <div class="field"><label>Nombre</label><input type="text" id="nombre" placeholder="Carlos"></div>
-        <div class="field"><label>Apellidos</label><input type="text" id="apellidos" placeholder="Martínez"></div>
-      </div>
-      <div class="field">
-        <label>Teléfono</label>
-        <input type="tel" id="telefono" placeholder="+34 600 000 000">
-        <div class="err" id="err-tel">Introduce un teléfono válido</div>
-      </div>
-      <div class="field">
-        <label>Ciudad donde trabajas</label>
-        <input type="text" id="ciudad" placeholder="Madrid, Barcelona...">
-        <div class="err" id="err-ciudad">Introduce tu ciudad</div>
-      </div>
-      <div class="field">
-        <label>Tu especialidad</label>
-        <div class="oficio-grid">
-          <div class="oficio-btn" onclick="selectOficio(this,'Albañilería')"><span class="oficio-icon">🧱</span><span class="oficio-label">Albañilería</span></div>
-          <div class="oficio-btn" onclick="selectOficio(this,'Electricidad')"><span class="oficio-icon">⚡</span><span class="oficio-label">Electricidad</span></div>
-          <div class="oficio-btn" onclick="selectOficio(this,'Fontanería')"><span class="oficio-icon">🔧</span><span class="oficio-label">Fontanería</span></div>
-          <div class="oficio-btn" onclick="selectOficio(this,'Pintura')"><span class="oficio-icon">🎨</span><span class="oficio-label">Pintura</span></div>
-          <div class="oficio-btn" onclick="selectOficio(this,'Carpintería')"><span class="oficio-icon">🪚</span><span class="oficio-label">Carpintería</span></div>
-          <div class="oficio-btn" onclick="selectOficio(this,'Climatización')"><span class="oficio-icon">❄️</span><span class="oficio-label">Climatización</span></div>
-          <div class="oficio-btn" onclick="selectOficio(this,'Reformas')"><span class="oficio-icon">🏠</span><span class="oficio-label">Reformas</span></div>
-          <div class="oficio-btn" onclick="selectOficio(this,'Soldadura')"><span class="oficio-icon">🔩</span><span class="oficio-label">Soldadura</span></div>
-          <div class="oficio-btn" onclick="selectOficio(this,'Otro')"><span class="oficio-icon">➕</span><span class="oficio-label">Otro</span></div>
+    <!-- ===== REGISTRO CLIENTE ===== -->
+    <div id="registroCliente" style="display:none">
+
+      <!-- Paso 1 Cliente -->
+      <div id="c-paso1">
+        <div class="progress">
+          <div class="step-dot"><div class="dot active" id="cdot1">1</div><div class="step-label active" id="clbl1">Tu cuenta</div></div>
+          <div class="progress-line" id="cline1"></div>
+          <div class="step-dot"><div class="dot" id="cdot2">2</div><div class="step-label" id="clbl2">Tu perfil</div></div>
         </div>
-        <div class="err" id="err-oficio">Selecciona tu especialidad</div>
+        <div class="form-title">Crea tu cuenta</div>
+        <div class="form-sub">Empieza gratis y encuentra profesionales verificados cerca de ti.</div>
+        <div class="field">
+          <label>Correo electrónico</label>
+          <input type="email" id="c-email" placeholder="tu@email.com">
+          <div class="err" id="err-c-email">Introduce un email válido</div>
+        </div>
+        <div class="field">
+          <label>Contraseña</label>
+          <div class="password-wrap">
+            <input type="password" id="c-pw" placeholder="Mínimo 8 caracteres">
+            <button class="toggle-pw" onclick="togglePw('c-pw')">👁</button>
+          </div>
+          <div class="hint">Mínimo 8 caracteres</div>
+          <div class="err" id="err-c-pw">Mínimo 8 caracteres</div>
+        </div>
+        <div class="field">
+          <label>Confirmar contraseña</label>
+          <div class="password-wrap">
+            <input type="password" id="c-pw2" placeholder="Repite tu contraseña">
+            <button class="toggle-pw" onclick="togglePw('c-pw2')">👁</button>
+          </div>
+          <div class="err" id="err-c-pw2">Las contraseñas no coinciden</div>
+        </div>
+        <div class="terms">
+          <input type="checkbox" id="c-terms">
+          <label for="c-terms">Acepto los <span>Términos y condiciones</span> y la <span>Política de privacidad</span> de Obrados</label>
+        </div>
+        <button class="btn-back" onclick="volverSelector()">← Cambiar perfil</button>
+        <button class="btn-next" onclick="cIrPaso2()">Continuar →</button>
+        <div class="login-link">¿Ya tienes cuenta? <span>Iniciar sesión</span></div>
       </div>
-      <button class="btn-back" onclick="irPaso1()">← Volver</button>
-      <button class="btn-next" onclick="irPaso3()">Continuar →</button>
+
+      <!-- Paso 2 Cliente -->
+      <div id="c-paso2" style="display:none">
+        <div class="progress">
+          <div class="step-dot"><div class="dot done" id="cdot1b">✓</div><div class="step-label" id="clbl1b">Tu cuenta</div></div>
+          <div class="progress-line done"></div>
+          <div class="step-dot"><div class="dot active" id="cdot2b">2</div><div class="step-label active" id="clbl2b">Tu perfil</div></div>
+        </div>
+        <div class="form-title">Cuéntanos sobre ti</div>
+        <div class="form-sub">Para mostrarte profesionales cerca de ti.</div>
+        <div class="field-row">
+          <div class="field"><label>Nombre</label><input type="text" id="c-nombre" placeholder="Ana"></div>
+          <div class="field"><label>Apellidos</label><input type="text" id="c-apellidos" placeholder="García"></div>
+        </div>
+        <div class="field">
+          <label>Teléfono</label>
+          <input type="tel" id="c-telefono" placeholder="+34 600 000 000">
+          <div class="err" id="err-c-tel">Introduce un teléfono válido</div>
+        </div>
+        <div class="field">
+          <label>Ciudad</label>
+          <input type="text" id="c-ciudad" placeholder="Madrid, Barcelona...">
+          <div class="err" id="err-c-ciudad">Introduce tu ciudad</div>
+        </div>
+        <button class="btn-back" onclick="cVolver1()">← Volver</button>
+        <button class="btn-next" onclick="cFinalizar()">Crear cuenta →</button>
+      </div>
+
+      <!-- Éxito cliente -->
+      <div id="c-exito" style="display:none">
+        <div class="success">
+          <div class="success-icon">🎉</div>
+          <h2>¡Bienvenido a Obrados!</h2>
+          <p>Tu cuenta está lista. Ya puedes buscar profesionales verificados cerca de ti.</p>
+          <div class="steps-pending">
+            <p>✅ <strong>Encuentra profesionales</strong> en tu zona</p>
+            <p>📋 <strong>Publica solicitudes</strong> y recibe ofertas</p>
+            <p>⭐ <strong>Valora</strong> a los profesionales después del trabajo</p>
+          </div>
+          <button class="btn-next" onclick="window.location.href='buscar.html'">Buscar profesionales →</button>
+        </div>
+      </div>
+
     </div>
 
-    <!-- PASO 3 -->
-    <div id="paso3" style="display:none">
-      <div class="form-title">Verificación de documentos</div>
-      <div class="form-sub">Revisamos tu documentación para garantizar la confianza de los clientes. Tu perfil será visible mientras verificamos.</div>
+    <!-- ===== REGISTRO PROFESIONAL ===== -->
+    <div id="registroProfesional" style="display:none">
 
-      <div class="doc-info">
-        <p>📋 Necesitamos los siguientes documentos en formato <strong>PDF o imagen</strong>. Deben estar en vigor y ser legibles.</p>
+      <div class="progress">
+        <div class="step-dot"><div class="dot active" id="dot1">1</div><div class="step-label active" id="lbl1">Tu cuenta</div></div>
+        <div class="progress-line" id="line1"></div>
+        <div class="step-dot"><div class="dot" id="dot2">2</div><div class="step-label" id="lbl2">Tu perfil</div></div>
+        <div class="progress-line" id="line2"></div>
+        <div class="step-dot"><div class="dot" id="dot3">3</div><div class="step-label" id="lbl3">Documentación</div></div>
       </div>
 
-      <div class="field">
-        <label>DNI o NIE</label>
-        <div class="upload-area" id="up1" onclick="triggerUpload('file1')">
-          <input type="file" id="file1" accept=".pdf,.jpg,.jpeg,.png" onchange="fileUploaded('up1','done1',this)">
-          <div class="upload-icon">🪪</div>
-          <div class="upload-title">Subir DNI o NIE</div>
-          <div class="upload-sub">Ambas caras en una imagen o PDF</div>
-          <div class="upload-done" id="done1">✓ Documento subido</div>
+      <!-- PASO 1 -->
+      <div id="paso1">
+        <div class="form-title">Crea tu cuenta</div>
+        <div class="form-sub">Empieza gratis. Sin cuotas hasta que empieces a recibir clientes.</div>
+        <div class="field">
+          <label>Correo electrónico</label>
+          <input type="email" id="email" placeholder="tu@email.com">
+          <div class="err" id="err-email">Introduce un email válido</div>
         </div>
-        <div class="err" id="err-doc1">Sube tu DNI o NIE</div>
-      </div>
-
-      <div class="field">
-        <label>Seguro de responsabilidad civil</label>
-        <div class="upload-area" id="up2" onclick="triggerUpload('file2')">
-          <input type="file" id="file2" accept=".pdf,.jpg,.jpeg,.png" onchange="fileUploaded('up2','done2',this)">
-          <div class="upload-icon">🛡️</div>
-          <div class="upload-title">Certificado de responsabilidad civil</div>
-          <div class="upload-sub">Debe estar en vigor · Mínimo 50.000€ de cobertura</div>
-          <div class="upload-done" id="done2">✓ Documento subido</div>
+        <div class="field">
+          <label>Contraseña</label>
+          <div class="password-wrap">
+            <input type="password" id="pw" placeholder="Mínimo 8 caracteres">
+            <button class="toggle-pw" onclick="togglePw('pw')">👁</button>
+          </div>
+          <div class="hint">Mínimo 8 caracteres</div>
+          <div class="err" id="err-pw">Mínimo 8 caracteres</div>
         </div>
-        <div class="err" id="err-doc2">Sube tu seguro de responsabilidad civil</div>
-      </div>
-
-      <div class="field">
-        <label>Última cuota de autónomo</label>
-        <div class="upload-area" id="up3" onclick="triggerUpload('file3')">
-          <input type="file" id="file3" accept=".pdf,.jpg,.jpeg,.png" onchange="fileUploaded('up3','done3',this)">
-          <div class="upload-icon">📄</div>
-          <div class="upload-title">Recibo de autónomo</div>
-          <div class="upload-sub">Últimos 2 meses · Emitido por la Seguridad Social</div>
-          <div class="upload-done" id="done3">✓ Documento subido</div>
+        <div class="field">
+          <label>Confirmar contraseña</label>
+          <div class="password-wrap">
+            <input type="password" id="pw2" placeholder="Repite tu contraseña">
+            <button class="toggle-pw" onclick="togglePw('pw2')">👁</button>
+          </div>
+          <div class="err" id="err-pw2">Las contraseñas no coinciden</div>
         </div>
-        <div class="err" id="err-doc3">Sube tu última cuota de autónomo</div>
-      </div>
-
-      <button class="btn-back" onclick="irPaso2()">← Volver</button>
-      <button class="btn-next" onclick="finalizar()">Enviar documentación</button>
-    </div>
-
-    <!-- ÉXITO -->
-    <div id="exito" style="display:none">
-      <div class="success">
-        <div class="success-icon">🎉</div>
-        <h2>¡Perfil creado!</h2>
-        <div class="badge-pending">⏳ Verificación en proceso</div>
-        <p>Hemos recibido tu documentación. La revisaremos en un plazo máximo de <strong>24-48 horas</strong>.</p>
-        <div class="steps-pending">
-          <p>✅ <strong>Tu perfil ya es visible</strong> para los clientes</p>
-          <p>⏳ <strong>Badge de verificado</strong> — pendiente de revisión</p>
-          <p>📧 <strong>Te avisaremos por email</strong> cuando se apruebe</p>
+        <div class="terms">
+          <input type="checkbox" id="terms">
+          <label for="terms">Acepto los <span>Términos y condiciones</span> y la <span>Política de privacidad</span> de Obrados</label>
         </div>
-        <button class="btn-next">Ir a mi perfil →</button>
+        <button class="btn-back" onclick="volverSelector()">← Cambiar perfil</button>
+        <button class="btn-next" onclick="irPaso2()">Continuar →</button>
+        <div class="login-link">¿Ya tienes cuenta? <span>Iniciar sesión</span></div>
       </div>
+
+      <!-- PASO 2 -->
+      <div id="paso2" style="display:none">
+        <div class="form-title">Cuéntanos sobre ti</div>
+        <div class="form-sub">Esta información aparecerá en tu perfil público.</div>
+        <div class="field-row">
+          <div class="field"><label>Nombre</label><input type="text" id="nombre" placeholder="Carlos"></div>
+          <div class="field"><label>Apellidos</label><input type="text" id="apellidos" placeholder="Martínez"></div>
+        </div>
+        <div class="field">
+          <label>Teléfono</label>
+          <input type="tel" id="telefono" placeholder="+34 600 000 000">
+          <div class="err" id="err-tel">Introduce un teléfono válido</div>
+        </div>
+        <div class="field">
+          <label>Ciudad donde trabajas</label>
+          <input type="text" id="ciudad" placeholder="Madrid, Barcelona...">
+          <div class="err" id="err-ciudad">Introduce tu ciudad</div>
+        </div>
+        <div class="field">
+          <label>Tu especialidad</label>
+          <div class="oficio-grid">
+            <div class="oficio-btn" onclick="selectOficio(this,'Albañilería')"><span class="oficio-icon">🧱</span><span class="oficio-label">Albañilería</span></div>
+            <div class="oficio-btn" onclick="selectOficio(this,'Electricidad')"><span class="oficio-icon">⚡</span><span class="oficio-label">Electricidad</span></div>
+            <div class="oficio-btn" onclick="selectOficio(this,'Fontanería')"><span class="oficio-icon">🔧</span><span class="oficio-label">Fontanería</span></div>
+            <div class="oficio-btn" onclick="selectOficio(this,'Pintura')"><span class="oficio-icon">🎨</span><span class="oficio-label">Pintura</span></div>
+            <div class="oficio-btn" onclick="selectOficio(this,'Carpintería')"><span class="oficio-icon">🪚</span><span class="oficio-label">Carpintería</span></div>
+            <div class="oficio-btn" onclick="selectOficio(this,'Climatización')"><span class="oficio-icon">❄️</span><span class="oficio-label">Climatización</span></div>
+            <div class="oficio-btn" onclick="selectOficio(this,'Reformas')"><span class="oficio-icon">🏠</span><span class="oficio-label">Reformas</span></div>
+            <div class="oficio-btn" onclick="selectOficio(this,'Soldadura')"><span class="oficio-icon">🔩</span><span class="oficio-label">Soldadura</span></div>
+            <div class="oficio-btn" onclick="selectOficio(this,'Otro')"><span class="oficio-icon">➕</span><span class="oficio-label">Otro</span></div>
+          </div>
+          <div class="err" id="err-oficio">Selecciona tu especialidad</div>
+        </div>
+        <button class="btn-back" onclick="irPaso1()">← Volver</button>
+        <button class="btn-next" onclick="irPaso3()">Continuar →</button>
+      </div>
+
+      <!-- PASO 3 -->
+      <div id="paso3" style="display:none">
+        <div class="form-title">Verificación de documentos</div>
+        <div class="form-sub">Revisamos tu documentación para garantizar la confianza de los clientes. Tu perfil será visible mientras verificamos.</div>
+        <div class="doc-info">
+          <p>📋 Necesitamos los siguientes documentos en formato <strong>PDF o imagen</strong>. Deben estar en vigor y ser legibles.</p>
+        </div>
+        <div class="field">
+          <label>DNI o NIE</label>
+          <div class="upload-area" id="up1" onclick="triggerUpload('file1')">
+            <input type="file" id="file1" accept=".pdf,.jpg,.jpeg,.png" onchange="fileUploaded('up1','done1',this)">
+            <div class="upload-icon">🪪</div>
+            <div class="upload-title">Subir DNI o NIE</div>
+            <div class="upload-sub">Ambas caras en una imagen o PDF</div>
+            <div class="upload-done" id="done1">✓ Documento subido</div>
+          </div>
+          <div class="err" id="err-doc1">Sube tu DNI o NIE</div>
+        </div>
+        <div class="field">
+          <label>Seguro de responsabilidad civil</label>
+          <div class="upload-area" id="up2" onclick="triggerUpload('file2')">
+            <input type="file" id="file2" accept=".pdf,.jpg,.jpeg,.png" onchange="fileUploaded('up2','done2',this)">
+            <div class="upload-icon">🛡️</div>
+            <div class="upload-title">Certificado de responsabilidad civil</div>
+            <div class="upload-sub">Debe estar en vigor · Mínimo 50.000€ de cobertura</div>
+            <div class="upload-done" id="done2">✓ Documento subido</div>
+          </div>
+          <div class="err" id="err-doc2">Sube tu seguro de responsabilidad civil</div>
+        </div>
+        <div class="field">
+          <label>Última cuota de autónomo</label>
+          <div class="upload-area" id="up3" onclick="triggerUpload('file3')">
+            <input type="file" id="file3" accept=".pdf,.jpg,.jpeg,.png" onchange="fileUploaded('up3','done3',this)">
+            <div class="upload-icon">📄</div>
+            <div class="upload-title">Recibo de autónomo</div>
+            <div class="upload-sub">Últimos 2 meses · Emitido por la Seguridad Social</div>
+            <div class="upload-done" id="done3">✓ Documento subido</div>
+          </div>
+          <div class="err" id="err-doc3">Sube tu última cuota de autónomo</div>
+        </div>
+        <button class="btn-back" onclick="irPaso2()">← Volver</button>
+        <button class="btn-next" onclick="finalizar()">Enviar documentación</button>
+      </div>
+
+      <!-- ÉXITO PROFESIONAL -->
+      <div id="exito" style="display:none">
+        <div class="success">
+          <div class="success-icon">🎉</div>
+          <h2>¡Perfil creado!</h2>
+          <div class="badge-pending">⏳ Verificación en proceso</div>
+          <p>Hemos recibido tu documentación. La revisaremos en un plazo máximo de <strong>24-48 horas</strong>.</p>
+          <div class="steps-pending">
+            <p>✅ <strong>Tu perfil ya es visible</strong> para los clientes</p>
+            <p>⏳ <strong>Badge de verificado</strong> — pendiente de revisión</p>
+            <p>📧 <strong>Te avisaremos por email</strong> cuando se apruebe</p>
+          </div>
+          <button class="btn-next" onclick="window.location.href='perfil.html'">Ir a mi perfil →</button>
+        </div>
+      </div>
+
     </div>
 
   </div>
 </div>
 
 <script>
+let tipoSeleccionado = '';
 let oficio = '';
 let uploads = {file1: false, file2: false, file3: false};
+
+function seleccionarTipo(tipo) {
+  tipoSeleccionado = tipo;
+  document.querySelectorAll('.type-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('card-' + tipo).classList.add('selected');
+  document.getElementById('btnTipo').classList.add('active');
+}
+
+function irARegistro() {
+  if (!tipoSeleccionado) return;
+  document.getElementById('tipoSelector').style.display = 'none';
+  if (tipoSeleccionado === 'cliente') {
+    document.getElementById('registroCliente').style.display = 'block';
+  } else {
+    document.getElementById('registroProfesional').style.display = 'block';
+  }
+}
+
+function volverSelector() {
+  document.getElementById('registroCliente').style.display = 'none';
+  document.getElementById('registroProfesional').style.display = 'none';
+  document.getElementById('tipoSelector').style.display = 'block';
+}
 
 function togglePw(id) {
   const i = document.getElementById(id);
   i.type = i.type === 'password' ? 'text' : 'password';
 }
 
+// ---- CLIENTE ----
+function cIrPaso2() {
+  const email = document.getElementById('c-email').value;
+  const pw = document.getElementById('c-pw').value;
+  const pw2 = document.getElementById('c-pw2').value;
+  let ok = true;
+  const eOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  showErr('err-c-email', !eOk); if(!eOk) ok=false;
+  showErr('err-c-pw', pw.length < 8); if(pw.length<8) ok=false;
+  showErr('err-c-pw2', pw !== pw2); if(pw!==pw2) ok=false;
+  if(!document.getElementById('c-terms').checked) { alert('Debes aceptar los términos'); ok=false; }
+  if(!ok) return;
+  document.getElementById('c-paso1').style.display='none';
+  document.getElementById('c-paso2').style.display='block';
+}
+
+function cVolver1() {
+  document.getElementById('c-paso2').style.display='none';
+  document.getElementById('c-paso1').style.display='block';
+}
+
+function cFinalizar() {
+  const nombre = document.getElementById('c-nombre').value;
+  const apellidos = document.getElementById('c-apellidos').value;
+  const tel = document.getElementById('c-telefono').value;
+  const ciudad = document.getElementById('c-ciudad').value;
+  let ok = true;
+  if(!nombre||!apellidos) ok=false;
+  showErr('err-c-tel', tel.length < 9); if(tel.length<9) ok=false;
+  showErr('err-c-ciudad', !ciudad); if(!ciudad) ok=false;
+  if(!ok) return;
+  document.getElementById('c-paso2').style.display='none';
+  document.getElementById('c-exito').style.display='block';
+}
+
+// ---- PROFESIONAL ----
 function selectOficio(el, nombre) {
   document.querySelectorAll('.oficio-btn').forEach(b => b.classList.remove('selected'));
   el.classList.add('selected');
@@ -280,13 +464,15 @@ function selectOficio(el, nombre) {
 }
 
 function showErr(id, show) {
-  document.getElementById(id).style.display = show ? 'block' : 'none';
+  const el = document.getElementById(id);
+  if(el) el.style.display = show ? 'block' : 'none';
 }
 
 function setStep(step) {
   [1,2,3].forEach(s => {
     const dot = document.getElementById('dot'+s);
     const lbl = document.getElementById('lbl'+s);
+    if(!dot) return;
     if(s < step) { dot.classList.remove('active'); dot.classList.add('done'); dot.textContent='✓'; lbl.classList.remove('active'); }
     else if(s === step) { dot.classList.remove('done'); dot.classList.add('active'); dot.textContent=s; lbl.classList.add('active'); }
     else { dot.classList.remove('active','done'); dot.textContent=s; lbl.classList.remove('active'); }
@@ -301,10 +487,8 @@ function irPaso2() {
   let ok = true;
   const eOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   showErr('err-email', !eOk); if(!eOk) ok=false;
-  const pOk = pw.length >= 8;
-  showErr('err-pw', !pOk); if(!pOk) ok=false;
-  const p2Ok = pw === pw2;
-  showErr('err-pw2', !p2Ok); if(!p2Ok) ok=false;
+  showErr('err-pw', pw.length < 8); if(pw.length<8) ok=false;
+  showErr('err-pw2', pw !== pw2); if(pw!==pw2) ok=false;
   if(!document.getElementById('terms').checked) { alert('Debes aceptar los términos'); ok=false; }
   if(!ok) return;
   document.getElementById('paso1').style.display='none';
@@ -334,15 +518,7 @@ function irPaso3() {
   setStep(3);
 }
 
-function irPaso2back() {
-  document.getElementById('paso3').style.display='none';
-  document.getElementById('paso2').style.display='block';
-  setStep(2);
-}
-
-function triggerUpload(id) {
-  document.getElementById(id).click();
-}
+function triggerUpload(id) { document.getElementById(id).click(); }
 
 function fileUploaded(areaId, doneId, input) {
   if(input.files.length > 0) {
