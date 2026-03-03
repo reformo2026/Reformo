@@ -9,24 +9,57 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{
   --navy:#0a2540;--navy2:#0f2d4a;--navy3:#1e3a6e;
-  --orange:#e8721a;--white:#fff;--muted:#8899bb;--border:#1a3a5e;
+  --orange:#e8721a;--orange2:#cf6315;--white:#fff;--muted:#8899bb;--border:#1a3a5e;
   --input-bg:#0d2540;--error:#ef4444;--success:#22c55e;
 }
 body{font-family:'Manrope',sans-serif;background:var(--navy);color:var(--white);min-height:100vh;display:flex;flex-direction:column;}
 
-nav{padding:0 5%;height:64px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.06);}
-.logo{display:inline-flex;align-items:center;gap:10px;cursor:pointer;}
-.logo-icon{width:34px;height:34px;border-radius:8px;background:var(--orange);display:flex;align-items:center;justify-content:center;}
-.logo-name{font-size:1.2rem;font-weight:800;letter-spacing:-0.04em;color:var(--orange);}
+/* NAV */
+nav{padding:0 5%;height:68px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.06);position:relative;}
+.logo{display:inline-flex;align-items:center;gap:10px;cursor:pointer;text-decoration:none;}
+.logo-icon{width:36px;height:36px;border-radius:9px;background:var(--orange);display:flex;align-items:center;justify-content:center;}
+.logo-name{font-size:1.3rem;font-weight:800;letter-spacing:-0.04em;color:var(--orange);}
 .logo-name span{color:var(--white);}
-.nav-login{color:var(--muted);font-size:0.85rem;cursor:pointer;}
-.nav-login span{color:var(--orange);font-weight:600;}
 
+/* HAMBURGUESA */
+.menu-btn{background:transparent;border:1px solid var(--border);color:var(--white);width:42px;height:42px;border-radius:10px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;transition:border-color 0.2s;}
+.menu-btn:hover{border-color:var(--orange);}
+.menu-btn span{display:block;width:18px;height:2px;background:var(--white);border-radius:2px;transition:all 0.3s;}
+.menu-btn.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.menu-btn.open span:nth-child(2){opacity:0;}
+.menu-btn.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+.dropdown{position:absolute;top:76px;right:5%;background:var(--navy2);border:1px solid var(--border);border-radius:16px;padding:8px;min-width:240px;z-index:200;opacity:0;visibility:hidden;transform:translateY(-8px);transition:all 0.2s;}
+.dropdown.open{opacity:1;visibility:visible;transform:translateY(0);}
+.dropdown-item{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;font-size:0.85rem;font-weight:600;color:var(--muted);cursor:pointer;transition:all 0.15s;}
+.dropdown-item:hover{background:rgba(255,255,255,0.05);color:var(--white);}
+.dropdown-item .icon{font-size:1rem;width:20px;text-align:center;}
+.dropdown-divider{height:1px;background:var(--border);margin:6px 0;}
+.dropdown-item.highlight{color:var(--orange);}
+.dropdown-item.highlight:hover{background:rgba(232,114,26,0.1);}
+
+/* MODAL LOGIN */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:999;align-items:center;justify-content:center;padding:20px;}
+.modal-overlay.open{display:flex;}
+.modal-login{background:var(--navy2);border:1px solid var(--border);border-radius:20px;padding:32px;width:100%;max-width:400px;}
+.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
+.modal-header h2{font-size:1.15rem;font-weight:800;}
+.modal-close{background:transparent;border:none;color:var(--muted);font-size:1.5rem;cursor:pointer;line-height:1;}
+.modal-close:hover{color:var(--white);}
+.modal-sub{color:var(--muted);font-size:0.82rem;margin-bottom:22px;}
+.modal-login label{display:block;font-size:0.72rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;margin-top:16px;}
+.modal-login input{width:100%;background:var(--navy);border:1px solid var(--border);border-radius:10px;padding:11px 14px;color:var(--white);font-family:'Manrope',sans-serif;font-size:0.88rem;outline:none;transition:border-color 0.2s;}
+.modal-login input:focus{border-color:var(--orange);}
+.modal-login input::placeholder{color:#3a5070;}
+.modal-forgot{text-align:right;font-size:0.75rem;color:var(--orange);cursor:pointer;margin-top:6px;}
+.btn-login-modal{width:100%;background:var(--orange);color:#fff;border:none;padding:13px;border-radius:10px;font-family:'Manrope',sans-serif;font-weight:700;font-size:0.92rem;cursor:pointer;margin-top:20px;}
+.modal-register-link{text-align:center;margin-top:16px;font-size:0.8rem;color:var(--muted);}
+.modal-register-link span{color:var(--orange);font-weight:600;cursor:pointer;}
+
+/* FORM CARD */
 .wrapper{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 20px;}
 .card{background:var(--navy2);border:1px solid var(--border);border-radius:20px;padding:36px;width:100%;max-width:460px;}
 
-/* SELECTOR TIPO */
-.type-selector{margin-bottom:0;}
 .type-title{font-size:1.25rem;font-weight:800;margin-bottom:8px;text-align:center;}
 .type-sub{font-size:0.83rem;color:var(--muted);margin-bottom:24px;line-height:1.5;text-align:center;}
 .type-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;}
@@ -39,9 +72,7 @@ nav{padding:0 5%;height:64px;display:flex;align-items:center;justify-content:spa
 .type-card.selected .type-card-desc{color:rgba(232,114,26,0.8);}
 .btn-type{width:100%;background:var(--orange);color:#fff;border:none;padding:13px;border-radius:10px;font-family:'Manrope',sans-serif;font-weight:700;font-size:0.92rem;cursor:pointer;transition:background 0.2s;opacity:0.4;pointer-events:none;}
 .btn-type.active{opacity:1;pointer-events:all;}
-.btn-type:hover{background:#cf6315;}
 
-/* PROGRESS */
 .progress{display:flex;align-items:flex-start;margin-bottom:32px;}
 .step-dot{display:flex;flex-direction:column;align-items:center;gap:6px;flex:0 0 auto;}
 .dot{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.82rem;border:2px solid var(--border);color:var(--muted);transition:all 0.3s;flex-shrink:0;}
@@ -67,7 +98,6 @@ nav{padding:0 5%;height:64px;display:flex;align-items:center;justify-content:spa
 .hint{font-size:0.7rem;color:var(--muted);margin-top:4px;}
 .err{font-size:0.7rem;color:var(--error);margin-top:4px;display:none;}
 
-/* OFICIO */
 .oficio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
 .oficio-btn{background:var(--input-bg);border:1px solid var(--border);border-radius:10px;padding:10px 6px;text-align:center;cursor:pointer;transition:all 0.15s;}
 .oficio-btn:hover{border-color:var(--orange);}
@@ -76,7 +106,6 @@ nav{padding:0 5%;height:64px;display:flex;align-items:center;justify-content:spa
 .oficio-label{font-size:0.68rem;font-weight:600;color:var(--muted);}
 .oficio-btn.selected .oficio-label{color:var(--orange);}
 
-/* UPLOAD */
 .upload-area{border:2px dashed var(--border);border-radius:12px;padding:20px;text-align:center;cursor:pointer;transition:border-color 0.2s;position:relative;margin-top:6px;}
 .upload-area:hover{border-color:var(--orange);}
 .upload-area.uploaded{border-color:var(--success);background:rgba(34,197,94,0.05);}
@@ -89,18 +118,15 @@ nav{padding:0 5%;height:64px;display:flex;align-items:center;justify-content:spa
 .doc-info p{font-size:0.75rem;color:var(--muted);line-height:1.6;}
 .doc-info strong{color:var(--white);}
 
-/* TERMS */
 .terms{display:flex;align-items:flex-start;gap:10px;margin-bottom:18px;}
 .terms input{width:16px;height:16px;margin-top:2px;accent-color:var(--orange);flex-shrink:0;}
 .terms label{font-size:0.76rem;color:var(--muted);line-height:1.5;cursor:pointer;}
 .terms label span{color:var(--orange);}
 
 .btn-next{width:100%;background:var(--orange);color:#fff;border:none;padding:13px;border-radius:10px;font-family:'Manrope',sans-serif;font-weight:700;font-size:0.92rem;cursor:pointer;transition:background 0.2s;margin-top:4px;}
-.btn-next:hover{background:#cf6315;}
-.btn-back{width:100%;background:transparent;color:var(--muted);border:1px solid var(--border);padding:11px;border-radius:10px;font-family:'Manrope',sans-serif;font-weight:600;font-size:0.85rem;cursor:pointer;margin-bottom:10px;transition:border-color 0.2s;}
-.btn-back:hover{border-color:var(--muted);}
+.btn-next:hover{background:var(--orange2);}
+.btn-back{width:100%;background:transparent;color:var(--muted);border:1px solid var(--border);padding:11px;border-radius:10px;font-family:'Manrope',sans-serif;font-weight:600;font-size:0.85rem;cursor:pointer;margin-bottom:10px;}
 
-/* SUCCESS */
 .success{text-align:center;padding:16px 0;}
 .success-icon{font-size:3rem;margin-bottom:14px;}
 .success h2{font-size:1.3rem;font-weight:800;margin-bottom:10px;}
@@ -117,17 +143,30 @@ nav{padding:0 5%;height:64px;display:flex;align-items:center;justify-content:spa
 <body>
 
 <nav>
-  <div class="logo" onclick="window.location.href='index.html'">
+  <a class="logo" href="index.html">
     <div class="logo-icon">
-      <svg width="20" height="20" viewBox="0 0 40 40" fill="none">
+      <svg width="22" height="22" viewBox="0 0 40 40" fill="none">
         <circle cx="14" cy="13" r="6" fill="white" opacity="0.6"/>
         <circle cx="26" cy="13" r="6" fill="white"/>
         <path d="M4 34 C4 27 8.5 23 14 23 C17 23 19.5 24.5 21 26.5 C22.5 24.5 25 23 28 23 C33.5 23 37 27 37 34" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
       </svg>
     </div>
     <span class="logo-name">Obra<span>dos</span></span>
+  </a>
+  <button class="menu-btn" id="menuBtn" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="dropdown" id="dropdown">
+    <div class="dropdown-item highlight" onclick="abrirLogin()"><span class="icon">🔑</span> Iniciar sesión</div>
+    <div class="dropdown-divider"></div>
+    <div class="dropdown-item" onclick="window.location.href='index.html';cerrarMenu()"><span class="icon">💡</span> Cómo funciona</div>
+    <div class="dropdown-item" onclick="seleccionarTipo('profesional');cerrarMenu()"><span class="icon">👷</span> Para profesionales</div>
+    <div class="dropdown-item" onclick="window.location.href='buscar.html';cerrarMenu()"><span class="icon">🏠</span> Para clientes</div>
+    <div class="dropdown-item"><span class="icon">📝</span> Blog / Consejos</div>
+    <div class="dropdown-divider"></div>
+    <div class="dropdown-item"><span class="icon">✉️</span> Contacto</div>
+    <div class="dropdown-item"><span class="icon">❓</span> Preguntas frecuentes</div>
   </div>
-  <div class="nav-login">¿Ya tienes cuenta? <span>Iniciar sesión</span></div>
 </nav>
 
 <div class="wrapper">
@@ -150,58 +189,32 @@ nav{padding:0 5%;height:64px;display:flex;align-items:center;justify-content:spa
         </div>
       </div>
       <button class="btn-type" id="btnTipo" onclick="irARegistro()">Continuar →</button>
-      <div class="login-link">¿Ya tienes cuenta? <span>Iniciar sesión</span></div>
+      <div class="login-link">¿Ya tienes cuenta? <span onclick="abrirLogin()">Iniciar sesión</span></div>
     </div>
 
-    <!-- ===== REGISTRO CLIENTE ===== -->
+    <!-- REGISTRO CLIENTE -->
     <div id="registroCliente" style="display:none">
-
-      <!-- Paso 1 Cliente -->
       <div id="c-paso1">
         <div class="progress">
-          <div class="step-dot"><div class="dot active" id="cdot1">1</div><div class="step-label active" id="clbl1">Tu cuenta</div></div>
+          <div class="step-dot"><div class="dot active" id="cdot1">1</div><div class="step-label active">Tu cuenta</div></div>
           <div class="progress-line" id="cline1"></div>
-          <div class="step-dot"><div class="dot" id="cdot2">2</div><div class="step-label" id="clbl2">Tu perfil</div></div>
+          <div class="step-dot"><div class="dot" id="cdot2">2</div><div class="step-label">Tu perfil</div></div>
         </div>
         <div class="form-title">Crea tu cuenta</div>
         <div class="form-sub">Empieza gratis y encuentra profesionales verificados cerca de ti.</div>
-        <div class="field">
-          <label>Correo electrónico</label>
-          <input type="email" id="c-email" placeholder="tu@email.com">
-          <div class="err" id="err-c-email">Introduce un email válido</div>
-        </div>
-        <div class="field">
-          <label>Contraseña</label>
-          <div class="password-wrap">
-            <input type="password" id="c-pw" placeholder="Mínimo 8 caracteres">
-            <button class="toggle-pw" onclick="togglePw('c-pw')">👁</button>
-          </div>
-          <div class="hint">Mínimo 8 caracteres</div>
-          <div class="err" id="err-c-pw">Mínimo 8 caracteres</div>
-        </div>
-        <div class="field">
-          <label>Confirmar contraseña</label>
-          <div class="password-wrap">
-            <input type="password" id="c-pw2" placeholder="Repite tu contraseña">
-            <button class="toggle-pw" onclick="togglePw('c-pw2')">👁</button>
-          </div>
-          <div class="err" id="err-c-pw2">Las contraseñas no coinciden</div>
-        </div>
-        <div class="terms">
-          <input type="checkbox" id="c-terms">
-          <label for="c-terms">Acepto los <span>Términos y condiciones</span> y la <span>Política de privacidad</span> de Obrados</label>
-        </div>
+        <div class="field"><label>Correo electrónico</label><input type="email" id="c-email" placeholder="tu@email.com"><div class="err" id="err-c-email">Introduce un email válido</div></div>
+        <div class="field"><label>Contraseña</label><div class="password-wrap"><input type="password" id="c-pw" placeholder="Mínimo 8 caracteres"><button class="toggle-pw" onclick="togglePw('c-pw')">👁</button></div><div class="hint">Mínimo 8 caracteres</div><div class="err" id="err-c-pw">Mínimo 8 caracteres</div></div>
+        <div class="field"><label>Confirmar contraseña</label><div class="password-wrap"><input type="password" id="c-pw2" placeholder="Repite tu contraseña"><button class="toggle-pw" onclick="togglePw('c-pw2')">👁</button></div><div class="err" id="err-c-pw2">Las contraseñas no coinciden</div></div>
+        <div class="terms"><input type="checkbox" id="c-terms"><label for="c-terms">Acepto los <span>Términos y condiciones</span> y la <span>Política de privacidad</span> de Obrados</label></div>
         <button class="btn-back" onclick="volverSelector()">← Cambiar perfil</button>
         <button class="btn-next" onclick="cIrPaso2()">Continuar →</button>
-        <div class="login-link">¿Ya tienes cuenta? <span>Iniciar sesión</span></div>
+        <div class="login-link">¿Ya tienes cuenta? <span onclick="abrirLogin()">Iniciar sesión</span></div>
       </div>
-
-      <!-- Paso 2 Cliente -->
       <div id="c-paso2" style="display:none">
         <div class="progress">
-          <div class="step-dot"><div class="dot done" id="cdot1b">✓</div><div class="step-label" id="clbl1b">Tu cuenta</div></div>
+          <div class="step-dot"><div class="dot done">✓</div><div class="step-label">Tu cuenta</div></div>
           <div class="progress-line done"></div>
-          <div class="step-dot"><div class="dot active" id="cdot2b">2</div><div class="step-label active" id="clbl2b">Tu perfil</div></div>
+          <div class="step-dot"><div class="dot active">2</div><div class="step-label active">Tu perfil</div></div>
         </div>
         <div class="form-title">Cuéntanos sobre ti</div>
         <div class="form-sub">Para mostrarte profesionales cerca de ti.</div>
@@ -209,21 +222,11 @@ nav{padding:0 5%;height:64px;display:flex;align-items:center;justify-content:spa
           <div class="field"><label>Nombre</label><input type="text" id="c-nombre" placeholder="Ana"></div>
           <div class="field"><label>Apellidos</label><input type="text" id="c-apellidos" placeholder="García"></div>
         </div>
-        <div class="field">
-          <label>Teléfono</label>
-          <input type="tel" id="c-telefono" placeholder="+34 600 000 000">
-          <div class="err" id="err-c-tel">Introduce un teléfono válido</div>
-        </div>
-        <div class="field">
-          <label>Ciudad</label>
-          <input type="text" id="c-ciudad" placeholder="Madrid, Barcelona...">
-          <div class="err" id="err-c-ciudad">Introduce tu ciudad</div>
-        </div>
+        <div class="field"><label>Teléfono</label><input type="tel" id="c-telefono" placeholder="+34 600 000 000"><div class="err" id="err-c-tel">Introduce un teléfono válido</div></div>
+        <div class="field"><label>Ciudad</label><input type="text" id="c-ciudad" placeholder="Madrid, Barcelona..."><div class="err" id="err-c-ciudad">Introduce tu ciudad</div></div>
         <button class="btn-back" onclick="cVolver1()">← Volver</button>
         <button class="btn-next" onclick="cFinalizar()">Crear cuenta →</button>
       </div>
-
-      <!-- Éxito cliente -->
       <div id="c-exito" style="display:none">
         <div class="success">
           <div class="success-icon">🎉</div>
@@ -237,56 +240,28 @@ nav{padding:0 5%;height:64px;display:flex;align-items:center;justify-content:spa
           <button class="btn-next" onclick="window.location.href='buscar.html'">Buscar profesionales →</button>
         </div>
       </div>
-
     </div>
 
-    <!-- ===== REGISTRO PROFESIONAL ===== -->
+    <!-- REGISTRO PROFESIONAL -->
     <div id="registroProfesional" style="display:none">
-
-      <div class="progress">
-        <div class="step-dot"><div class="dot active" id="dot1">1</div><div class="step-label active" id="lbl1">Tu cuenta</div></div>
-        <div class="progress-line" id="line1"></div>
-        <div class="step-dot"><div class="dot" id="dot2">2</div><div class="step-label" id="lbl2">Tu perfil</div></div>
-        <div class="progress-line" id="line2"></div>
-        <div class="step-dot"><div class="dot" id="dot3">3</div><div class="step-label" id="lbl3">Documentación</div></div>
-      </div>
-
-      <!-- PASO 1 -->
       <div id="paso1">
+        <div class="progress">
+          <div class="step-dot"><div class="dot active" id="dot1">1</div><div class="step-label active" id="lbl1">Tu cuenta</div></div>
+          <div class="progress-line" id="line1"></div>
+          <div class="step-dot"><div class="dot" id="dot2">2</div><div class="step-label" id="lbl2">Tu perfil</div></div>
+          <div class="progress-line" id="line2"></div>
+          <div class="step-dot"><div class="dot" id="dot3">3</div><div class="step-label" id="lbl3">Documentación</div></div>
+        </div>
         <div class="form-title">Crea tu cuenta</div>
         <div class="form-sub">Empieza gratis. Sin cuotas hasta que empieces a recibir clientes.</div>
-        <div class="field">
-          <label>Correo electrónico</label>
-          <input type="email" id="email" placeholder="tu@email.com">
-          <div class="err" id="err-email">Introduce un email válido</div>
-        </div>
-        <div class="field">
-          <label>Contraseña</label>
-          <div class="password-wrap">
-            <input type="password" id="pw" placeholder="Mínimo 8 caracteres">
-            <button class="toggle-pw" onclick="togglePw('pw')">👁</button>
-          </div>
-          <div class="hint">Mínimo 8 caracteres</div>
-          <div class="err" id="err-pw">Mínimo 8 caracteres</div>
-        </div>
-        <div class="field">
-          <label>Confirmar contraseña</label>
-          <div class="password-wrap">
-            <input type="password" id="pw2" placeholder="Repite tu contraseña">
-            <button class="toggle-pw" onclick="togglePw('pw2')">👁</button>
-          </div>
-          <div class="err" id="err-pw2">Las contraseñas no coinciden</div>
-        </div>
-        <div class="terms">
-          <input type="checkbox" id="terms">
-          <label for="terms">Acepto los <span>Términos y condiciones</span> y la <span>Política de privacidad</span> de Obrados</label>
-        </div>
+        <div class="field"><label>Correo electrónico</label><input type="email" id="email" placeholder="tu@email.com"><div class="err" id="err-email">Introduce un email válido</div></div>
+        <div class="field"><label>Contraseña</label><div class="password-wrap"><input type="password" id="pw" placeholder="Mínimo 8 caracteres"><button class="toggle-pw" onclick="togglePw('pw')">👁</button></div><div class="hint">Mínimo 8 caracteres</div><div class="err" id="err-pw">Mínimo 8 caracteres</div></div>
+        <div class="field"><label>Confirmar contraseña</label><div class="password-wrap"><input type="password" id="pw2" placeholder="Repite tu contraseña"><button class="toggle-pw" onclick="togglePw('pw2')">👁</button></div><div class="err" id="err-pw2">Las contraseñas no coinciden</div></div>
+        <div class="terms"><input type="checkbox" id="terms"><label for="terms">Acepto los <span>Términos y condiciones</span> y la <span>Política de privacidad</span> de Obrados</label></div>
         <button class="btn-back" onclick="volverSelector()">← Cambiar perfil</button>
         <button class="btn-next" onclick="irPaso2()">Continuar →</button>
-        <div class="login-link">¿Ya tienes cuenta? <span>Iniciar sesión</span></div>
+        <div class="login-link">¿Ya tienes cuenta? <span onclick="abrirLogin()">Iniciar sesión</span></div>
       </div>
-
-      <!-- PASO 2 -->
       <div id="paso2" style="display:none">
         <div class="form-title">Cuéntanos sobre ti</div>
         <div class="form-sub">Esta información aparecerá en tu perfil público.</div>
@@ -294,16 +269,8 @@ nav{padding:0 5%;height:64px;display:flex;align-items:center;justify-content:spa
           <div class="field"><label>Nombre</label><input type="text" id="nombre" placeholder="Carlos"></div>
           <div class="field"><label>Apellidos</label><input type="text" id="apellidos" placeholder="Martínez"></div>
         </div>
-        <div class="field">
-          <label>Teléfono</label>
-          <input type="tel" id="telefono" placeholder="+34 600 000 000">
-          <div class="err" id="err-tel">Introduce un teléfono válido</div>
-        </div>
-        <div class="field">
-          <label>Ciudad donde trabajas</label>
-          <input type="text" id="ciudad" placeholder="Madrid, Barcelona...">
-          <div class="err" id="err-ciudad">Introduce tu ciudad</div>
-        </div>
+        <div class="field"><label>Teléfono</label><input type="tel" id="telefono" placeholder="+34 600 000 000"><div class="err" id="err-tel">Introduce un teléfono válido</div></div>
+        <div class="field"><label>Ciudad donde trabajas</label><input type="text" id="ciudad" placeholder="Madrid, Barcelona..."><div class="err" id="err-ciudad">Introduce tu ciudad</div></div>
         <div class="field">
           <label>Tu especialidad</label>
           <div class="oficio-grid">
@@ -322,14 +289,10 @@ nav{padding:0 5%;height:64px;display:flex;align-items:center;justify-content:spa
         <button class="btn-back" onclick="irPaso1()">← Volver</button>
         <button class="btn-next" onclick="irPaso3()">Continuar →</button>
       </div>
-
-      <!-- PASO 3 -->
       <div id="paso3" style="display:none">
         <div class="form-title">Verificación de documentos</div>
         <div class="form-sub">Revisamos tu documentación para garantizar la confianza de los clientes. Tu perfil será visible mientras verificamos.</div>
-        <div class="doc-info">
-          <p>📋 Necesitamos los siguientes documentos en formato <strong>PDF o imagen</strong>. Deben estar en vigor y ser legibles.</p>
-        </div>
+        <div class="doc-info"><p>📋 Necesitamos los siguientes documentos en formato <strong>PDF o imagen</strong>. Deben estar en vigor y ser legibles.</p></div>
         <div class="field">
           <label>DNI o NIE</label>
           <div class="upload-area" id="up1" onclick="triggerUpload('file1')">
@@ -366,8 +329,6 @@ nav{padding:0 5%;height:64px;display:flex;align-items:center;justify-content:spa
         <button class="btn-back" onclick="irPaso2()">← Volver</button>
         <button class="btn-next" onclick="finalizar()">Enviar documentación</button>
       </div>
-
-      <!-- ÉXITO PROFESIONAL -->
       <div id="exito" style="display:none">
         <div class="success">
           <div class="success-icon">🎉</div>
@@ -382,162 +343,135 @@ nav{padding:0 5%;height:64px;display:flex;align-items:center;justify-content:spa
           <button class="btn-next" onclick="window.location.href='perfil.html'">Ir a mi perfil →</button>
         </div>
       </div>
-
     </div>
 
   </div>
 </div>
 
-<script>
-let tipoSeleccionado = '';
-let oficio = '';
-let uploads = {file1: false, file2: false, file3: false};
+<!-- MODAL LOGIN -->
+<div class="modal-overlay" id="loginModal" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal-login">
+    <div class="modal-header">
+      <h2>Iniciar sesión</h2>
+      <button class="modal-close" onclick="document.getElementById('loginModal').classList.remove('open')">×</button>
+    </div>
+    <p class="modal-sub">Bienvenido de nuevo a Obrados.</p>
+    <label for="login-email">Correo electrónico</label>
+    <input type="email" id="login-email" placeholder="tu@email.com">
+    <label for="login-pw">Contraseña</label>
+    <input type="password" id="login-pw" placeholder="Tu contraseña">
+    <div class="modal-forgot">¿Olvidaste tu contraseña?</div>
+    <button class="btn-login-modal">Entrar</button>
+    <div class="modal-register-link">¿No tienes cuenta? <span onclick="document.getElementById('loginModal').classList.remove('open')">Regístrate gratis</span></div>
+  </div>
+</div>
 
-function seleccionarTipo(tipo) {
-  tipoSeleccionado = tipo;
-  document.querySelectorAll('.type-card').forEach(c => c.classList.remove('selected'));
-  document.getElementById('card-' + tipo).classList.add('selected');
+<script>
+let tipoSeleccionado='';let oficio='';let uploads={file1:false,file2:false,file3:false};
+
+function toggleMenu(){document.getElementById('menuBtn').classList.toggle('open');document.getElementById('dropdown').classList.toggle('open');}
+function cerrarMenu(){document.getElementById('menuBtn').classList.remove('open');document.getElementById('dropdown').classList.remove('open');}
+function abrirLogin(){cerrarMenu();document.getElementById('loginModal').classList.add('open');}
+document.addEventListener('click',e=>{
+  const btn=document.getElementById('menuBtn');const dd=document.getElementById('dropdown');
+  if(!btn.contains(e.target)&&!dd.contains(e.target))cerrarMenu();
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){cerrarMenu();document.getElementById('loginModal').classList.remove('open');}});
+
+// Leer parámetro URL
+const params=new URLSearchParams(window.location.search);
+if(params.get('tipo')==='profesional'){seleccionarTipo('profesional');}
+else if(params.get('tipo')==='cliente'){seleccionarTipo('cliente');}
+
+function seleccionarTipo(tipo){
+  tipoSeleccionado=tipo;
+  document.querySelectorAll('.type-card').forEach(c=>c.classList.remove('selected'));
+  document.getElementById('card-'+tipo).classList.add('selected');
   document.getElementById('btnTipo').classList.add('active');
 }
+function irARegistro(){
+  if(!tipoSeleccionado)return;
+  document.getElementById('tipoSelector').style.display='none';
+  document.getElementById(tipoSeleccionado==='cliente'?'registroCliente':'registroProfesional').style.display='block';
+}
+function volverSelector(){
+  document.getElementById('registroCliente').style.display='none';
+  document.getElementById('registroProfesional').style.display='none';
+  document.getElementById('tipoSelector').style.display='block';
+}
+function togglePw(id){const i=document.getElementById(id);i.type=i.type==='password'?'text':'password';}
+function showErr(id,show){const el=document.getElementById(id);if(el)el.style.display=show?'block':'none';}
 
-function irARegistro() {
-  if (!tipoSeleccionado) return;
-  document.getElementById('tipoSelector').style.display = 'none';
-  if (tipoSeleccionado === 'cliente') {
-    document.getElementById('registroCliente').style.display = 'block';
-  } else {
-    document.getElementById('registroProfesional').style.display = 'block';
-  }
+// CLIENTE
+function cIrPaso2(){
+  const email=document.getElementById('c-email').value;const pw=document.getElementById('c-pw').value;const pw2=document.getElementById('c-pw2').value;
+  let ok=true;const eOk=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  showErr('err-c-email',!eOk);if(!eOk)ok=false;
+  showErr('err-c-pw',pw.length<8);if(pw.length<8)ok=false;
+  showErr('err-c-pw2',pw!==pw2);if(pw!==pw2)ok=false;
+  if(!document.getElementById('c-terms').checked){alert('Debes aceptar los términos');ok=false;}
+  if(!ok)return;
+  document.getElementById('c-paso1').style.display='none';document.getElementById('c-paso2').style.display='block';
+}
+function cVolver1(){document.getElementById('c-paso2').style.display='none';document.getElementById('c-paso1').style.display='block';}
+function cFinalizar(){
+  const nombre=document.getElementById('c-nombre').value;const apellidos=document.getElementById('c-apellidos').value;
+  const tel=document.getElementById('c-telefono').value;const ciudad=document.getElementById('c-ciudad').value;
+  let ok=true;if(!nombre||!apellidos)ok=false;
+  showErr('err-c-tel',tel.length<9);if(tel.length<9)ok=false;
+  showErr('err-c-ciudad',!ciudad);if(!ciudad)ok=false;
+  if(!ok)return;
+  document.getElementById('c-paso2').style.display='none';document.getElementById('c-exito').style.display='block';
 }
 
-function volverSelector() {
-  document.getElementById('registroCliente').style.display = 'none';
-  document.getElementById('registroProfesional').style.display = 'none';
-  document.getElementById('tipoSelector').style.display = 'block';
-}
-
-function togglePw(id) {
-  const i = document.getElementById(id);
-  i.type = i.type === 'password' ? 'text' : 'password';
-}
-
-// ---- CLIENTE ----
-function cIrPaso2() {
-  const email = document.getElementById('c-email').value;
-  const pw = document.getElementById('c-pw').value;
-  const pw2 = document.getElementById('c-pw2').value;
-  let ok = true;
-  const eOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  showErr('err-c-email', !eOk); if(!eOk) ok=false;
-  showErr('err-c-pw', pw.length < 8); if(pw.length<8) ok=false;
-  showErr('err-c-pw2', pw !== pw2); if(pw!==pw2) ok=false;
-  if(!document.getElementById('c-terms').checked) { alert('Debes aceptar los términos'); ok=false; }
-  if(!ok) return;
-  document.getElementById('c-paso1').style.display='none';
-  document.getElementById('c-paso2').style.display='block';
-}
-
-function cVolver1() {
-  document.getElementById('c-paso2').style.display='none';
-  document.getElementById('c-paso1').style.display='block';
-}
-
-function cFinalizar() {
-  const nombre = document.getElementById('c-nombre').value;
-  const apellidos = document.getElementById('c-apellidos').value;
-  const tel = document.getElementById('c-telefono').value;
-  const ciudad = document.getElementById('c-ciudad').value;
-  let ok = true;
-  if(!nombre||!apellidos) ok=false;
-  showErr('err-c-tel', tel.length < 9); if(tel.length<9) ok=false;
-  showErr('err-c-ciudad', !ciudad); if(!ciudad) ok=false;
-  if(!ok) return;
-  document.getElementById('c-paso2').style.display='none';
-  document.getElementById('c-exito').style.display='block';
-}
-
-// ---- PROFESIONAL ----
-function selectOficio(el, nombre) {
-  document.querySelectorAll('.oficio-btn').forEach(b => b.classList.remove('selected'));
-  el.classList.add('selected');
-  oficio = nombre;
-}
-
-function showErr(id, show) {
-  const el = document.getElementById(id);
-  if(el) el.style.display = show ? 'block' : 'none';
-}
-
-function setStep(step) {
-  [1,2,3].forEach(s => {
-    const dot = document.getElementById('dot'+s);
-    const lbl = document.getElementById('lbl'+s);
-    if(!dot) return;
-    if(s < step) { dot.classList.remove('active'); dot.classList.add('done'); dot.textContent='✓'; lbl.classList.remove('active'); }
-    else if(s === step) { dot.classList.remove('done'); dot.classList.add('active'); dot.textContent=s; lbl.classList.add('active'); }
-    else { dot.classList.remove('active','done'); dot.textContent=s; lbl.classList.remove('active'); }
-    if(s < 3) document.getElementById('line'+s).classList.toggle('done', s < step);
+// PROFESIONAL
+function selectOficio(el,nombre){document.querySelectorAll('.oficio-btn').forEach(b=>b.classList.remove('selected'));el.classList.add('selected');oficio=nombre;}
+function setStep(step){
+  [1,2,3].forEach(s=>{
+    const dot=document.getElementById('dot'+s);const lbl=document.getElementById('lbl'+s);if(!dot)return;
+    if(s<step){dot.classList.remove('active');dot.classList.add('done');dot.textContent='✓';lbl.classList.remove('active');}
+    else if(s===step){dot.classList.remove('done');dot.classList.add('active');dot.textContent=s;lbl.classList.add('active');}
+    else{dot.classList.remove('active','done');dot.textContent=s;lbl.classList.remove('active');}
+    if(s<3)document.getElementById('line'+s).classList.toggle('done',s<step);
   });
 }
-
-function irPaso2() {
-  const email = document.getElementById('email').value;
-  const pw = document.getElementById('pw').value;
-  const pw2 = document.getElementById('pw2').value;
-  let ok = true;
-  const eOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  showErr('err-email', !eOk); if(!eOk) ok=false;
-  showErr('err-pw', pw.length < 8); if(pw.length<8) ok=false;
-  showErr('err-pw2', pw !== pw2); if(pw!==pw2) ok=false;
-  if(!document.getElementById('terms').checked) { alert('Debes aceptar los términos'); ok=false; }
-  if(!ok) return;
-  document.getElementById('paso1').style.display='none';
-  document.getElementById('paso2').style.display='block';
-  setStep(2);
+function irPaso2(){
+  const email=document.getElementById('email').value;const pw=document.getElementById('pw').value;const pw2=document.getElementById('pw2').value;
+  let ok=true;const eOk=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  showErr('err-email',!eOk);if(!eOk)ok=false;
+  showErr('err-pw',pw.length<8);if(pw.length<8)ok=false;
+  showErr('err-pw2',pw!==pw2);if(pw!==pw2)ok=false;
+  if(!document.getElementById('terms').checked){alert('Debes aceptar los términos');ok=false;}
+  if(!ok)return;
+  document.getElementById('paso1').style.display='none';document.getElementById('paso2').style.display='block';setStep(2);
 }
-
-function irPaso1() {
-  document.getElementById('paso2').style.display='none';
-  document.getElementById('paso1').style.display='block';
-  setStep(1);
+function irPaso1(){document.getElementById('paso2').style.display='none';document.getElementById('paso1').style.display='block';setStep(1);}
+function irPaso3(){
+  const nombre=document.getElementById('nombre').value;const apellidos=document.getElementById('apellidos').value;
+  const tel=document.getElementById('telefono').value;const ciudad=document.getElementById('ciudad').value;
+  let ok=true;if(!nombre||!apellidos)ok=false;
+  showErr('err-tel',tel.length<9);if(tel.length<9)ok=false;
+  showErr('err-ciudad',!ciudad);if(!ciudad)ok=false;
+  showErr('err-oficio',!oficio);if(!oficio)ok=false;
+  if(!ok)return;
+  document.getElementById('paso2').style.display='none';document.getElementById('paso3').style.display='block';setStep(3);
 }
-
-function irPaso3() {
-  const nombre = document.getElementById('nombre').value;
-  const apellidos = document.getElementById('apellidos').value;
-  const tel = document.getElementById('telefono').value;
-  const ciudad = document.getElementById('ciudad').value;
-  let ok = true;
-  if(!nombre||!apellidos) ok=false;
-  showErr('err-tel', tel.length < 9); if(tel.length<9) ok=false;
-  showErr('err-ciudad', !ciudad); if(!ciudad) ok=false;
-  showErr('err-oficio', !oficio); if(!oficio) ok=false;
-  if(!ok) return;
-  document.getElementById('paso2').style.display='none';
-  document.getElementById('paso3').style.display='block';
-  setStep(3);
-}
-
-function triggerUpload(id) { document.getElementById(id).click(); }
-
-function fileUploaded(areaId, doneId, input) {
-  if(input.files.length > 0) {
+function irPaso2Prof(){document.getElementById('paso3').style.display='none';document.getElementById('paso2').style.display='block';setStep(2);}
+function triggerUpload(id){document.getElementById(id).click();}
+function fileUploaded(areaId,doneId,input){
+  if(input.files.length>0){
     document.getElementById(areaId).classList.add('uploaded');
-    const done = document.getElementById(doneId);
-    done.style.display='block';
-    done.textContent='✓ ' + input.files[0].name;
-    uploads[input.id] = true;
+    const done=document.getElementById(doneId);done.style.display='block';done.textContent='✓ '+input.files[0].name;
+    uploads[input.id]=true;
   }
 }
-
-function finalizar() {
-  let ok = true;
-  showErr('err-doc1', !uploads.file1); if(!uploads.file1) ok=false;
-  showErr('err-doc2', !uploads.file2); if(!uploads.file2) ok=false;
-  showErr('err-doc3', !uploads.file3); if(!uploads.file3) ok=false;
-  if(!ok) return;
-  document.getElementById('paso3').style.display='none';
-  document.getElementById('exito').style.display='block';
+function finalizar(){
+  let ok=true;
+  showErr('err-doc1',!uploads.file1);if(!uploads.file1)ok=false;
+  showErr('err-doc2',!uploads.file2);if(!uploads.file2)ok=false;
+  showErr('err-doc3',!uploads.file3);if(!uploads.file3)ok=false;
+  if(!ok)return;
+  document.getElementById('paso3').style.display='none';document.getElementById('exito').style.display='block';
 }
 </script>
 </body>

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Obrados — Buscar profesional</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&display=swap');
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{
   --navy:#0a2540;--navy2:#0f2d4a;--navy3:#1e3a6e;
@@ -16,14 +16,47 @@
 body{font-family:'Manrope',sans-serif;background:var(--navy);color:var(--white);min-height:100vh;}
 
 /* NAV */
-nav{position:sticky;top:0;z-index:100;padding:0 5%;height:64px;display:flex;align-items:center;justify-content:space-between;background:rgba(10,37,64,0.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.06);}
-.logo{display:inline-flex;align-items:center;gap:10px;cursor:pointer;}
-.logo-icon{width:34px;height:34px;border-radius:8px;background:var(--orange);display:flex;align-items:center;justify-content:center;}
-.logo-name{font-size:1.2rem;font-weight:800;letter-spacing:-0.04em;color:var(--orange);}
+nav{position:sticky;top:0;z-index:100;padding:0 5%;height:68px;display:flex;align-items:center;justify-content:space-between;background:rgba(10,37,64,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.06);}
+.logo{display:inline-flex;align-items:center;gap:10px;cursor:pointer;text-decoration:none;}
+.logo-icon{width:36px;height:36px;border-radius:9px;background:var(--orange);display:flex;align-items:center;justify-content:center;}
+.logo-name{font-size:1.3rem;font-weight:800;letter-spacing:-0.04em;color:var(--orange);}
 .logo-name span{color:var(--white);}
-.nav-right{display:flex;gap:10px;align-items:center;}
-.nav-btn{background:transparent;border:1px solid var(--border);color:var(--muted);padding:7px 16px;border-radius:8px;font-family:'Manrope',sans-serif;font-size:0.82rem;font-weight:600;cursor:pointer;}
-.nav-btn.primary{background:var(--orange);border-color:var(--orange);color:#fff;}
+
+/* MENU HAMBURGUESA */
+.menu-btn{background:transparent;border:1px solid var(--border);color:var(--white);width:42px;height:42px;border-radius:10px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;transition:border-color 0.2s;}
+.menu-btn:hover{border-color:var(--orange);}
+.menu-btn span{display:block;width:18px;height:2px;background:var(--white);border-radius:2px;transition:all 0.3s;}
+.menu-btn.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.menu-btn.open span:nth-child(2){opacity:0;}
+.menu-btn.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+.dropdown{position:absolute;top:76px;right:5%;background:var(--navy2);border:1px solid var(--border);border-radius:16px;padding:8px;min-width:240px;z-index:200;opacity:0;visibility:hidden;transform:translateY(-8px);transition:all 0.2s;}
+.dropdown.open{opacity:1;visibility:visible;transform:translateY(0);}
+.dropdown-item{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;font-size:0.85rem;font-weight:600;color:var(--muted);cursor:pointer;transition:all 0.15s;}
+.dropdown-item:hover{background:rgba(255,255,255,0.05);color:var(--white);}
+.dropdown-item .icon{font-size:1rem;width:20px;text-align:center;}
+.dropdown-divider{height:1px;background:var(--border);margin:6px 0;}
+.dropdown-item.highlight{color:var(--orange);}
+.dropdown-item.highlight:hover{background:rgba(232,114,26,0.1);}
+
+/* MODAL LOGIN */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:999;align-items:center;justify-content:center;padding:20px;}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--navy2);border:1px solid var(--border);border-radius:20px;padding:32px;width:100%;max-width:400px;}
+.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
+.modal-header h2{font-size:1.15rem;font-weight:800;}
+.modal-close{background:transparent;border:none;color:var(--muted);font-size:1.5rem;cursor:pointer;line-height:1;}
+.modal-close:hover{color:var(--white);}
+.modal-sub{color:var(--muted);font-size:0.82rem;margin-bottom:22px;}
+.modal label{display:block;font-size:0.72rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;margin-top:16px;}
+.modal input{width:100%;background:var(--navy);border:1px solid var(--border);border-radius:10px;padding:11px 14px;color:var(--white);font-family:'Manrope',sans-serif;font-size:0.88rem;outline:none;transition:border-color 0.2s;}
+.modal input:focus{border-color:var(--orange);}
+.modal input::placeholder{color:#3a5070;}
+.modal-forgot{text-align:right;font-size:0.75rem;color:var(--orange);cursor:pointer;margin-top:6px;}
+.btn-login{width:100%;background:var(--orange);color:#fff;border:none;padding:13px;border-radius:10px;font-family:'Manrope',sans-serif;font-weight:700;font-size:0.92rem;cursor:pointer;margin-top:20px;}
+.btn-login:hover{background:var(--orange2);}
+.modal-register{text-align:center;margin-top:16px;font-size:0.8rem;color:var(--muted);}
+.modal-register span{color:var(--orange);font-weight:600;cursor:pointer;}
 
 /* SEARCH HEADER */
 .search-header{background:var(--navy2);border-bottom:1px solid var(--border);padding:24px 5%;}
@@ -109,20 +142,16 @@ input[type=range]{width:100%;accent-color:var(--orange);}
 .solicitud-banner p{font-size:0.82rem;color:var(--muted);margin-bottom:16px;line-height:1.5;}
 .btn-solicitud{background:var(--orange);color:#fff;border:none;padding:10px 24px;border-radius:9px;font-family:'Manrope',sans-serif;font-weight:700;font-size:0.85rem;cursor:pointer;}
 
-/* MODAL */
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:999;align-items:center;justify-content:center;padding:20px;}
-.modal-overlay.open{display:flex;}
-.modal{background:var(--navy2);border:1px solid var(--border);border-radius:20px;padding:30px;width:100%;max-width:500px;max-height:90vh;overflow-y:auto;}
-.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
-.modal-header h2{font-size:1.1rem;font-weight:800;}
-.modal-close{background:transparent;border:none;color:var(--muted);font-size:1.5rem;cursor:pointer;line-height:1;padding:0 4px;}
-.modal-close:hover{color:var(--white);}
+/* MODAL SOLICITUD */
+.modal-sol{background:var(--navy2);border:1px solid var(--border);border-radius:20px;padding:30px;width:100%;max-width:500px;max-height:90vh;overflow-y:auto;}
+.modal-sol .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
+.modal-sol .modal-header h2{font-size:1.1rem;font-weight:800;}
 .modal-subtitle{color:var(--muted);font-size:0.82rem;margin-bottom:20px;line-height:1.4;}
-.modal label{display:block;font-size:0.72rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;margin-top:18px;}
-.modal textarea,.modal input[type=text],.modal input[type=number]{width:100%;background:var(--navy);border:1px solid var(--border);border-radius:10px;padding:11px 14px;color:var(--white);font-family:'Manrope',sans-serif;font-size:0.88rem;outline:none;transition:border-color 0.2s;}
-.modal textarea{resize:vertical;min-height:90px;}
-.modal textarea:focus,.modal input:focus{border-color:var(--orange);}
-.modal textarea::placeholder,.modal input::placeholder{color:#3a5070;}
+.modal-sol label{display:block;font-size:0.72rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;margin-top:18px;}
+.modal-sol textarea,.modal-sol input[type=text],.modal-sol input[type=number]{width:100%;background:var(--navy);border:1px solid var(--border);border-radius:10px;padding:11px 14px;color:var(--white);font-family:'Manrope',sans-serif;font-size:0.88rem;outline:none;transition:border-color 0.2s;}
+.modal-sol textarea{resize:vertical;min-height:90px;}
+.modal-sol textarea:focus,.modal-sol input:focus{border-color:var(--orange);}
+.modal-sol textarea::placeholder,.modal-sol input::placeholder{color:#3a5070;}
 .upload-area{border:2px dashed var(--border);border-radius:10px;padding:22px;text-align:center;cursor:pointer;transition:border-color 0.2s,background 0.2s;color:var(--muted);font-size:0.82rem;}
 .upload-area:hover{border-color:var(--orange);background:rgba(232,114,26,0.05);color:var(--orange);}
 .upload-area .upload-icon{font-size:1.8rem;margin-bottom:6px;}
@@ -145,26 +174,35 @@ input[type=range]{width:100%;accent-color:var(--orange);}
   .urgencias-banner{margin:16px 4% 0;}
   .cats-section{padding:16px 4% 0;}
   .search-header{padding:16px 4%;}
-  .modal{padding:22px 18px;}
 }
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="logo" onclick="window.location.href='index.html'">
+  <a class="logo" href="index.html">
     <div class="logo-icon">
-      <svg width="20" height="20" viewBox="0 0 40 40" fill="none">
+      <svg width="22" height="22" viewBox="0 0 40 40" fill="none">
         <circle cx="14" cy="13" r="6" fill="white" opacity="0.6"/>
         <circle cx="26" cy="13" r="6" fill="white"/>
         <path d="M4 34 C4 27 8.5 23 14 23 C17 23 19.5 24.5 21 26.5 C22.5 24.5 25 23 28 23 C33.5 23 37 27 37 34" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
       </svg>
     </div>
     <span class="logo-name">Obra<span>dos</span></span>
-  </div>
-  <div class="nav-right">
-    <button class="nav-btn">Iniciar sesión</button>
-    <button class="nav-btn primary" onclick="window.location.href='registro.html'">Soy profesional</button>
+  </a>
+  <button class="menu-btn" id="menuBtn" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="dropdown" id="dropdown">
+    <div class="dropdown-item highlight" onclick="abrirLogin()"><span class="icon">🔑</span> Iniciar sesión</div>
+    <div class="dropdown-divider"></div>
+    <div class="dropdown-item" onclick="cerrarMenu()"><span class="icon">💡</span> Cómo funciona</div>
+    <div class="dropdown-item" onclick="window.location.href='registro.html?tipo=profesional';cerrarMenu()"><span class="icon">👷</span> Para profesionales</div>
+    <div class="dropdown-item" onclick="cerrarMenu()"><span class="icon">🏠</span> Para clientes</div>
+    <div class="dropdown-item"><span class="icon">📝</span> Blog / Consejos</div>
+    <div class="dropdown-divider"></div>
+    <div class="dropdown-item"><span class="icon">✉️</span> Contacto</div>
+    <div class="dropdown-item"><span class="icon">❓</span> Preguntas frecuentes</div>
   </div>
 </nav>
 
@@ -217,7 +255,6 @@ input[type=range]{width:100%;accent-color:var(--orange);}
 
 <!-- MAIN -->
 <div class="main">
-
   <!-- FILTERS -->
   <div class="filters">
     <div class="filter-card">
@@ -262,14 +299,12 @@ input[type=range]{width:100%;accent-color:var(--orange);}
       </select>
     </div>
 
-    <!-- SOLICITUD BANNER -->
     <div class="solicitud-banner">
       <h3>¿Prefieres que los profesionales te contacten a ti?</h3>
       <p>Publica tu trabajo con fotos y presupuesto aproximado. Los profesionales interesados te enviarán su oferta.</p>
-      <button class="btn-solicitud" onclick="abrirModal()">📋 Publicar mi solicitud</button>
+      <button class="btn-solicitud" onclick="abrirModalSol()">📋 Publicar mi solicitud</button>
     </div>
 
-    <!-- CARD 1 - URGENTE -->
     <div class="pro-card urgent-pro">
       <div class="pro-top">
         <div class="pro-avatar">👷<div class="urgent-badge">⚡</div></div>
@@ -287,18 +322,9 @@ input[type=range]{width:100%;accent-color:var(--orange);}
           </div>
         </div>
       </div>
-      <div class="stars-row">
-        <span class="stars">★★★★★</span>
-        <span class="rating">4.9</span>
-        <span class="reviews">(87 valoraciones con foto)</span>
-      </div>
+      <div class="stars-row"><span class="stars">★★★★★</span><span class="rating">4.9</span><span class="reviews">(87 valoraciones con foto)</span></div>
       <div class="pro-desc">Especialista en reformas integrales y albañilería general. Presupuesto gratuito en menos de 24h. Disponible para urgencias.</div>
-      <div class="pro-badges">
-        <span class="pbadge">Puntual</span>
-        <span class="pbadge">Sin sorpresas</span>
-        <span class="pbadge">Limpio</span>
-        <span class="pbadge">100 trabajos ✓</span>
-      </div>
+      <div class="pro-badges"><span class="pbadge">Puntual</span><span class="pbadge">Sin sorpresas</span><span class="pbadge">Limpio</span><span class="pbadge">100 trabajos ✓</span></div>
       <div class="pro-footer">
         <div class="pro-price">Desde <strong>25€</strong>/h <span>· Presupuesto gratuito</span></div>
         <div class="pro-actions">
@@ -308,15 +334,11 @@ input[type=range]{width:100%;accent-color:var(--orange);}
       </div>
     </div>
 
-    <!-- CARD 2 -->
     <div class="pro-card">
       <div class="pro-top">
         <div class="pro-avatar">⚡</div>
         <div class="pro-info">
-          <div class="pro-name-row">
-            <span class="pro-name">Marta López</span>
-            <span class="verified-seal">✓ 100% verificado</span>
-          </div>
+          <div class="pro-name-row"><span class="pro-name">Marta López</span><span class="verified-seal">✓ 100% verificado</span></div>
           <div class="pro-trade">Electricista · Instalaciones</div>
           <div class="pro-meta">
             <span class="pro-meta-item">📍 Barcelona · 1.1 km</span>
@@ -325,18 +347,9 @@ input[type=range]{width:100%;accent-color:var(--orange);}
           </div>
         </div>
       </div>
-      <div class="stars-row">
-        <span class="stars">★★★★★</span>
-        <span class="rating">4.8</span>
-        <span class="reviews">(64 valoraciones con foto)</span>
-      </div>
+      <div class="stars-row"><span class="stars">★★★★★</span><span class="rating">4.8</span><span class="reviews">(64 valoraciones con foto)</span></div>
       <div class="pro-desc">Instalaciones eléctricas industriales y domésticas. Certificada y al corriente de normativa vigente.</div>
-      <div class="pro-badges">
-        <span class="pbadge">Certificada</span>
-        <span class="pbadge">Rápida</span>
-        <span class="pbadge">Transparente</span>
-        <span class="pbadge">Responde en 1h</span>
-      </div>
+      <div class="pro-badges"><span class="pbadge">Certificada</span><span class="pbadge">Rápida</span><span class="pbadge">Transparente</span><span class="pbadge">Responde en 1h</span></div>
       <div class="pro-footer">
         <div class="pro-price">Desde <strong>30€</strong>/h <span>· Presupuesto gratuito</span></div>
         <div class="pro-actions">
@@ -346,15 +359,11 @@ input[type=range]{width:100%;accent-color:var(--orange);}
       </div>
     </div>
 
-    <!-- CARD 3 -->
     <div class="pro-card">
       <div class="pro-top">
         <div class="pro-avatar">🔨</div>
         <div class="pro-info">
-          <div class="pro-name-row">
-            <span class="pro-name">Roberto Sánchez</span>
-            <span class="verified-seal">✓ 95% verificado</span>
-          </div>
+          <div class="pro-name-row"><span class="pro-name">Roberto Sánchez</span><span class="verified-seal">✓ 95% verificado</span></div>
           <div class="pro-trade">⭐ Manitas · Multioficio · Arreglos rápidos</div>
           <div class="pro-meta">
             <span class="pro-meta-item">📍 Valencia · 0.8 km</span>
@@ -363,17 +372,9 @@ input[type=range]{width:100%;accent-color:var(--orange);}
           </div>
         </div>
       </div>
-      <div class="stars-row">
-        <span class="stars">★★★★★</span>
-        <span class="rating">4.9</span>
-        <span class="reviews">(112 valoraciones con foto)</span>
-      </div>
+      <div class="stars-row"><span class="stars">★★★★★</span><span class="rating">4.9</span><span class="reviews">(112 valoraciones con foto)</span></div>
       <div class="pro-desc">Arreglos del hogar, pequeñas reformas y todo tipo de reparaciones. Precio fijo para trabajos pequeños.</div>
-      <div class="pro-badges">
-        <span class="pbadge">Precio fijo arreglos</span>
-        <span class="pbadge">Disponible 24h</span>
-        <span class="pbadge">Rápido</span>
-      </div>
+      <div class="pro-badges"><span class="pbadge">Precio fijo arreglos</span><span class="pbadge">Disponible 24h</span><span class="pbadge">Rápido</span></div>
       <div class="pro-footer">
         <div class="pro-price">Desde <strong>20€</strong>/h <span>· Arreglos desde 35€ fijo</span></div>
         <div class="pro-actions">
@@ -383,16 +384,11 @@ input[type=range]{width:100%;accent-color:var(--orange);}
       </div>
     </div>
 
-    <!-- CARD 4 -->
     <div class="pro-card">
       <div class="pro-top">
         <div class="pro-avatar">🔧</div>
         <div class="pro-info">
-          <div class="pro-name-row">
-            <span class="pro-name">José Ruiz</span>
-            <span class="verified-seal">✓ 97% verificado</span>
-            <span class="urgent-seal">⚡ Urgencias</span>
-          </div>
+          <div class="pro-name-row"><span class="pro-name">José Ruiz</span><span class="verified-seal">✓ 97% verificado</span><span class="urgent-seal">⚡ Urgencias</span></div>
           <div class="pro-trade">Fontanero · Urgencias 24h</div>
           <div class="pro-meta">
             <span class="pro-meta-item">📍 Sevilla · 3.2 km</span>
@@ -401,17 +397,9 @@ input[type=range]{width:100%;accent-color:var(--orange);}
           </div>
         </div>
       </div>
-      <div class="stars-row">
-        <span class="stars">★★★★★</span>
-        <span class="rating">4.7</span>
-        <span class="reviews">(98 valoraciones con foto)</span>
-      </div>
+      <div class="stars-row"><span class="stars">★★★★★</span><span class="rating">4.7</span><span class="reviews">(98 valoraciones con foto)</span></div>
       <div class="pro-desc">Fontanería general, instalaciones y urgencias. Disponible todos los días. Tarifa urgencia visible desde el primer momento.</div>
-      <div class="pro-badges">
-        <span class="pbadge">Disponible 24h</span>
-        <span class="pbadge">Precio claro</span>
-        <span class="pbadge">Sin sorpresas</span>
-      </div>
+      <div class="pro-badges"><span class="pbadge">Disponible 24h</span><span class="pbadge">Precio claro</span><span class="pbadge">Sin sorpresas</span></div>
       <div class="pro-footer">
         <div class="pro-price">Desde <strong>28€</strong>/h <span>· Urgencia: 45€/h</span></div>
         <div class="pro-actions">
@@ -420,25 +408,38 @@ input[type=range]{width:100%;accent-color:var(--orange);}
         </div>
       </div>
     </div>
-
   </div>
 </div>
 
-<!-- MODAL PUBLICAR SOLICITUD -->
-<div class="modal-overlay" id="modalOverlay" onclick="cerrarModalFondo(event)">
-  <div class="modal" id="modalContent">
+<!-- MODAL LOGIN -->
+<div class="modal-overlay" id="loginModal" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Iniciar sesión</h2>
+      <button class="modal-close" onclick="document.getElementById('loginModal').classList.remove('open')">×</button>
+    </div>
+    <p class="modal-sub">Bienvenido de nuevo a Obrados.</p>
+    <label for="login-email">Correo electrónico</label>
+    <input type="email" id="login-email" placeholder="tu@email.com">
+    <label for="login-pw">Contraseña</label>
+    <input type="password" id="login-pw" placeholder="Tu contraseña">
+    <div class="modal-forgot">¿Olvidaste tu contraseña?</div>
+    <button class="btn-login">Entrar</button>
+    <div class="modal-register">¿No tienes cuenta? <span onclick="document.getElementById('loginModal').classList.remove('open');window.location.href='registro.html'">Regístrate gratis</span></div>
+  </div>
+</div>
 
-    <!-- FORMULARIO -->
+<!-- MODAL SOLICITUD -->
+<div class="modal-overlay" id="modalSol" onclick="cerrarModalFondo(event)">
+  <div class="modal-sol" id="modalSolContent">
     <div id="formView">
       <div class="modal-header">
         <h2>📋 Publicar mi solicitud</h2>
-        <button class="modal-close" onclick="cerrarModal()">×</button>
+        <button class="modal-close" onclick="cerrarModalSol()">×</button>
       </div>
       <p class="modal-subtitle">Los profesionales de tu zona verán tu solicitud y te enviarán sus ofertas.</p>
-
       <label for="descripcion">Descripción del trabajo</label>
       <textarea id="descripcion" placeholder="Describe qué necesitas: tipo de trabajo, dimensiones, materiales, plazo..."></textarea>
-
       <label>Fotos del trabajo</label>
       <div class="upload-area" onclick="document.getElementById('fotosInput').click()">
         <div class="upload-icon">📷</div>
@@ -447,80 +448,81 @@ input[type=range]{width:100%;accent-color:var(--orange);}
         <input type="file" id="fotosInput" accept="image/*" multiple onchange="previsualizarFotos(this)">
       </div>
       <div class="upload-preview" id="fotoPreview"></div>
-
       <label for="presupuesto">Presupuesto aproximado</label>
       <div class="price-row">
         <input type="number" id="presupuesto" placeholder="Ej: 500" min="0">
         <span>€ (orientativo)</span>
       </div>
-
       <label for="ubicacion">Ubicación</label>
       <input type="text" id="ubicacion" placeholder="Ciudad o código postal, ej: Madrid 28001">
-
       <button class="btn-submit" onclick="enviarSolicitud()">🚀 Publicar solicitud</button>
     </div>
-
-    <!-- ÉXITO -->
     <div id="successView" style="display:none;">
       <div class="modal-success">
         <div class="check">✅</div>
         <h3>¡Solicitud publicada!</h3>
         <p>Los profesionales verificados de tu zona ya pueden ver tu solicitud.<br>Recibirás ofertas en las próximas horas.</p>
-        <button class="btn-close-success" onclick="cerrarModal()">Volver a los resultados</button>
+        <button class="btn-close-success" onclick="cerrarModalSol()">Volver a los resultados</button>
       </div>
     </div>
-
   </div>
 </div>
 
 <script>
+function toggleMenu() {
+  document.getElementById('menuBtn').classList.toggle('open');
+  document.getElementById('dropdown').classList.toggle('open');
+}
+function cerrarMenu() {
+  document.getElementById('menuBtn').classList.remove('open');
+  document.getElementById('dropdown').classList.remove('open');
+}
+function abrirLogin() {
+  cerrarMenu();
+  document.getElementById('loginModal').classList.add('open');
+}
+document.addEventListener('click', e => {
+  const btn = document.getElementById('menuBtn');
+  const dd = document.getElementById('dropdown');
+  if (!btn.contains(e.target) && !dd.contains(e.target)) cerrarMenu();
+});
+document.addEventListener('keydown', e => {
+  if(e.key==='Escape'){cerrarMenu();document.getElementById('loginModal').classList.remove('open');cerrarModalSol();}
+});
 function filterCat(el) {
   document.querySelectorAll('.cat').forEach(c => c.classList.remove('active'));
   el.classList.add('active');
 }
-
-function abrirModal() {
-  document.getElementById('modalOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-  // Reset
-  document.getElementById('formView').style.display = 'block';
-  document.getElementById('successView').style.display = 'none';
+function abrirModalSol() {
+  document.getElementById('modalSol').classList.add('open');
+  document.body.style.overflow='hidden';
+  document.getElementById('formView').style.display='block';
+  document.getElementById('successView').style.display='none';
 }
-
-function cerrarModal() {
-  document.getElementById('modalOverlay').classList.remove('open');
-  document.body.style.overflow = '';
+function cerrarModalSol() {
+  document.getElementById('modalSol').classList.remove('open');
+  document.body.style.overflow='';
 }
-
 function cerrarModalFondo(e) {
-  if (e.target === document.getElementById('modalOverlay')) cerrarModal();
+  if(e.target===document.getElementById('modalSol')) cerrarModalSol();
 }
-
 function previsualizarFotos(input) {
   const preview = document.getElementById('fotoPreview');
-  preview.innerHTML = '';
-  const files = Array.from(input.files).slice(0, 5);
-  files.forEach(file => {
-    const reader = new FileReader();
-    reader.onload = e => {
-      const img = document.createElement('img');
-      img.src = e.target.result;
-      preview.appendChild(img);
-    };
-    reader.readAsDataURL(file);
+  preview.innerHTML='';
+  Array.from(input.files).slice(0,5).forEach(file => {
+    const r=new FileReader();
+    r.onload=e=>{const img=document.createElement('img');img.src=e.target.result;preview.appendChild(img);};
+    r.readAsDataURL(file);
   });
 }
-
 function enviarSolicitud() {
-  const desc = document.getElementById('descripcion').value.trim();
-  const ubic = document.getElementById('ubicacion').value.trim();
-  if (!desc) { alert('Por favor describe el trabajo.'); return; }
-  if (!ubic) { alert('Por favor indica tu ubicación.'); return; }
-  document.getElementById('formView').style.display = 'none';
-  document.getElementById('successView').style.display = 'block';
+  const desc=document.getElementById('descripcion').value.trim();
+  const ubic=document.getElementById('ubicacion').value.trim();
+  if(!desc){alert('Por favor describe el trabajo.');return;}
+  if(!ubic){alert('Por favor indica tu ubicación.');return;}
+  document.getElementById('formView').style.display='none';
+  document.getElementById('successView').style.display='block';
 }
-
-document.addEventListener('keydown', e => { if(e.key === 'Escape') cerrarModal(); });
 </script>
 </body>
 </html>
