@@ -20,15 +20,12 @@ nav{padding:0 5%;height:68px;display:flex;align-items:center;justify-content:spa
 .logo-icon{width:36px;height:36px;border-radius:9px;background:var(--orange);display:flex;align-items:center;justify-content:center;}
 .logo-name{font-size:1.3rem;font-weight:800;letter-spacing:-0.04em;color:var(--orange);}
 .logo-name span{color:var(--white);}
-
-/* HAMBURGUESA */
 .menu-btn{background:transparent;border:1px solid var(--border);color:var(--white);width:42px;height:42px;border-radius:10px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;transition:border-color 0.2s;}
 .menu-btn:hover{border-color:var(--orange);}
 .menu-btn span{display:block;width:18px;height:2px;background:var(--white);border-radius:2px;transition:all 0.3s;}
 .menu-btn.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
 .menu-btn.open span:nth-child(2){opacity:0;}
 .menu-btn.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
-
 .dropdown{position:absolute;top:76px;right:5%;background:var(--navy2);border:1px solid var(--border);border-radius:16px;padding:8px;min-width:240px;z-index:200;opacity:0;visibility:hidden;transform:translateY(-8px);transition:all 0.2s;}
 .dropdown.open{opacity:1;visibility:visible;transform:translateY(0);}
 .dropdown-item{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;font-size:0.85rem;font-weight:600;color:var(--muted);cursor:pointer;transition:all 0.15s;}
@@ -53,13 +50,15 @@ nav{padding:0 5%;height:68px;display:flex;align-items:center;justify-content:spa
 .modal-login input::placeholder{color:#3a5070;}
 .modal-forgot{text-align:right;font-size:0.75rem;color:var(--orange);cursor:pointer;margin-top:6px;}
 .btn-login-modal{width:100%;background:var(--orange);color:#fff;border:none;padding:13px;border-radius:10px;font-family:'Manrope',sans-serif;font-weight:700;font-size:0.92rem;cursor:pointer;margin-top:20px;}
+.btn-login-modal:hover{background:var(--orange2);}
+.btn-login-modal:disabled{opacity:0.6;cursor:not-allowed;}
 .modal-register-link{text-align:center;margin-top:16px;font-size:0.8rem;color:var(--muted);}
 .modal-register-link span{color:var(--orange);font-weight:600;cursor:pointer;}
+.modal-err{font-size:0.78rem;color:var(--error);margin-top:10px;text-align:center;display:none;}
 
 /* FORM CARD */
 .wrapper{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 20px;}
 .card{background:var(--navy2);border:1px solid var(--border);border-radius:20px;padding:36px;width:100%;max-width:460px;}
-
 .type-title{font-size:1.25rem;font-weight:800;margin-bottom:8px;text-align:center;}
 .type-sub{font-size:0.83rem;color:var(--muted);margin-bottom:24px;line-height:1.5;text-align:center;}
 .type-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;}
@@ -72,6 +71,7 @@ nav{padding:0 5%;height:68px;display:flex;align-items:center;justify-content:spa
 .type-card.selected .type-card-desc{color:rgba(232,114,26,0.8);}
 .btn-type{width:100%;background:var(--orange);color:#fff;border:none;padding:13px;border-radius:10px;font-family:'Manrope',sans-serif;font-weight:700;font-size:0.92rem;cursor:pointer;transition:background 0.2s;opacity:0.4;pointer-events:none;}
 .btn-type.active{opacity:1;pointer-events:all;}
+.btn-type:hover{background:var(--orange2);}
 
 .progress{display:flex;align-items:flex-start;margin-bottom:32px;}
 .step-dot{display:flex;flex-direction:column;align-items:center;gap:6px;flex:0 0 auto;}
@@ -85,7 +85,6 @@ nav{padding:0 5%;height:68px;display:flex;align-items:center;justify-content:spa
 
 .form-title{font-size:1.25rem;font-weight:800;margin-bottom:6px;}
 .form-sub{font-size:0.83rem;color:var(--muted);margin-bottom:24px;line-height:1.5;}
-
 .field{margin-bottom:16px;}
 .field label{display:block;font-size:0.72rem;font-weight:700;color:var(--muted);margin-bottom:6px;letter-spacing:0.08em;text-transform:uppercase;}
 .field input{width:100%;background:var(--input-bg);border:1px solid var(--border);border-radius:10px;padding:12px 14px;color:var(--white);font-family:'Manrope',sans-serif;font-size:0.9rem;outline:none;transition:border-color 0.2s;}
@@ -125,6 +124,7 @@ nav{padding:0 5%;height:68px;display:flex;align-items:center;justify-content:spa
 
 .btn-next{width:100%;background:var(--orange);color:#fff;border:none;padding:13px;border-radius:10px;font-family:'Manrope',sans-serif;font-weight:700;font-size:0.92rem;cursor:pointer;transition:background 0.2s;margin-top:4px;}
 .btn-next:hover{background:var(--orange2);}
+.btn-next:disabled{opacity:0.6;cursor:not-allowed;}
 .btn-back{width:100%;background:transparent;color:var(--muted);border:1px solid var(--border);padding:11px;border-radius:10px;font-family:'Manrope',sans-serif;font-weight:600;font-size:0.85rem;cursor:pointer;margin-bottom:10px;}
 
 .success{text-align:center;padding:16px 0;}
@@ -135,9 +135,11 @@ nav{padding:0 5%;height:68px;display:flex;align-items:center;justify-content:spa
 .steps-pending{text-align:left;background:var(--navy);border-radius:12px;padding:16px;margin-bottom:20px;}
 .steps-pending p{font-size:0.78rem;color:var(--muted);line-height:1.8;}
 .steps-pending strong{color:var(--white);}
-
 .login-link{text-align:center;margin-top:16px;font-size:0.8rem;color:var(--muted);}
 .login-link span{color:var(--orange);font-weight:600;cursor:pointer;}
+
+.loading{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite;vertical-align:middle;margin-right:6px;}
+@keyframes spin{to{transform:rotate(360deg);}}
 </style>
 </head>
 <body>
@@ -196,9 +198,9 @@ nav{padding:0 5%;height:68px;display:flex;align-items:center;justify-content:spa
     <div id="registroCliente" style="display:none">
       <div id="c-paso1">
         <div class="progress">
-          <div class="step-dot"><div class="dot active" id="cdot1">1</div><div class="step-label active">Tu cuenta</div></div>
+          <div class="step-dot"><div class="dot active">1</div><div class="step-label active">Tu cuenta</div></div>
           <div class="progress-line" id="cline1"></div>
-          <div class="step-dot"><div class="dot" id="cdot2">2</div><div class="step-label">Tu perfil</div></div>
+          <div class="step-dot"><div class="dot">2</div><div class="step-label">Tu perfil</div></div>
         </div>
         <div class="form-title">Crea tu cuenta</div>
         <div class="form-sub">Empieza gratis y encuentra profesionales verificados cerca de ti.</div>
@@ -225,7 +227,7 @@ nav{padding:0 5%;height:68px;display:flex;align-items:center;justify-content:spa
         <div class="field"><label>Teléfono</label><input type="tel" id="c-telefono" placeholder="+34 600 000 000"><div class="err" id="err-c-tel">Introduce un teléfono válido</div></div>
         <div class="field"><label>Ciudad</label><input type="text" id="c-ciudad" placeholder="Madrid, Barcelona..."><div class="err" id="err-c-ciudad">Introduce tu ciudad</div></div>
         <button class="btn-back" onclick="cVolver1()">← Volver</button>
-        <button class="btn-next" onclick="cFinalizar()">Crear cuenta →</button>
+        <button class="btn-next" id="btn-c-finalizar" onclick="cFinalizar()">Crear cuenta →</button>
       </div>
       <div id="c-exito" style="display:none">
         <div class="success">
@@ -295,7 +297,7 @@ nav{padding:0 5%;height:68px;display:flex;align-items:center;justify-content:spa
         <div class="doc-info"><p>📋 Necesitamos los siguientes documentos en formato <strong>PDF o imagen</strong>. Deben estar en vigor y ser legibles.</p></div>
         <div class="field">
           <label>DNI o NIE</label>
-          <div class="upload-area" id="up1" onclick="triggerUpload('file1')">
+          <div class="upload-area" id="up1">
             <input type="file" id="file1" accept=".pdf,.jpg,.jpeg,.png" onchange="fileUploaded('up1','done1',this)">
             <div class="upload-icon">🪪</div>
             <div class="upload-title">Subir DNI o NIE</div>
@@ -306,7 +308,7 @@ nav{padding:0 5%;height:68px;display:flex;align-items:center;justify-content:spa
         </div>
         <div class="field">
           <label>Seguro de responsabilidad civil</label>
-          <div class="upload-area" id="up2" onclick="triggerUpload('file2')">
+          <div class="upload-area" id="up2">
             <input type="file" id="file2" accept=".pdf,.jpg,.jpeg,.png" onchange="fileUploaded('up2','done2',this)">
             <div class="upload-icon">🛡️</div>
             <div class="upload-title">Certificado de responsabilidad civil</div>
@@ -317,7 +319,7 @@ nav{padding:0 5%;height:68px;display:flex;align-items:center;justify-content:spa
         </div>
         <div class="field">
           <label>Última cuota de autónomo</label>
-          <div class="upload-area" id="up3" onclick="triggerUpload('file3')">
+          <div class="upload-area" id="up3">
             <input type="file" id="file3" accept=".pdf,.jpg,.jpeg,.png" onchange="fileUploaded('up3','done3',this)">
             <div class="upload-icon">📄</div>
             <div class="upload-title">Recibo de autónomo</div>
@@ -327,7 +329,7 @@ nav{padding:0 5%;height:68px;display:flex;align-items:center;justify-content:spa
           <div class="err" id="err-doc3">Sube tu última cuota de autónomo</div>
         </div>
         <button class="btn-back" onclick="irPaso2()">← Volver</button>
-        <button class="btn-next" onclick="finalizar()">Enviar documentación</button>
+        <button class="btn-next" id="btn-finalizar" onclick="finalizar()">Enviar documentación</button>
       </div>
       <div id="exito" style="display:none">
         <div class="success">
@@ -361,117 +363,208 @@ nav{padding:0 5%;height:68px;display:flex;align-items:center;justify-content:spa
     <label for="login-pw">Contraseña</label>
     <input type="password" id="login-pw" placeholder="Tu contraseña">
     <div class="modal-forgot">¿Olvidaste tu contraseña?</div>
-    <button class="btn-login-modal">Entrar</button>
+    <button class="btn-login-modal" id="btn-login" onclick="iniciarSesion()">Entrar</button>
+    <div class="modal-err" id="modal-err"></div>
     <div class="modal-register-link">¿No tienes cuenta? <span onclick="document.getElementById('loginModal').classList.remove('open')">Regístrate gratis</span></div>
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-let tipoSeleccionado='';let oficio='';let uploads={file1:false,file2:false,file3:false};
+const { createClient } = supabase;
+const sb = createClient(
+  'https://njrgtilbbzxeiinqkjd.supabase.co',
+  'sb_publishable_txOSjdaDlwvtLCOnpoLIhA_zwf84nmf'
+);
 
+let tipoSeleccionado = '';
+let oficio = '';
+let uploads = { file1: false, file2: false, file3: false };
+
+// ── NAV ──────────────────────────────────────────────────
 function toggleMenu(){document.getElementById('menuBtn').classList.toggle('open');document.getElementById('dropdown').classList.toggle('open');}
 function cerrarMenu(){document.getElementById('menuBtn').classList.remove('open');document.getElementById('dropdown').classList.remove('open');}
 function abrirLogin(){cerrarMenu();document.getElementById('loginModal').classList.add('open');}
-document.addEventListener('click',e=>{
-  const btn=document.getElementById('menuBtn');const dd=document.getElementById('dropdown');
-  if(!btn.contains(e.target)&&!dd.contains(e.target))cerrarMenu();
+document.addEventListener('click', e => {
+  const btn = document.getElementById('menuBtn');
+  const dd = document.getElementById('dropdown');
+  if (!btn.contains(e.target) && !dd.contains(e.target)) cerrarMenu();
 });
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){cerrarMenu();document.getElementById('loginModal').classList.remove('open');}});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { cerrarMenu(); document.getElementById('loginModal').classList.remove('open'); }
+});
 
-// Leer parámetro URL
-const params=new URLSearchParams(window.location.search);
-if(params.get('tipo')==='profesional'){seleccionarTipo('profesional');}
-else if(params.get('tipo')==='cliente'){seleccionarTipo('cliente');}
+const params = new URLSearchParams(window.location.search);
+if (params.get('tipo') === 'profesional') seleccionarTipo('profesional');
+else if (params.get('tipo') === 'cliente') seleccionarTipo('cliente');
 
-function seleccionarTipo(tipo){
-  tipoSeleccionado=tipo;
-  document.querySelectorAll('.type-card').forEach(c=>c.classList.remove('selected'));
-  document.getElementById('card-'+tipo).classList.add('selected');
+// ── HELPERS ───────────────────────────────────────────────
+function seleccionarTipo(tipo) {
+  tipoSeleccionado = tipo;
+  document.querySelectorAll('.type-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('card-' + tipo).classList.add('selected');
   document.getElementById('btnTipo').classList.add('active');
 }
-function irARegistro(){
-  if(!tipoSeleccionado)return;
-  document.getElementById('tipoSelector').style.display='none';
-  document.getElementById(tipoSeleccionado==='cliente'?'registroCliente':'registroProfesional').style.display='block';
+function irARegistro() {
+  if (!tipoSeleccionado) return;
+  document.getElementById('tipoSelector').style.display = 'none';
+  document.getElementById(tipoSeleccionado === 'cliente' ? 'registroCliente' : 'registroProfesional').style.display = 'block';
 }
-function volverSelector(){
-  document.getElementById('registroCliente').style.display='none';
-  document.getElementById('registroProfesional').style.display='none';
-  document.getElementById('tipoSelector').style.display='block';
+function volverSelector() {
+  document.getElementById('registroCliente').style.display = 'none';
+  document.getElementById('registroProfesional').style.display = 'none';
+  document.getElementById('tipoSelector').style.display = 'block';
 }
-function togglePw(id){const i=document.getElementById(id);i.type=i.type==='password'?'text':'password';}
-function showErr(id,show){const el=document.getElementById(id);if(el)el.style.display=show?'block':'none';}
-
-// CLIENTE
-function cIrPaso2(){
-  const email=document.getElementById('c-email').value;const pw=document.getElementById('c-pw').value;const pw2=document.getElementById('c-pw2').value;
-  let ok=true;const eOk=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  showErr('err-c-email',!eOk);if(!eOk)ok=false;
-  showErr('err-c-pw',pw.length<8);if(pw.length<8)ok=false;
-  showErr('err-c-pw2',pw!==pw2);if(pw!==pw2)ok=false;
-  if(!document.getElementById('c-terms').checked){alert('Debes aceptar los términos');ok=false;}
-  if(!ok)return;
-  document.getElementById('c-paso1').style.display='none';document.getElementById('c-paso2').style.display='block';
-}
-function cVolver1(){document.getElementById('c-paso2').style.display='none';document.getElementById('c-paso1').style.display='block';}
-function cFinalizar(){
-  const nombre=document.getElementById('c-nombre').value;const apellidos=document.getElementById('c-apellidos').value;
-  const tel=document.getElementById('c-telefono').value;const ciudad=document.getElementById('c-ciudad').value;
-  let ok=true;if(!nombre||!apellidos)ok=false;
-  showErr('err-c-tel',tel.length<9);if(tel.length<9)ok=false;
-  showErr('err-c-ciudad',!ciudad);if(!ciudad)ok=false;
-  if(!ok)return;
-  document.getElementById('c-paso2').style.display='none';document.getElementById('c-exito').style.display='block';
+function togglePw(id) { const i = document.getElementById(id); i.type = i.type === 'password' ? 'text' : 'password'; }
+function showErr(id, show) { const el = document.getElementById(id); if (el) el.style.display = show ? 'block' : 'none'; }
+function setLoading(btnId, loading, text) {
+  const btn = document.getElementById(btnId);
+  btn.disabled = loading;
+  btn.innerHTML = loading ? '<span class="loading"></span>Procesando...' : text;
 }
 
-// PROFESIONAL
-function selectOficio(el,nombre){document.querySelectorAll('.oficio-btn').forEach(b=>b.classList.remove('selected'));el.classList.add('selected');oficio=nombre;}
-function setStep(step){
-  [1,2,3].forEach(s=>{
-    const dot=document.getElementById('dot'+s);const lbl=document.getElementById('lbl'+s);if(!dot)return;
-    if(s<step){dot.classList.remove('active');dot.classList.add('done');dot.textContent='✓';lbl.classList.remove('active');}
-    else if(s===step){dot.classList.remove('done');dot.classList.add('active');dot.textContent=s;lbl.classList.add('active');}
-    else{dot.classList.remove('active','done');dot.textContent=s;lbl.classList.remove('active');}
-    if(s<3)document.getElementById('line'+s).classList.toggle('done',s<step);
+// ── CLIENTE ──────────────────────────────────────────────
+function cIrPaso2() {
+  const email = document.getElementById('c-email').value;
+  const pw = document.getElementById('c-pw').value;
+  const pw2 = document.getElementById('c-pw2').value;
+  let ok = true;
+  const eOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  showErr('err-c-email', !eOk); if (!eOk) ok = false;
+  showErr('err-c-pw', pw.length < 8); if (pw.length < 8) ok = false;
+  showErr('err-c-pw2', pw !== pw2); if (pw !== pw2) ok = false;
+  if (!document.getElementById('c-terms').checked) { alert('Debes aceptar los términos'); ok = false; }
+  if (!ok) return;
+  document.getElementById('c-paso1').style.display = 'none';
+  document.getElementById('c-paso2').style.display = 'block';
+}
+function cVolver1() { document.getElementById('c-paso2').style.display = 'none'; document.getElementById('c-paso1').style.display = 'block'; }
+
+async function cFinalizar() {
+  const nombre = document.getElementById('c-nombre').value.trim();
+  const apellidos = document.getElementById('c-apellidos').value.trim();
+  const tel = document.getElementById('c-telefono').value.trim();
+  const ciudad = document.getElementById('c-ciudad').value.trim();
+  let ok = true;
+  if (!nombre || !apellidos) ok = false;
+  showErr('err-c-tel', tel.length < 9); if (tel.length < 9) ok = false;
+  showErr('err-c-ciudad', !ciudad); if (!ciudad) ok = false;
+  if (!ok) return;
+
+  setLoading('btn-c-finalizar', true, 'Crear cuenta →');
+  const email = document.getElementById('c-email').value.trim();
+  const pw = document.getElementById('c-pw').value;
+
+  const { data, error } = await sb.auth.signUp({ email, password: pw });
+  if (error) {
+    setLoading('btn-c-finalizar', false, 'Crear cuenta →');
+    alert('Error: ' + error.message);
+    return;
+  }
+
+  await sb.from('profiles').upsert({ id: data.user.id, tipo: 'cliente', nombre, apellidos, telefono: tel, ciudad });
+  setLoading('btn-c-finalizar', false, 'Crear cuenta →');
+  document.getElementById('c-paso2').style.display = 'none';
+  document.getElementById('c-exito').style.display = 'block';
+}
+
+// ── PROFESIONAL ───────────────────────────────────────────
+function selectOficio(el, nombre) {
+  document.querySelectorAll('.oficio-btn').forEach(b => b.classList.remove('selected'));
+  el.classList.add('selected');
+  oficio = nombre;
+}
+function setStep(step) {
+  [1, 2, 3].forEach(s => {
+    const dot = document.getElementById('dot' + s);
+    const lbl = document.getElementById('lbl' + s);
+    if (!dot) return;
+    if (s < step) { dot.classList.remove('active'); dot.classList.add('done'); dot.textContent = '✓'; lbl.classList.remove('active'); }
+    else if (s === step) { dot.classList.remove('done'); dot.classList.add('active'); dot.textContent = s; lbl.classList.add('active'); }
+    else { dot.classList.remove('active', 'done'); dot.textContent = s; lbl.classList.remove('active'); }
+    if (s < 3) document.getElementById('line' + s).classList.toggle('done', s < step);
   });
 }
-function irPaso2(){
-  const email=document.getElementById('email').value;const pw=document.getElementById('pw').value;const pw2=document.getElementById('pw2').value;
-  let ok=true;const eOk=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  showErr('err-email',!eOk);if(!eOk)ok=false;
-  showErr('err-pw',pw.length<8);if(pw.length<8)ok=false;
-  showErr('err-pw2',pw!==pw2);if(pw!==pw2)ok=false;
-  if(!document.getElementById('terms').checked){alert('Debes aceptar los términos');ok=false;}
-  if(!ok)return;
-  document.getElementById('paso1').style.display='none';document.getElementById('paso2').style.display='block';setStep(2);
+function irPaso2() {
+  const email = document.getElementById('email').value;
+  const pw = document.getElementById('pw').value;
+  const pw2 = document.getElementById('pw2').value;
+  let ok = true;
+  const eOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  showErr('err-email', !eOk); if (!eOk) ok = false;
+  showErr('err-pw', pw.length < 8); if (pw.length < 8) ok = false;
+  showErr('err-pw2', pw !== pw2); if (pw !== pw2) ok = false;
+  if (!document.getElementById('terms').checked) { alert('Debes aceptar los términos'); ok = false; }
+  if (!ok) return;
+  document.getElementById('paso1').style.display = 'none';
+  document.getElementById('paso2').style.display = 'block';
+  setStep(2);
 }
-function irPaso1(){document.getElementById('paso2').style.display='none';document.getElementById('paso1').style.display='block';setStep(1);}
-function irPaso3(){
-  const nombre=document.getElementById('nombre').value;const apellidos=document.getElementById('apellidos').value;
-  const tel=document.getElementById('telefono').value;const ciudad=document.getElementById('ciudad').value;
-  let ok=true;if(!nombre||!apellidos)ok=false;
-  showErr('err-tel',tel.length<9);if(tel.length<9)ok=false;
-  showErr('err-ciudad',!ciudad);if(!ciudad)ok=false;
-  showErr('err-oficio',!oficio);if(!oficio)ok=false;
-  if(!ok)return;
-  document.getElementById('paso2').style.display='none';document.getElementById('paso3').style.display='block';setStep(3);
+function irPaso1() { document.getElementById('paso2').style.display = 'none'; document.getElementById('paso1').style.display = 'block'; setStep(1); }
+function irPaso3() {
+  const nombre = document.getElementById('nombre').value;
+  const apellidos = document.getElementById('apellidos').value;
+  const tel = document.getElementById('telefono').value;
+  const ciudad = document.getElementById('ciudad').value;
+  let ok = true;
+  if (!nombre || !apellidos) ok = false;
+  showErr('err-tel', tel.length < 9); if (tel.length < 9) ok = false;
+  showErr('err-ciudad', !ciudad); if (!ciudad) ok = false;
+  showErr('err-oficio', !oficio); if (!oficio) ok = false;
+  if (!ok) return;
+  document.getElementById('paso2').style.display = 'none';
+  document.getElementById('paso3').style.display = 'block';
+  setStep(3);
 }
-function irPaso2Prof(){document.getElementById('paso3').style.display='none';document.getElementById('paso2').style.display='block';setStep(2);}
-function triggerUpload(id){document.getElementById(id).click();}
-function fileUploaded(areaId,doneId,input){
-  if(input.files.length>0){
+function fileUploaded(areaId, doneId, input) {
+  if (input.files.length > 0) {
     document.getElementById(areaId).classList.add('uploaded');
-    const done=document.getElementById(doneId);done.style.display='block';done.textContent='✓ '+input.files[0].name;
-    uploads[input.id]=true;
+    const done = document.getElementById(doneId);
+    done.style.display = 'block';
+    done.textContent = '✓ ' + input.files[0].name;
+    uploads[input.id] = true;
   }
 }
-function finalizar(){
-  let ok=true;
-  showErr('err-doc1',!uploads.file1);if(!uploads.file1)ok=false;
-  showErr('err-doc2',!uploads.file2);if(!uploads.file2)ok=false;
-  showErr('err-doc3',!uploads.file3);if(!uploads.file3)ok=false;
-  if(!ok)return;
-  document.getElementById('paso3').style.display='none';document.getElementById('exito').style.display='block';
+
+async function finalizar() {
+  let ok = true;
+  showErr('err-doc1', !uploads.file1); if (!uploads.file1) ok = false;
+  showErr('err-doc2', !uploads.file2); if (!uploads.file2) ok = false;
+  showErr('err-doc3', !uploads.file3); if (!uploads.file3) ok = false;
+  if (!ok) return;
+
+  setLoading('btn-finalizar', true, 'Enviar documentación');
+  const email = document.getElementById('email').value.trim();
+  const pw = document.getElementById('pw').value;
+  const nombre = document.getElementById('nombre').value.trim();
+  const apellidos = document.getElementById('apellidos').value.trim();
+  const tel = document.getElementById('telefono').value.trim();
+  const ciudad = document.getElementById('ciudad').value.trim();
+
+  const { data, error } = await sb.auth.signUp({ email, password: pw });
+  if (error) {
+    setLoading('btn-finalizar', false, 'Enviar documentación');
+    alert('Error: ' + error.message);
+    return;
+  }
+
+  await sb.from('profiles').upsert({ id: data.user.id, tipo: 'profesional', nombre, apellidos, telefono: tel, ciudad, oficio, verificado: false });
+  setLoading('btn-finalizar', false, 'Enviar documentación');
+  document.getElementById('paso3').style.display = 'none';
+  document.getElementById('exito').style.display = 'block';
+}
+
+// ── LOGIN ─────────────────────────────────────────────────
+async function iniciarSesion() {
+  const email = document.getElementById('login-email').value.trim();
+  const pw = document.getElementById('login-pw').value;
+  const errEl = document.getElementById('modal-err');
+  errEl.style.display = 'none';
+  setLoading('btn-login', true, 'Entrar');
+  const { error } = await sb.auth.signInWithPassword({ email, password: pw });
+  setLoading('btn-login', false, 'Entrar');
+  if (error) { errEl.textContent = 'Email o contraseña incorrectos'; errEl.style.display = 'block'; return; }
+  window.location.href = 'buscar.html';
 }
 </script>
 </body>
