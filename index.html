@@ -39,15 +39,22 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 5%;height:68px;dis
 .dropdown-item .icon{font-size:1rem;width:20px;text-align:center;}
 .dropdown-divider{height:1px;background:var(--border);margin:6px 0;}
 .dropdown-item.highlight{color:var(--orange);}
+.dropdown-item.highlight:hover{background:rgba(232,114,26,0.1);}
 
 /* HERO */
-.hero{min-height:100vh;display:flex;align-items:center;padding:100px 5% 60px;position:relative;overflow:hidden;}
+.hero{min-height:100vh;display:flex;align-items:center;padding:88px 5% 60px;position:relative;overflow:hidden;}
 .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 60% 40%,#1e3a6e33 0%,transparent 70%);}
 .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);background-size:50px 50px;}
-.hero-content{position:relative;max-width:600px;}
-.hero h1{font-size:clamp(2.2rem,5vw,3.4rem);font-weight:900;line-height:1.1;letter-spacing:-1px;margin-bottom:20px;}
+.hero-inner{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;width:100%;}
+@media(max-width:768px){
+  .hero-inner{grid-template-columns:1fr;}
+  .hero-right{display:none;}
+}
+
+/* HERO LEFT */
+.hero h1{font-size:clamp(2rem,4.5vw,3.2rem);font-weight:900;line-height:1.1;letter-spacing:-1px;margin-bottom:20px;}
 .hero h1 span{color:var(--orange);}
-.hero p{font-size:1.05rem;color:var(--muted);line-height:1.7;margin-bottom:36px;max-width:480px;}
+.hero p{font-size:1rem;color:var(--muted);line-height:1.7;margin-bottom:32px;max-width:460px;}
 
 /* REGISTRO BOX */
 .registro-box{background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:16px;padding:20px;display:inline-block;min-width:300px;}
@@ -64,10 +71,41 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 5%;height:68px;dis
 .btn-reg.active{opacity:1;pointer-events:all;}
 
 /* HERO STATS */
-.hero-stats{display:flex;gap:32px;margin-top:48px;flex-wrap:wrap;}
-.hero-stat .val{font-size:1.8rem;font-weight:900;}
+.hero-stats{display:flex;gap:28px;margin-top:32px;flex-wrap:wrap;}
+.hero-stat .val{font-size:1.6rem;font-weight:900;}
 .hero-stat .val span{color:var(--orange);}
-.hero-stat .lab{font-size:0.8rem;color:var(--muted);margin-top:2px;}
+.hero-stat .lab{font-size:0.78rem;color:var(--muted);margin-top:2px;}
+
+/* HERO RIGHT — tarjeta */
+.hero-right{position:relative;}
+.float-badge{position:absolute;background:var(--navy2);border:1px solid var(--border);border-radius:12px;padding:10px 14px;font-size:0.75rem;font-weight:700;display:flex;align-items:center;gap:8px;box-shadow:0 8px 30px rgba(0,0,0,0.3);z-index:2;}
+.float-badge.top{top:-16px;left:-20px;}
+.float-badge.bottom{bottom:-16px;right:-20px;}
+.hero-card{background:var(--navy2);border:1px solid var(--border);border-radius:20px;padding:24px;position:relative;}
+.hero-card::before{content:'EN VIVO';position:absolute;top:16px;right:16px;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);color:var(--success);padding:3px 10px;border-radius:20px;font-size:0.62rem;font-weight:800;letter-spacing:1px;}
+.card-pro-top{display:flex;gap:14px;align-items:center;margin-bottom:16px;}
+.card-avatar{width:56px;height:56px;border-radius:14px;background:var(--navy3);display:flex;align-items:center;justify-content:center;font-size:1.8rem;border:2px solid var(--border);position:relative;flex-shrink:0;}
+.card-dot{position:absolute;bottom:-3px;right:-3px;width:14px;height:14px;border-radius:50%;background:var(--success);border:2px solid var(--navy2);}
+.card-name{font-weight:800;font-size:1rem;margin-bottom:2px;}
+.card-trade{color:var(--orange);font-size:0.8rem;font-weight:600;margin-bottom:4px;}
+.card-loc{color:var(--muted);font-size:0.75rem;}
+.card-badges{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;}
+.cbadge{padding:3px 10px;border-radius:20px;font-size:0.68rem;font-weight:700;}
+.cbadge.green{background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);color:var(--success);}
+.cbadge.orange{background:rgba(232,114,26,0.1);border:1px solid rgba(232,114,26,0.3);color:var(--orange);}
+.cbadge.red{background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:var(--urgent);}
+.card-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px;padding:12px;background:var(--navy3);border-radius:12px;}
+.cs{text-align:center;}
+.cs-val{font-size:1.1rem;font-weight:900;color:var(--orange);}
+.cs-lab{font-size:0.62rem;color:var(--muted);margin-top:2px;}
+.card-review{background:var(--navy3);border-radius:10px;padding:12px;margin-bottom:14px;}
+.card-review-text{font-size:0.75rem;color:#c0d0e8;line-height:1.6;font-style:italic;margin-bottom:8px;}
+.card-review-author{display:flex;align-items:center;gap:8px;font-size:0.7rem;}
+.card-review-stars{color:#f59e0b;font-size:0.7rem;}
+.card-review-name{font-weight:600;}
+.card-review-verified{color:var(--success);font-size:0.65rem;}
+.card-btn{width:100%;background:var(--orange);color:#fff;border:none;padding:12px;border-radius:10px;font-family:'Manrope',sans-serif;font-weight:700;font-size:0.88rem;cursor:pointer;}
+.card-btn:hover{background:var(--orange2);}
 
 /* TRUST BAR */
 .trust-bar{background:var(--navy2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:18px 5%;display:flex;align-items:center;justify-content:center;gap:40px;flex-wrap:wrap;}
@@ -162,7 +200,7 @@ footer{background:var(--navy2);border-top:1px solid var(--border);padding:40px 5
 
 <!-- NAV -->
 <nav>
-  <div class="logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <a class="logo" href="index.html">
     <div class="logo-icon">
       <svg width="22" height="22" viewBox="0 0 40 40" fill="none">
         <circle cx="14" cy="13" r="6" fill="white" opacity="0.6"/>
@@ -171,7 +209,7 @@ footer{background:var(--navy2);border-top:1px solid var(--border);padding:40px 5
       </svg>
     </div>
     <span class="logo-name">Obra<span>dos</span></span>
-  </div>
+  </a>
   <button class="menu-btn" id="menuBtn" onclick="toggleMenu()">
     <span></span><span></span><span></span>
   </button>
@@ -179,49 +217,86 @@ footer{background:var(--navy2);border-top:1px solid var(--border);padding:40px 5
 
 <!-- DROPDOWN -->
 <div class="dropdown" id="dropdown">
-  <div class="dropdown-item" onclick="cerrarMenu();document.querySelector('.steps').scrollIntoView({behavior:'smooth'})">
-    <span class="icon">📋</span> Cómo funciona
-  </div>
-  <div class="dropdown-item" onclick="cerrarMenu();window.location.href='buscar.html'">
-    <span class="icon">🔍</span> Buscar profesionales
-  </div>
+  <div class="dropdown-item highlight" onclick="cerrarMenu();abrirLogin()"><span class="icon">🔑</span> Iniciar sesión</div>
   <div class="dropdown-divider"></div>
-  <div class="dropdown-item highlight" onclick="cerrarMenu();abrirLogin()">
-    <span class="icon">👤</span> Iniciar sesión
-  </div>
-  <div class="dropdown-item" onclick="cerrarMenu();window.location.href='registro.html'">
-    <span class="icon">✨</span> Registrarse gratis
-  </div>
+  <div class="dropdown-item" onclick="cerrarMenu();document.querySelector('.steps').scrollIntoView({behavior:'smooth'})"><span class="icon">💡</span> Cómo funciona</div>
+  <div class="dropdown-item" onclick="cerrarMenu();window.location.href='buscar.html'"><span class="icon">🔍</span> Buscar profesionales</div>
+  <div class="dropdown-item" onclick="cerrarMenu();window.location.href='registro.html?tipo=profesional'"><span class="icon">👷</span> Para profesionales</div>
+  <div class="dropdown-item" onclick="cerrarMenu();window.location.href='buscar.html'"><span class="icon">🏠</span> Para clientes</div>
+  <div class="dropdown-item"><span class="icon">📝</span> Blog / Consejos</div>
+  <div class="dropdown-divider"></div>
+  <div class="dropdown-item"><span class="icon">✉️</span> Contacto</div>
+  <div class="dropdown-item"><span class="icon">❓</span> Preguntas frecuentes</div>
 </div>
 
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-grid"></div>
-  <div class="hero-content">
-    <h1>Contrata obra sin<br><span>llevarte sorpresas</span></h1>
-    <p>Obrados conecta clientes con profesionales de construcción verificados. Portafolio real, valoraciones de clientes reales y contacto directo.</p>
-    <div class="registro-box">
-      <div class="registro-label">Regístrate gratis</div>
-      <div class="registro-cards">
-        <div class="reg-card" id="rc-cliente" onclick="selectReg('cliente')">
-          <span class="reg-icon">🏠</span>
-          <span class="reg-name">Cliente</span>
-          <span class="reg-desc">Busco profesionales</span>
+  <div class="hero-inner">
+
+    <!-- IZQUIERDA -->
+    <div class="hero-left">
+      <h1>Contrata obra sin<br><span>llevarte sorpresas</span></h1>
+      <p>Obrados conecta clientes con profesionales de construcción verificados. Portafolio real, valoraciones de clientes reales y contacto directo.</p>
+      <div class="registro-box">
+        <div class="registro-label">Regístrate gratis</div>
+        <div class="registro-cards">
+          <div class="reg-card" id="rc-cliente" onclick="selectReg('cliente')">
+            <span class="reg-icon">🏠</span>
+            <span class="reg-name">Cliente</span>
+            <span class="reg-desc">Busco profesionales</span>
+          </div>
+          <div class="reg-card" id="rc-profesional" onclick="selectReg('profesional')">
+            <span class="reg-icon">👷</span>
+            <span class="reg-name">Profesional</span>
+            <span class="reg-desc">Ofrezco mis servicios</span>
+          </div>
         </div>
-        <div class="reg-card" id="rc-profesional" onclick="selectReg('profesional')">
-          <span class="reg-icon">👷</span>
-          <span class="reg-name">Profesional</span>
-          <span class="reg-desc">Ofrezco mis servicios</span>
-        </div>
+        <button class="btn-reg" id="btnReg" onclick="irRegistro()">Crear cuenta →</button>
       </div>
-      <button class="btn-reg" id="btnReg" onclick="irRegistro()">Crear cuenta →</button>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="val">4.9<span>★</span></div><div class="lab">Valoración media</div></div>
+        <div class="hero-stat"><div class="val">100<span>%</span></div><div class="lab">Reseñas verificadas</div></div>
+        <div class="hero-stat"><div class="val">0<span>€</span></div><div class="lab">Gratis para clientes</div></div>
+      </div>
     </div>
-    <div class="hero-stats">
-      <div class="hero-stat"><div class="val">4.9<span>★</span></div><div class="lab">Valoración media</div></div>
-      <div class="hero-stat"><div class="val">100<span>%</span></div><div class="lab">Reseñas verificadas</div></div>
-      <div class="hero-stat"><div class="val">0<span>€</span></div><div class="lab">Gratis para clientes</div></div>
+
+    <!-- DERECHA -->
+    <div class="hero-right">
+      <div class="float-badge top">🛡️ DNI + Seguro RC verificados</div>
+      <div class="hero-card">
+        <div class="card-pro-top">
+          <div class="card-avatar">👷<div class="card-dot"></div></div>
+          <div>
+            <div class="card-name">Carlos Martínez</div>
+            <div class="card-trade">Albañil · Reformas integrales</div>
+            <div class="card-loc">📍 Madrid · 2.3 km</div>
+          </div>
+        </div>
+        <div class="card-badges">
+          <span class="cbadge green">✓ Verificado 98%</span>
+          <span class="cbadge red">⚡ Urgencias</span>
+          <span class="cbadge orange">🏆 100 trabajos</span>
+        </div>
+        <div class="card-stats">
+          <div class="cs"><div class="cs-val">4.9★</div><div class="cs-lab">Valoración</div></div>
+          <div class="cs"><div class="cs-val">87</div><div class="cs-lab">Reseñas con foto</div></div>
+          <div class="cs"><div class="cs-val">&lt;1h</div><div class="cs-lab">Respuesta</div></div>
+        </div>
+        <div class="card-review">
+          <div class="card-review-text">"Reformé el baño completo sin ningún susto. Precio exacto al presupuestado."</div>
+          <div class="card-review-author">
+            <span class="card-review-stars">★★★★★</span>
+            <span class="card-review-name">Ana R.</span>
+            <span class="card-review-verified">✓ Contratado en Obrados</span>
+          </div>
+        </div>
+        <button class="card-btn" onclick="window.location.href='profesional.html'">Ver perfil · Desde 25€/h</button>
+      </div>
+      <div class="float-badge bottom">📸 87 reseñas con foto del resultado</div>
     </div>
+
   </div>
 </section>
 
@@ -433,8 +508,14 @@ function abrirLogin() {
 document.addEventListener('click', function(e) {
   const btn = document.getElementById('menuBtn');
   const dd = document.getElementById('dropdown');
-  if (!btn.contains(e.target) && !dd.contains(e.target)) {
+  if (!btn.contains(e.target) && !dd.contains(e.target)) cerrarMenu();
+});
+
+// Cerrar con Escape
+document.addEventListener('keydown', function(e) {
+  if(e.key === 'Escape') {
     cerrarMenu();
+    document.getElementById('loginModal').classList.remove('open');
   }
 });
 </script>
